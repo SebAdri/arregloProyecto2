@@ -41,12 +41,10 @@
             <td> --}}
               
             <td>
-              <a ><button type="button" title="Editar"  data-toggle="modal" data-target="#editar{{ $obra->id }}" href="{{ route('obras.edit', $obra->id) }}" class="btn button-primary btn-rounded btn-sm my-0"><i class="fa fa-edit" style="font-size:20px;"></i></button></a>
-
-
-
-                <a href="{{ route('documentos.show', $obra->id) }}">
-                <button type="button" title="Documentos" class="btn button-primary btn-rounded btn-sm my-0"><i class="fa fa-file" style="font-size:20px"></i></button></a><a href="{{ route('obras.show', $obra->id) }}"> <button type="button" title="Empleados" class="btn button-primary btn-rounded btn-sm my-0"><i class="fa fa-users" style="font-size:20px;"></i></button></a><a href=""> <button type="button" title="Almacen de la obra" class="btn button-primary btn-rounded btn-sm my-0"><i class="fa fa-wrench" style="font-size:20px;"></i></button></a>
+              <a><button type="button" title="Editar"  data-toggle="modal" data-target="#editar{{ $obra->id }}" href="{{ route('obras.edit', $obra->id) }}" class="btn button-primary btn-rounded btn-sm my-0"><i class="fa fa-edit" style="font-size:20px;"></i></button></a>
+              <a href="{{ route('documentos.show', $obra->id) }}"><button type="button" title="Documentos" class="btn button-primary btn-rounded btn-sm my-0"><i class="fa fa-file" style="font-size:20px"></i></button></a>
+              <a href="{{ route('obras.show', $obra->id) }}"><button type="button" title="Empleados" class="btn button-primary btn-rounded btn-sm my-0"><i class="fa fa-users" style="font-size:20px;"></i></button></a>
+              <a href="{{route('almacen.show', $obra->id)}}"> <button type="button" title="Almacen de la obra" class="btn button-primary btn-rounded btn-sm my-0"><i class="fa fa-wrench" style="font-size:20px;"></i></button></a>
             </td>
           </tr>
 

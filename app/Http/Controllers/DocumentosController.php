@@ -8,7 +8,7 @@ use App\Obra;
 
 class DocumentosController extends Controller
 {
-    function __construc()
+    function __construct()
     {
         $this->middleware('auth');
     }

@@ -1,22 +1,26 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Requests;
 
 use Illuminate\Http\Request;
 use App\Cliente;
 
 class ClientesController extends Controller
 {
-    function __construc()
-    {
-        $this->middleware(['auth', 'roles:docu']); 
-    }
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    function __construct()
+    {
+        $this->middleware(['auth','roles:docu']); 
+    }
+
+
+
     public function index()
     {
         //

@@ -9,6 +9,13 @@ use App\Http\Requests\StoreMaquinariaRequest;
 
 class MaquinariasController extends Controller
 {
+    function __construct()
+
+    {
+        $this->middleware(['auth', 'roles:maq']); 
+
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +23,6 @@ class MaquinariasController extends Controller
      */
     public function index()
     {
-        $this->middleware(['auth', 'roles:maq']); 
     }
 
     /**

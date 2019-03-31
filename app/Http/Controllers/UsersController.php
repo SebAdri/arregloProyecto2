@@ -14,7 +14,7 @@ class UsersController extends Controller
     {
         //el primer middleware es para que solo se pueda ingresar a la vista de users si esta autenticado
         // el segundo es para que solo el rol admin tenga acceso a Administrar Usuario
-        // $this->middleware(['auth', 'roles:usr']); 
+        $this->middleware(['auth', 'roles:usr']); 
     }
 
 

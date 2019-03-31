@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFacturaPiesTable extends Migration
+class CreatePedidosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateFacturaPiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('factura_pies', function (Blueprint $table) {
+        Schema::create('pedidos', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('facturaDetalle_id');
-            $table->float('fp_subTotal');
-            $table->float('fp_iva10');
-            $table->float('fp_iva5');
-            $table->float('fp_total');
+            $table->date('p_fecha_compra')->nullable();
+            $table->date('p_fecha_pedido')->nullable();
+            $table->boolean('p_estado')->default(1);
+            $table->string('p_observacion')->nullable();
+            $table->integer('obra_id')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ class CreateFacturaPiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('factura_pies');
+        Schema::dropIfExists('pedidos');
     }
 }

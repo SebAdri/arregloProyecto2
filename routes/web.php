@@ -44,7 +44,7 @@ Route::resource('herramientas', 'HerramientasController');
 Route::resource('clientes', 'ClientesController');
 
 //REST Almacenes
-// Route::resource('storages', 'StoragesController');
+Route::resource('storages', 'StoragesController');
 
 //EmpleadosObras
 Route::post('empleadosObras/{id}', ['as' => 'empleadosObras', 'uses'=>'EmpleadosObrasController@asignarEmpleadoObra']);
@@ -53,20 +53,7 @@ Route::post('empleadosObras/{id}', ['as' => 'empleadosObras', 'uses'=>'Empleados
 Route::get('desvincular/{obra}/{id}', ['as' => 'desvincular', 'uses'=>'ObrasController@desvincular']);
 
 // Route::get('almacen', '';
-
-//REST Almacenes
-Route::resource('almacenGeneral', 'AlmacenGeneralController');
-
-//HerramientasObras
-// Route::post('herramientasObras/{id}', ['as' => 'herramientasObras', 'uses'=>'HerramientasObrasController@asignarHerramientaObra']);
- Route::post('herramientasObras/{id}', ['as' => 'herramientasObras', 'uses'=>'AlmacenGeneralController@asignarHerramientaObra']);
- 
-//MaquinariasObras
- Route::post('maquinariasObras/{id}', ['as' => 'maquinariasObras', 'uses'=>'AlmacenGeneralController@asignarMaquinariaObra']);
-
-//MaterialeObras
- Route::post('materialesObras/{id}', ['as' => 'materialesObras', 'uses'=>'AlmacenGeneralController@asignarMaterialObra']);
+Route::resource('almacen', 'AlmacenController');
+Route::post('almacenMateriales' , ['as'=> 'almacenMateriales', 'uses' => 'AlmacenController@getMateriales']);
 
 
-//REST Facturas
-//Route::resource('facturasGestion', 'FacturasGestionController');

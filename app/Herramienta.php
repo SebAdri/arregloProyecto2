@@ -17,4 +17,25 @@ class Herramienta extends Model
   //           $table->integer('cantidad');
   //           $table->boolean('estado')->default(1);
 	protected $fillable = ['h_nombre', 'h_marca', 'h_modelo', 'h_nro_serie', 'h_fecha_adquisicion', 'ubicacion'];
+
+  public function obras()
+  {
+    return $this->belongsToMany(Obra::class, 'assigned_herramientas');
+    // return $this->belongsToMany(Obra::class, 'assigned_herramientas')->withPivot('herramienta_id','obra_id');
+    //return $this->belongsToMany('Role')->withPivot('foo', 'bar');
+  }
+
+  public function hasObras(array $obras)
+  {
+    foreach ($obras as $obra) 
+    {
+      foreach ($this.obras as $obrasAssigned) 
+      {
+        if ($obrasAssigned->nombre_proyecto == $obra) {
+          return true;
+        }
+      }
+    }
+
+  }
 }

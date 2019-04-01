@@ -17,7 +17,7 @@
           <label for="func">Empleado</label>
           
           <div class="form-group">
-            <input id="nombre" type="nombre" class="form-control{{ $errors->has('nombre') ? ' is-invalid' : '' }}" name="nombre" placeholder="Nombre del empleado" required>
+            <input id="nombre" type="nombre" class="form-control{{ $errors->has('nombre') ? ' is-invalid' : '' }}" name="nombre" value="{{ old('nombre') }}" placeholder="Nombre del empleado" required>
                 @if ($errors->has('nombre'))
                   <span class="invalid-feedback errors" role="alert">
                       <strong>{{ $errors->first('nombre') }}</strong>
@@ -29,7 +29,7 @@
         <div class="col-md-2">
           <label for="func">Usuario</label>         
           <div class="form-group">
-            <input id="usuario" type="usuario" class="form-control{{ $errors->has('usuario') ? ' is-invalid' : '' }}" name="usuario" placeholder="Nombre de Usuario" required>
+            <input id="usuario" type="usuario" class="form-control{{ $errors->has('usuario') ? ' is-invalid' : '' }}" name="usuario" value="{{ old('usuario') }}" placeholder="Nombre de Usuario" required>
                 @if ($errors->has('usuario'))
                   <span class="invalid-feedback errors" role="alert">
                       <strong>{{ $errors->first('usuario') }}</strong>
@@ -54,8 +54,9 @@
           <label for="password">Contraseña</label>
             <div class="form-group">
               <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="Contraseña" required>
+              {{-- {!! $errors->first('password', '<span class=error>:message</span>') !!} --}}
                 @if ($errors->has('password'))
-                  <span class="invalid-feedback errors" role="alert">
+                  <span class="invalid-feedback errors error" role="alert">
                       <strong>{{ $errors->first('password') }}</strong>
                   </span>
                 @endif

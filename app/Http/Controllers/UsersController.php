@@ -49,8 +49,10 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        // primero guardar
+    //      $this->validate($request, [
+    //         // 'email' => 'required|string|email',
+    //         'password' => 'min:6',
+    // ]);
 
         $user = new User;
         $user->name = $request->input('nombre');
@@ -61,7 +63,6 @@ class UsersController extends Controller
         // $user->setRememberToken(Str::random(60));
         $user->save();
 
-        //luego redireccionar
        return redirect()->route('users.create');
     }
 
@@ -73,8 +74,7 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        // $user = User::findOrFail($id);
-        // return $user   return view('user.show', compact('user'));
+        //
     }
 
     /**

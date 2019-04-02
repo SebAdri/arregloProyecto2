@@ -11,7 +11,7 @@ class Material extends Model
 
     public function obras()
 	{
-		return $this->belongsToMany(Obra::class, 'assigned_materiales')->withPivot('cantidad_inicial','cantidad_disponible');
+		return $this->belongsToMany(Obra::class, 'inventario')->withPivot('cantidad_disponible');
 	}
 
     public function hasObras(array $obras)

@@ -14,9 +14,6 @@ label
 {
   color: #e00000;
 }
-.card-body{
-  background:#362717;
-}
 
 th
 {
@@ -78,7 +75,7 @@ a, a:hover, a:focus {
 
 .navbar {
   padding: 15px 10px;
-  background: #F3AD12;
+  background: #e9bd15;
   border: none;
   border-radius: 0;
   margin-bottom: 40px;
@@ -110,7 +107,7 @@ a, a:hover, a:focus {
     #sidebar {
       min-width: 250px;
       max-width: 250px;
-      background: #F3AD12;
+      background: #e9bd15;
       color: #fff;
       transition: all 0.6s cubic-bezier(0.945, 0.020, 0.270, 0.665);
       transform-origin: bottom left;
@@ -123,7 +120,7 @@ a, a:hover, a:focus {
 
     #sidebar .sidebar-header {
       padding: 20px;
-      background: #0A0A0A;
+      background: #101010;
     }
 
     #sidebar ul.components {
@@ -144,12 +141,12 @@ a, a:hover, a:focus {
     }
     #sidebar ul li a:hover {
       color: #ffffff;
-      background: #0A0A0A;
+      background: #101010;
     }
 
     #sidebar ul li.active > a, a[aria-expanded="true"] {
       color: #ffffff;
-      background: #F3AD12;
+      background: #e9bd15;
     }
 
 

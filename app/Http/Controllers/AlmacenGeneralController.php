@@ -11,6 +11,10 @@ use App\Obra;
 
 class AlmacenGeneralController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware(['auth']); 
+    }
     /**
      * Display a listing of the resource.
      *
@@ -47,7 +51,6 @@ class AlmacenGeneralController extends Controller
     {
         $this->asignarHerramientaObra($request, $request->obra_id);
         return redirect()->route('almacenGeneral.create'); 
-
     }
 
     /**
@@ -97,6 +100,56 @@ class AlmacenGeneralController extends Controller
 
     public function asignarHerramientaObra(Request $request, $id)
     {
+        $heramientasAsignadas = $request->all();
+        $id_obra = $request->obra_id;
+        //$cantidad_solicitada =$request->cantidad_solicitada;
+        foreach ($heramientasAsignadas['checkHerramientasAsignado'] as $herramientasAsignado) {
+            $existeEnInventario = DB::table('inventario')->where([
+                                                ['herramienta_id', '=', $herramientasAsignado],
+                                                ['obra_id', '=', $id_obra],
+                                            ])->exists();
+            //verificamos primeramente que exista la herramienta asignada a una obra
+            if ($existeEnInventario) {
+
+                //obtenemos el material en caso de que exista
+                //$mat = DB::table('inventario')->where([
+                //                                ['herramienta_id', '=', $herramientasAsignado],
+                //                                ['obra_id', '=', $id_obra]
+                //                            ])->get();
+
+                $herramienta = Herramienta::findOrFail($herramientasAsignado);
+                $herramienta->h_ubicacion = $id_obra;
+                $herramienta->save();
+                //calculamos el nuevo stock
+                // dd($mat);
+                //dd($mat[0]->cantidad_disponible);
+
+                //$cantidad_actual = intval($mat[0]->cantidad_disponible) - intval($cantidad_solicitada);
+                //y actualizamosel registro en cuestion
+                $herramienta = DB::table('inventario')->where([
+                                               ['herramienta_id', '=', $herramientasAsignado],
+                                               ['obra_id', '=', $id_obra]
+                                           ])->update(['obra_id' => $id_obra]);
+            }
+            else
+            {
+                //en caso contrario insertamos
+                DB::table('inventario')->insert([
+                    ['herramienta_id' => $herramientasAsignado,
+                     'obra_id' => $id_obra
+                     //'cantidad_disponible' => $cantidad_solicitada
+                    ]
+                ]);
+                
+                //y actualizamos a tabla de herrramienta
+                $herramienta = Herramienta::findOrFail($herramientasAsignado);
+                $herramienta->h_ubicacion = $id_obra;
+                $herramienta->save();
+            }
+        }
+        return redirect()->route('almacenGeneral.create'); 
+
+        /* Primera idea
         $herramientasAsignadas = $request->all();
         $id_obra = $request->obra_id;
         // dd($id ? : 'asd');
@@ -112,31 +165,63 @@ class AlmacenGeneralController extends Controller
             {
                 $herramienta->obras()->attach($id_obra);
             }
-        }
+        }*/
     }
 
     public function asignarMaquinariaObra(Request $request, $id)
     {
-        // dd($request);
-        // $maquinaria = Maquinaria::findOrFail($id);
-        // $id_obra = $request->obra_id;
-
-        // if (! $maquinaria->obras->contains($id_obra)) 
-        // {
-        //     $maquinaria->obras()->attach($id_obra);
-        //     // $maquinaria->obras()->updateExistingPivot($id, $id_obra);
-        //     return redirect()->route('almacenGeneral.create'); 
-        // }
-        // else
-        // {
-        //     $maquinaria->obras()->detach($id_obra);
-        //     return redirect()->route('almacenGeneral.create'); 
-        // }
         $maquinariasAsignadas = $request->all();
         $id_obra = $request->obra_id;
-        // dd($maquinariasAsignadas);
-        // dd($id_obra);
-        
+        //$cantidad_solicitada =$request->cantidad_solicitada;
+        foreach ($maquinariasAsignadas['checkMaquinariasAsignado'] as $maquinariasAsignado) {
+            $existeEnInventario = DB::table('inventario')->where([
+                                                ['maquinaria_id', '=', $maquinariasAsignado],
+                                                ['obra_id', '=', $id_obra],
+                                            ])->exists();
+            //verificamos primeramente que exista la herramienta asignada a una obra
+            if ($existeEnInventario) {
+
+                //obtenemos la maquinaria en caso de que exista
+                //$mat = DB::table('inventario')->where([
+                //                                ['maquinaria_id', '=', $maquinariasAsignado],
+                //                                ['obra_id', '=', $id_obra]
+                //                            ])->get();
+
+                $maquinaria = Maquinaria::findOrFail($maquinariasAsignado);
+                $maquinaria->h_ubicacion = $id_obra;
+                $maquinaria->save();
+                //calculamos el nuevo stock
+                // dd($mat);
+                //dd($mat[0]->cantidad_disponible);
+
+                //$cantidad_actual = intval($mat[0]->cantidad_disponible) - intval($cantidad_solicitada);
+                //y actualizamosel registro en cuestion
+                $maquinaria = DB::table('inventario')->where([
+                                               ['maquinaria_id', '=', $maquinariasAsignado],
+                                               ['obra_id', '=', $id_obra]
+                                           ])->update(['obra_id' => $id_obra]);
+            }
+            else
+            {
+                //en caso contrario insertamos
+                DB::table('inventario')->insert([
+                    ['maquinaria_id' => $maquinariasAsignado,
+                     'obra_id' => $id_obra
+                     //'cantidad_disponible' => $cantidad_solicitada
+                    ]
+                ]);
+                
+                //y actualizamos a tabla de herrramienta
+                $maquinaria = Maquinaria::findOrFail($maquinariasAsignado);
+                $maquinaria->h_ubicacion = $id_obra;
+                $maquinaria->save();
+            }
+        }
+        return redirect()->route('almacenGeneral.create'); 
+
+        /* Primera idea
+        $maquinariasAsignadas = $request->all();
+        $id_obra = $request->obra_id;        
         foreach ($maquinariasAsignadas['checkMaquinariasAsignado'] as $maquinariaAsignada) {
             $maquinaria = Maquinaria::findOrFail($maquinariaAsignada);
             if ($maquinaria->obras()->where('maquinaria_id', $maquinariaAsignada)->exists()) 
@@ -149,29 +234,23 @@ class AlmacenGeneralController extends Controller
                 $maquinaria->obras()->attach($id_obra);
             }
         }
-        return redirect()->route('almacenGeneral.create'); 
+        return redirect()->route('almacenGeneral.create'); */
         
     }
 
     public function asignarMaterialObra(Request $request, $id)
     {
-        //dd($request->all());
-        // dd($id);
+        dd($request->all());
         $materialesAsignadas = $request->all();
         $id_obra = $request->obra_id;
         $cantidad_solicitada =$request->cantidad_solicitada;
         foreach ($materialesAsignadas['checkMaterialesAsignado'] as $materialesAsignado) {
-            // dd($materialesAsignado);
-            // dd($id_obra);
-            $existeMaterial = DB::table('assigned_materiales')->where([
+            $existeEnInventario = DB::table('assigned_materiales')->where([
                                                 ['material_id', '=', $materialesAsignado],
                                                 ['obra_id', '=', $id_obra],
                                             ])->exists();
-            //User::where('email', '=', Input::get('email'))->exists()
             //verificamos primeramente que exista el material en dicha obra
-            // dd($existeMaterial);
-
-            if ($existeMaterial) {
+            if ($existeEnInventario) {
 
                 //obtenemos el material en caso de que exista
                 $mat = DB::table('assigned_materiales')->where([
@@ -188,73 +267,18 @@ class AlmacenGeneralController extends Controller
                                                 ['material_id', '=', $materialesAsignado],
                                                 ['obra_id', '=', $id_obra]
                                             ])->update(['cantidad_disponible' => $cantidad_actual]);
-                // dd($cantidad_actual);
-                //dd('No esta vacio' . $materialesAsignado.' '.$id_obra.$ma);
             }
             else
             {
-                // dd($materialesAsignado.$id_obra.$cantidad_solicitada);
-
+                //en caso contrario insertamos
                 DB::table('assigned_materiales')->insert([
                     ['material_id' => $materialesAsignado,
                      'obra_id' => $id_obra,
                      'cantidad_disponible' => $cantidad_solicitada
                     ]
                 ]);
-                // dd('esta vacio');
             }
-            // dd($ma);
         }
         return redirect()->route('almacenGeneral.create'); 
-
-        //en materiales no debemos verificar si un material ya fue asignado a la misma obra
-        // if (! $material->obras->contains($id_obra)) 
-        // {
-            // $material->obras()->attach($id_obra);
-            // $material->obras()->updateExistingPivot($id, $id_obra);
-            // return redirect()->route('almacenGeneral.create'); 
-        //}
-        // else
-        // {
-            // return redirect()->route('almacenGeneral.create'); 
-        //}
-
-
-
-
-
-        // $cantidad_actual = 0;
-        // foreach ($materialesAsignadas['checkMaterialesAsignado'] as $materialesAsignado) {
-        //     $material = Material::findOrFail($materialesAsignado);
-        //     // dd($material);
-        //     // dd($material->obras()->where('material_id', $materialesAsignado)->exists());
-        //     foreach ($material->obras as $mat) {
-        //         // dd($material->id);
-        //         // dd($mat->pivot->cantidad_disponible);
-        //         // dd($mat->pivot->cantidad_inicial);
-        //         if ($mat->pivot->cantidad_disponible >= $cantidad_solicitada) {
-        //             $cantidad_actual = intval($mat->pivot->cantidad_disponible) - intval($cantidad_solicitada);
-        //             dd($material->obras()->where('material_id', $materialesAsignado)->exists()->where('obra_id', $id_obra)->exists());
-        //             dd($cantidad_actual);
-        //             if ($material->obras()->where('material_id', $materialesAsignado)->exists()->where('obra_id', $id_obra)->exists())
-        //             {
-        //                 //dd($id_obra); 
-        //                 $material->obras()->updateExistingPivot($material->id, ['cantidad_disponible' => $cantidad_actual]);
-        //                 //$user->roles()->attach($material->id, ['obra_id' => $id_obra,
-        //                 //                                       'cantidad_inicial' => $cantidad_solicitada,
-        //                 //                                        'cantidad_disponible' => $cantidad_actual]);
-        //                 // $material->obras()->attach($id_obra, $request->cantidad_solicitada, $cantidad_actual);
-        //             }
-        //             else
-        //             {
-        //                 //$material->obras()->attach($id_obra, $request->cantidad_solicitada, $cantidad_actual);
-        //                 $material->obras()->attach($material->id, ['obra_id' => $id_obra,
-        //                                                        'cantidad_inicial' => $cantidad_solicitada,
-        //                                                         'cantidad_disponible' => $cantidad_actual]);
-        //                 // $material->obras()->attach($id_obra);
-        //             }
-        //         }
-        //     }
-        // }
     }
 }

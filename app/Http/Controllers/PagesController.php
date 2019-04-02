@@ -26,5 +26,8 @@ class PagesController extends Controller
     {
         return view('subMantenedores');
     }
+    function loadStore(){
+        return view('almacen.almacen');
+    }
    
 }

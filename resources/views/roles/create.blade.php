@@ -70,13 +70,13 @@
             <div id="almacen" class=" panel-collapse collapse">
               <input type="checkbox" name="per[]" value="addPed">Realizar Pedido<br>
               <input type="checkbox" name="per[]" value="ctrlSto">Controlar el Stock<br>
-              <input type="checkbox" name="per[]" value="AD">a determinar<br>
+              {{-- <input type="checkbox" name="per[]" value="AD">a determinar<br> --}}
             </div>
             <br>
             <div id="empleado" class="panel-collapse collapse">
               <input type="checkbox" name="per[]" value="asigEmpl">Asignar Empleado<br>
-              <input type="checkbox" name="per[]" value="desvEml">Desvincular Empleado<br>
-              <input type="checkbox" name="per[]" value="AD">a determinar<br>
+              <input type="checkbox" name="per[]" value="desvEmpl">Desvincular Empleado<br>
+              {{-- <input type="checkbox" name="per[]" value="AD">a determinar<br> --}}
             </div>
           </div>
         </div>
@@ -131,9 +131,9 @@
             </div>
             <br>
             <div id="roles" class="collapse">
-              <input type="checkbox" name="per[]" value="addRol">Agregar Rol<br>
-              <input type="checkbox" name="per[]" value="ediRol">Editar Rol<br>
-              <input type="checkbox" name="per[]" value="delRol">Eliminar Rol<br>
+              <input type="checkbox" name="per[]" value="addRole">Agregar Rol<br>
+              <input type="checkbox" name="per[]" value="ediRole">Editar Rol<br>
+              <input type="checkbox" name="per[]" value="delRole">Eliminar Rol<br>
             </div> 
           </div>
         </div>

@@ -22,5 +22,11 @@ class Obra extends Model
     public function pedidos(){
         return $this->hasMany(Pedido::Class);
     }
-    
+
+    public function compra(){
+        return $this->hasMany(OrdenCompra::Class);
+    }
+    public function inventario(){
+        return $this->hasMany(Inventario::Class);
+    }
 }

@@ -14,9 +14,15 @@ class ObrasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    function __construct()
+    {
+        $this->middleware(['auth', 'roles:obras']);
+
+    }
     public function index()
     {
-        $this->middleware(['auth', 'roles:obras']);     
+             
         //      
     }
 

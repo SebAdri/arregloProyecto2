@@ -54,9 +54,13 @@ Route::get('desvincular/{obra}/{id}', ['as' => 'desvincular', 'uses'=>'ObrasCont
 
 // Route::get('almacen', '';
 <<<<<<< HEAD
+
 Route::resource('almacen', 'AlmacenController');
-Route::post('almacenMateriales' , ['as'=> 'almacenMateriales', 'uses' => 'AlmacenController@getMateriales']);
+Route::post('updatePedido', ['as'=>'updatePedido' , 'uses' =>  'AlmacenController@updatePedido']);
+Route::post('almacenMateriales', ['as'=>'almacenMateriales', 'uses' => 'searchController@getMateriales']);
+
 =======
+>>>>>>> remotes/origin/master
 
 //REST Almacenes
 Route::resource('almacenGeneral', 'AlmacenGeneralController');
@@ -70,7 +74,10 @@ Route::resource('almacenGeneral', 'AlmacenGeneralController');
 
 //MaterialeObras
  Route::post('materialesObras/{id}', ['as' => 'materialesObras', 'uses'=>'AlmacenGeneralController@asignarMaterialObra']);
->>>>>>> 21e71b750a4569e8c3ae3dadbf3a7fe8923c0176
+<<<<<<< HEAD
+
+=======
+>>>>>>> remotes/origin/master
 
 
 //REST Facturas

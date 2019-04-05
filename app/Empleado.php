@@ -10,9 +10,10 @@ class Empleado extends Model
 
     public function profesion(){
 		return $this->belongsTo(Profesion::Class);
+	}
 
     public function rubro(){
-		return $this->belongsTo(Rubro::Class);
+	 	return $this->belongsTo(Rubro::Class);
 	}
 
 	public function obras(){

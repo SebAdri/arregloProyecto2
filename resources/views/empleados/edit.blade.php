@@ -69,29 +69,20 @@
           <div class="col-md-2">
             <label for="" style="margin-top: 10px">Teléfono</label>
             <div class="form-group">
-<<<<<<< HEAD
-              <select class="form-control" id="rubro_id" name="rubro_id">
-
-                @foreach ($rubros as $rubro)
-                  <label for="seleccionado"> algo</label>
-                  <option value={{$rubro->id}} @if($empleado->rubro->id == $rubro->id) id="seleccionado" selected @endif>{{$rubro->nombre_rubro}}</option> 
-                @endforeach
-=======
               <input type="text" size="19"  name="telefono" class="form-control" value="{{ $empleado->telefono }}" placeholder="Teléfono">
             </div>
           </div>
 
          <div class="col-md-2">
-            <label for="sel1" style="margin-top: 10px">Rubro</label>
+            <label for="sel1" style="margin-top: 10px">Profesión</label>
             <div class="form-group">
-              <select class="form-control" name="rubro" id="rubro">
-                <optgroup label="Rubro actual"></optgroup>
-                <option>{{$empleado->rubro->nombre_rubro}}</option>
-                <optgroup label="Rubro a asignar"></optgroup>
-                  @foreach ($rubros as $rubro)
-                    <option value={{$rubro->id}}>{{$rubro->nombre_rubro}} </option>
+              <select class="form-control" name="profesion_id" id="profesion_id">
+                <optgroup label="Profesión actual"></optgroup>
+                <option>{{$empleado->profesion->nombre_rubro}}</option>
+                <optgroup label="Profesión a asignar"></optgroup>
+                  @foreach ($profesiones as $profesion)
+                    <option value={{$profesion->id}}>{{$profesion->nombre}} </option>
                   @endforeach
->>>>>>> 426628a6eec38e768fe13648b3740546a40194d0
               </select>
             </div>
           </div>

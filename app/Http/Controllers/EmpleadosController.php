@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Empleado;
-use App\Rubro;
+use App\Profesion;
 use App\Obra;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -33,9 +33,8 @@ class EmpleadosController extends Controller
     public function create()
     {
         $empleados = Empleado::all();
-        $rubros = Rubro::all();
-        // dd($empleados);
-        return view('empleados.create', compact('empleados'), compact('rubros'));
+        $profesiones = Profesion::where('estado','1')->get();
+
         $obras = Obra::all();
         
         foreach ($empleados as $empleado) 
@@ -44,7 +43,7 @@ class EmpleadosController extends Controller
 
         }
 
-        return view('empleados.create', compact('empleados','rubros','obras', 'empleadosObras'));
+        return view('empleados.create', compact('empleados','profesiones','obras', 'empleadosObras'));
     }
 
     /**
@@ -81,8 +80,8 @@ class EmpleadosController extends Controller
     public function edit($id)
     {
         $empleado = Empleado::findOrFail($id);
-        $rubros = Rubro::all();
-        return view('empleados.edit', compact('empleado','rubros'));
+        $profesiones = Profesion::all();
+        return view('empleados.edit', compact('empleado','profesiones'));
     }
 
     /**
@@ -108,9 +107,7 @@ class EmpleadosController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        //no se elimina de la bd, "se elimina" cambiando el estado nomas y se muestran solo los empleados activos o el estado equivalente y los que están de baja no se muestran
-        
+    {   
         $empleado = Empleado::findOrFail($id);
         $empleado->update([
             $empleado->estado = 0

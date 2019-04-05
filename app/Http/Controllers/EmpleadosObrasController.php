@@ -13,11 +13,6 @@ class EmpleadosObrasController extends Controller
     	$empleado = Empleado::findOrFail($id);
     	$id_obra = $request->obra;
 
-    	// $validatedData = $empleado->validate([
-     //    'id' => 'unique:obras']);
-
-
-
     	if (! $empleado->obras->contains($id_obra)) 
     	{
     		$empleado->obras()->attach($id_obra);

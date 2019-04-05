@@ -21,7 +21,7 @@ class CreateEmpleadosTable extends Migration
             $table->string('segundoApellido')->nullable();
             $table->string('direccion')->nullable();
             $table->string('telefono');
-            $table->integer('rubro_id');
+            $table->integer('profesion_id');
             $table->boolean('estado')->default(1); 
             $table->timestamps();
         });

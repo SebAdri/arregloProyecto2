@@ -1,8 +1,7 @@
 @extends('layout')
 
 @section('contenido')
-
-	<form method="POST" action="{{ route('empleados.store') }}">
+  <form method="POST" action="{{ route('empleados.store') }}">
     {!! csrf_field() !!}
     <div class="container">
       <div class="row">
@@ -75,11 +74,11 @@
             </div>
 
             <div class="col-md-2">
-              <label for="sel1" style="margin-top: 10px">Rubro</label>
+              <label for="sel1" style="margin-top: 10px">Profesión</label>
                 <div class="form-group">
-                  <select class="form-control" id="rubro_id" name="rubro_id">
-                      @foreach ($rubros as $rubro) {
-                         <option value={{$rubro->id}}>{{$rubro->nombre_rubro}}</option> 
+                  <select class="form-control" id="profesion_id" name="profesion_id">
+                      @foreach ($profesiones as $profesion) 
+                         <option value={{$profesion->id}}>{{$profesion->nombre}}</option> 
                       @endforeach
                   </select>
                 </div>
@@ -107,7 +106,7 @@
         <th>Apellidos</th>
         <th>Dirección</th>
         <th>Teléfono</th>
-        <th>Rubro</th>
+        <th>Profesión</th>
         <th>Acción</th>
          <th>Obras Asignadas</th>
       </tr>
@@ -115,13 +114,13 @@
 
       <tbody>
         @foreach($empleados as $empleado)
-          @if($empleado->estado == 1)
+          {{-- @if($empleado->estado == 1) --}}
             <tr>
               <td>{{ $empleado->primerNombre .' '.$empleado->segundoNombre }}</td>
               <td>{{ $empleado->primerApellido .' '.$empleado->segundoApellido }}</td>
               <td>{{ $empleado->direccion }}</td>
               <td>{{ $empleado->telefono }}</td>
-              <td>{{ $empleado->rubro->nombre_rubro }}</td>
+              <td>{{ $empleado->profesion->nombre }}</td>
               <td>
                 <a class="btn btn-link" href="{{ route('empleados.edit', $empleado->id) }}">Editar</a>
                 
@@ -139,16 +138,15 @@
               </td>
  
             </tr>
-          @endif
+          {{-- @endif --}}
           @endforeach
     </tbody>
   </table>
-
     </div>
   </div>
 </div>
 </div>
-
+</div>
 {{-- Pop up de Asignacion a Obras --}}
 @foreach($empleados as $empleado)
   <div id="myModal{{$empleado->id}}" class="modal fade" role="dialog">
@@ -195,6 +193,7 @@
 </div>
 @endforeach
 
+</div>
 
 {{-- Pop up de lista de obras asignadas --}}
 @foreach($empleados as $empleado)

@@ -11,10 +11,10 @@
             <h1>Clientes</h1>
           </div>
           <div class="panel-body">
-              <div class="col-md-2 col-md-offset-2">
-                <label for="" style="margin-top: 10px">Cliente</label>
+              <div class="col-md-3 col-md-offset-1">
+                <label for="" style="margin-top: 10px">Nombre - Razón Social</label>
                   <div class="form-group">
-                    <input type="text" class="form-control{{ $errors->has('nombre') ? ' is-invalid' : '' }}" value="" name="nombre" placeholder="Nombre del cliente" required>
+                    <input type="text" class="form-control{{ $errors->has('nombre') ? ' is-invalid' : '' }}" value="" name="nombre" placeholder="Nombre - Razón Social" required>
                     @if ($errors->has('nombre'))
                       <span class="invalid-feedback errors" role="alert">
                         <strong>{{ $errors->first('nombre') }}</strong>
@@ -23,14 +23,69 @@
                   </div>
               </div>
 
-              <div class="col-md-3">
-                <label for=""  style="margin-top: 10px">Dirección</label>
+              <div class="col-md-2">
+                <label for=""  style="margin-top: 10px">Cédula</label>
                 <div class="form-group">
-                  <input type="text" size="35" class="form-control" name="direccion" value="" placeholder="Dirección">
+                  <input type="text" size="35" class="form-control {{ $errors->has('cedula') ? ' is-invalid' : '' }}" name="cedula" value="" placeholder="Cédula">
+                    @if ($errors->has('cedula'))
+                <span class="invalid-feedback errors" role="alert">
+                  <strong>{{ $errors->first('cedula') }}</strong>
+                </span>
+              @endif
                 </div>
               </div>
 
               <div class="col-md-2">
+                <label for=""  style="margin-top: 10px">RUC</label>
+                <div class="form-group">
+                  <input type="text" size="35" class="form-control {{ $errors->has('ruc') ? ' is-invalid' : '' }}" name="ruc" value="" placeholder="RUC">
+                    @if ($errors->has('ruc'))
+                <span class="invalid-feedback errors" role="alert">
+                  <strong>{{ $errors->first('ruc') }}</strong>
+                </span>
+              @endif
+                </div>
+              </div>
+
+               <div class="col-md-2">
+          <label for="func" style="margin-top: 10px">Email</label>         
+          <div class="form-group">
+            <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" placeholder="Correo Electrónico" required>
+              @if ($errors->has('email'))
+                <span class="invalid-feedback errors" role="alert">
+                  <strong>{{ $errors->first('email') }}</strong>
+                </span>
+              @endif
+          </div>
+        </div>
+
+
+              <div class="col-md-3 col-md-offset-1">
+                <label for=""  style="margin-top: 10px">Dirección</label>
+                <div class="form-group">
+                  <input type="text" size="35" class="form-control {{ $errors->has('direccion') ? ' is-invalid' : '' }}" name="direccion" value="" placeholder="Dirección">
+                   @if ($errors->has('direccion'))
+                <span class="invalid-feedback errors" role="alert">
+                  <strong>{{ $errors->first('direccion') }}</strong>
+                </span>
+              @endif
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <label for=""  style="margin-top: 10px">Fecha de inscripción</label>
+                <div class="form-group">
+                  <input type="date"class="form-control {{ $errors->has('fecha_inscripcion') ? ' is-invalid' : '' }}" name="fecha_inscripcion" value="" required>
+                    @if ($errors->has('fecha_inscripcion'))
+                      <span class="invalid-feedback errors" role="alert">
+                        <strong>{{ $errors->first('fecha_inscripcion') }}</strong>
+                      </span>
+                      @endif
+                </div>
+              </div>
+
+
+              <div class="col-md-3">
                 <label for="" style="margin-top: 10px">Teléfono</label>
                 <div class="form-group">
                   <input type="text" size="19"  name="telefono" class="form-control{{ $errors->has('telefono') ? ' is-invalid' : '' }}" value="" placeholder="Teléfono" required>
@@ -42,6 +97,7 @@
                 </div>
               </div>
 
+         
               <div class="row">
                 <br>
               </div>
@@ -61,8 +117,10 @@
     <thead>
       <tr>
         <th>Cliente</th>
+        <th>RUC</th>
         <th>Dirección</th>
         <th>Teléfono</th>
+        <th>Email</th>
         <th>Acción</th>
       </tr>
     </thead>
@@ -72,8 +130,10 @@
           @if($cliente->estado == 1)
             <tr>
               <td>{{ $cliente->nombre }}</td>
+              <td>{{ $cliente->ruc }}</td>
               <td>{{ $cliente->direccion }}</td>
               <td>{{ $cliente->telefono }}</td>
+              <td>{{ $cliente->email }}</td>
               <td>
                 <a class="btn btn-link" href="{{ route('clientes.edit', $cliente->id) }}">Editar</a>
 

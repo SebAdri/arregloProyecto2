@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Empleado extends Model
 {
-    protected $fillable = ['primerNombre', 'segundoNombre', 'primerApellido', 'segundoApellido', 'direccion', 'telefono', 'rubro_id'];
+    protected $fillable = ['primerNombre', 'segundoNombre', 'primerApellido', 'segundoApellido', 'direccion', 'telefono', 'profesion_id'];
 
-    public function rubro(){
-		return $this->belongsTo(Rubro::Class);
+    public function profesion(){
+		return $this->belongsTo(Profesion::Class);
 	}
 
 	public function obras(){

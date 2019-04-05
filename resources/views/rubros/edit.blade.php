@@ -21,11 +21,11 @@
 						<label for="nombre">Rubros</label>
 						<input type="text" class="form-control" name="rubro" value="" placeholder="Nombre del Rubro">
 
-						 @if ($errors->has('primerNombre'))
-                      	<span class="invalid-feedback errors" role="alert">
-                        <strong>{{ $errors->first('primerNombre') }}</strong>
-                      </span>
-                    @endif
+						@if ($errors->has('rubro'))
+                      		<span class="invalid-feedback errors" role="alert">
+                        		<strong>{{ $errors->first('rubro') }}</strong>
+                      		</span>
+                    	@endif
 
 					</div>
 				</div>

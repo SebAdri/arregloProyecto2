@@ -78,7 +78,7 @@
             <div class="form-group">
               <select class="form-control" name="profesion_id" id="profesion_id">
                 <optgroup label="Profesión actual"></optgroup>
-                <option>{{$empleado->profesion->nombre_rubro}}</option>
+                <option>{{$empleado->profesion->nombre}}</option>
                 <optgroup label="Profesión a asignar"></optgroup>
                   @foreach ($profesiones as $profesion)
                     <option value={{$profesion->id}}>{{$profesion->nombre}} </option>

@@ -22,7 +22,7 @@ class CheckRoles
             return $next($request);
         }    
         if (auth()->check()) {
-            return redirect(url()->previous());
+            return redirect('home');
 
         }else{
             return redirect('logout'); //si no, lo redireccionamos al home

@@ -16,7 +16,7 @@ class RolesController extends Controller
 
     function __construct()
     {
-        $this->middleware(['auth', 'roles:role']); 
+        // $this->middleware(['auth', 'roles:role']); 
     }
 
 
@@ -26,6 +26,11 @@ class RolesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function index(){
+        $roles = Role::all();
+        $permissions = Permission::all();   
+        return view('roles.index', compact('roles', 'permissions'));
+    }
     public function create()
     {
         $roles = Role::all();
@@ -78,7 +83,7 @@ class RolesController extends Controller
         $role->role_permission = $role_permission;
 
         $role->save();
-        return redirect()->route('roles.create');
+        return redirect()->route('roles.index');
     }
     public function getPermissionsId($permiso)
     {
@@ -135,6 +140,7 @@ class RolesController extends Controller
     public function edit($id)
     {
         $role = Role::findOrFail($id);
+
         $rolePermissions = (explode(',', $role->role_permission));
         $permissionName=array();
         $permissions = Permission::all();
@@ -145,7 +151,7 @@ class RolesController extends Controller
             }
         }
         $per= array_unique($permissionName);
-        return view('roles.edit', compact('per', 'role'));
+        return view('roles.edit', compact('per', 'role', 'permissions'));
     }
 
     /**
@@ -157,6 +163,7 @@ class RolesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request);
         $role = Role::findOrFail($id);
         $permissions = Permission::all();
         $permissions_request = $request->input('per');
@@ -186,7 +193,7 @@ class RolesController extends Controller
             $role->role_description = $request->input('desc'),
             $role->role_permission = $role_permission
         ]);
-        return redirect()->route('roles.create');
+        return redirect()->route('roles.index');
         
     }
 

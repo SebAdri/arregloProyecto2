@@ -35,7 +35,7 @@
       @foreach($obras as $obra)
           <tr>
             <td>{{ $obra->nombre_proyecto }}</td>
-            <td>{{ $obra->cliente->nombre }}</td> 
+            <td>{{ $obra->cliente['nombre'] }}</td> 
             <td>{{ $obra->fecha_inicio }}</td>
             <td>
               <a><button type="button" title="Editar"  data-toggle="modal" data-target="#editar{{ $obra->id }}" href="{{ route('obras.edit', $obra->id) }}" class="btn button-primary btn-rounded btn-sm my-0"><i class="fa fa-edit" style="font-size:20px;"></i></button></a>

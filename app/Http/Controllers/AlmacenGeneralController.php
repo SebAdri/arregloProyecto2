@@ -245,7 +245,7 @@ class AlmacenGeneralController extends Controller
         $id_obra = $request->obra_id;
         $cantidad_solicitada =$request->cantidad_solicitada;
         foreach ($materialesAsignadas['checkMaterialesAsignado'] as $materialesAsignado) {
-            $existeEnInventario = DB::table('assigned_materiales')->where([
+            $existeEnInventario = DB::table('inventario')->where([
                                                 ['material_id', '=', $materialesAsignado],
                                                 ['obra_id', '=', $id_obra],
                                             ])->exists();
@@ -253,7 +253,7 @@ class AlmacenGeneralController extends Controller
             if ($existeEnInventario) {
 
                 //obtenemos el material en caso de que exista
-                $mat = DB::table('assigned_materiales')->where([
+                $mat = DB::table('inventario')->where([
                                                 ['material_id', '=', $materialesAsignado],
                                                 ['obra_id', '=', $id_obra],
                                             ])->get();
@@ -263,7 +263,7 @@ class AlmacenGeneralController extends Controller
 
                 $cantidad_actual = intval($mat[0]->cantidad_disponible) - intval($cantidad_solicitada);
                 //y actualizamosel registro en cuestion
-                $material = DB::table('assigned_materiales')->where([
+                $material = DB::table('inventario')->where([
                                                 ['material_id', '=', $materialesAsignado],
                                                 ['obra_id', '=', $id_obra]
                                             ])->update(['cantidad_disponible' => $cantidad_actual]);
@@ -271,7 +271,7 @@ class AlmacenGeneralController extends Controller
             else
             {
                 //en caso contrario insertamos
-                DB::table('assigned_materiales')->insert([
+                DB::table('inventario')->insert([
                     ['material_id' => $materialesAsignado,
                      'obra_id' => $id_obra,
                      'cantidad_disponible' => $cantidad_solicitada

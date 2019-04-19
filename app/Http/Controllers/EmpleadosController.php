@@ -13,7 +13,7 @@ class EmpleadosController extends Controller
 {
     function __construct()
     {
-        // $this->middleware(['auth', 'roles:emplMant']); 
+        //$this->middleware(['auth', 'roles:emplMant']); 
     }
     /**
      * Display a listing of the resource.
@@ -34,8 +34,8 @@ class EmpleadosController extends Controller
     {
         $empleados = Empleado::all();
         $profesiones = Profesion::where('estado','1')->get();
-
-        $obras = Obra::all();
+        //dd($profesiones);
+        $obras = Obra::where('id','>',1)->get();
         
         foreach ($empleados as $empleado) 
         {
@@ -80,7 +80,7 @@ class EmpleadosController extends Controller
     public function edit($id)
     {
         $empleado = Empleado::findOrFail($id);
-        $profesiones = Profesion::all();
+        $profesiones = Profesion::where('estado','1')->get();// Profesion::all();
         return view('empleados.edit', compact('empleado','profesiones'));
     }
 

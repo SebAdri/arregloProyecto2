@@ -12,7 +12,7 @@ class MaquinariasController extends Controller
     function __construct()
 
     {
-        $this->middleware(['auth', 'roles:maq']); 
+        //$this->middleware(['auth', 'roles:maq']); 
 
     }
     

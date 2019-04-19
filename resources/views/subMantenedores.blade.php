@@ -57,7 +57,7 @@
             </div>
           </div>
         @endif
-         @if (auth()->user()->hasPermission(['mant']))
+         @if (auth()->user()->hasPermission(['obras']))
           <div class="col-md-4">
             <div class="card bg-primary text-white " id="herramientas">
               <div class="card-body">
@@ -134,6 +134,15 @@
         }
       })
     });
+    $("#herramientas").click(function(){
+          $.ajax({
+            url: "{{url()->current()}}",
+            success: function(){
+              window.location.replace("{{ route('herramientas.create') }}");
+            }
+          })
+        });
+
   </script>
 @endpush
 

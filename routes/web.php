@@ -92,3 +92,7 @@ Route::resource('almacenGeneral', 'AlmacenGeneralController');
 
 //REST Tipos de documentos
 Route::resource('tipos_documentos', 'TiposDocumentosController');
+//REST Tipos de caclculo de costo de la obra
+Route::resource('calculoCosto', 'CalculoCostoController');
+
+Route::post('calculoCosto/{id}', ['as' => 'calculoCosto.store', 'uses' => 'CalculoCostoController@store']);

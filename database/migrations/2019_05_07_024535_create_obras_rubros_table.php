@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateObrasTable extends Migration
+class CreateObrasRubrosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateObrasTable extends Migration
      */
     public function up()
     {
-        Schema::create('obras', function (Blueprint $table) {
+        Schema::create('obras_rubros', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nombre_proyecto');
-            $table->string('cliente_id');
-            $table->date('fecha_inicio');
-            $table->date('fecha_fin')->nullable();
+            $table->integer('obra_id');
+            $table->integer('rubro_id');
+            $table->integer('dimension_uno');
+            $table->integer('dimension_dos');
+            $table->integer('dimension_tres');
+            $table->integer('costo_obra_rubro');
             $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ class CreateObrasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('obras');
+        Schema::dropIfExists('obras_rubros');
     }
 }

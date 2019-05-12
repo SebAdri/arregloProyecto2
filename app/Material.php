@@ -25,4 +25,11 @@ class Material extends Model
 			}
 		}
 	}
+
+	public function rubros()
+    {
+		return $this->belongsToMany(Rubro::Class);    	
+    }
+
+    
 }

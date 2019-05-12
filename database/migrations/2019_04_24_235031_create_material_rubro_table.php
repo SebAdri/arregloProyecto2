@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateClientesTable extends Migration
+class CreateMaterialRubroTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateClientesTable extends Migration
      */
     public function up()
     {
-        Schema::create('clientes', function (Blueprint $table) {
+        Schema::create('material_rubro', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nombre');
-            $table->string('direccion')->nullable();
-            $table->string('telefono');
-            $table->boolean('estado')->default(1); 
+            $table->integer('obra_id');
+            $table->integer('rubro_id');
+            $table->integer('material_id');
+            $table->float('cantidad_material');
+            $table->float('costo_x_material');
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ class CreateClientesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('clientes');
+        Schema::dropIfExists('material_rubro');
     }
 }

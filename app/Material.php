@@ -8,6 +8,7 @@ class Material extends Model
 {
 	protected $table = 'materiales';
     protected $fillable = ['m_descripcion', 'm_unidad_medida', 'm_costo'];
+    // protected $primaryKey = 'material_id';
 
     public function obras()
 	{

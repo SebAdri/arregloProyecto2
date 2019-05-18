@@ -15,7 +15,7 @@ class Rubro extends Model
 
     public function materiales()
     {
-		return $this->belongsToMany(Material::class, 'material_rubro')->withPivot('cantidad_material', 'costo_x_material');
+		return $this->belongsToMany(Material::class, 'material_rubro', 'material_id')->withPivot('cantidad_material', 'costo_x_material');
     }
     public function obras()
     {

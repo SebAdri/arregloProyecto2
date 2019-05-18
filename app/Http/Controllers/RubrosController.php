@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Rubro;
 use Illuminate\Http\Request;
+use App\FamiliaRubro;
+use App\Rubro;
+use App\Material;
 
 class RubrosController extends Controller
 {
+
     function __construct()
     {
-        $this->middleware(['auth', 'roles:rubrMant']); 
+        // 
     }
     /**
      * Display a listing of the resource.
@@ -18,7 +21,7 @@ class RubrosController extends Controller
      */
     public function index()
     {
-        //
+        // 
     }
 
     /**
@@ -28,10 +31,20 @@ class RubrosController extends Controller
      */
     public function create()
     {
-        //
-        $rubros = Rubro::all();
-        //dd($rubros);
-        return view('rubros.create', compact('rubros'));
+        $fliaRubros = FamiliaRubro::all();
+        $rubros = Rubro::where('estado','1')->get();
+        $materiales = Material::all();
+
+        foreach ($rubros as $rubro) 
+        {
+            // dd(Rubro::find($rubro->id)->materiales()->pivot->material_id);
+            // $materialesRubros = Rubro::find($rubro->id)->materiales()->get();
+            $materialesRubros[] = Rubro::find($rubro->id)->materiales()->get();
+            // $materialesRubros[] = Rubro::find($rubro->id)->pivot;
+
+        }
+
+        return view('rubros.create', compact('fliaRubros', 'rubros', 'materiales', 'materialesRubros'));
     }
 
     /**
@@ -42,65 +55,64 @@ class RubrosController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        Rubro::create($request->all());
-        return redirect()->route('rubros.create');
+        
+        $mano_obra = str_replace(',','.', str_replace('.','', $request->input('mano_obra')));
+
+        $rubro = new Rubro;
+        $rubro->nombre =  $request->nombre;
+        $rubro->unidad_medida =  $request->unidad_medida;
+        $rubro->mano_obra =  $mano_obra;
+        $rubro->familia_rubro_id = $request->familia_rubro_id;
+        $rubro->save();
+
+// dd($request->all());
+
+
+        return redirect()->route('rubros.create'); 
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Rubro  $rubro
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Rubro $rubro)
+    public function show($id)
     {
         //
-
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Rubro  $rubro
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         //
-        $rubros =  Rubro::findOrFail($id);
-        return view('rubros.edit', compact('rubros'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Rubro  $rubro
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         //
-        $rubros = Rubro::findOrFail($id);
-        $rubros->update($request->all());
-
-        return redirect()->route('rubros.create');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Rubro  $rubro
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         //
-        $rubros = Rubro::findOrFail($id);
-        
-        $rubros->delete();
-
-        return redirect()->route('rubros.create');
     }
 }

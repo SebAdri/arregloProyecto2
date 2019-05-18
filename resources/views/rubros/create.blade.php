@@ -2,82 +2,391 @@
 
 @section('contenido')
 
-	<form method="POST" action="{{route('rubros.store')}}">
-		{!! csrf_field() !!}
-		<div class="container">
-			<div class="row">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h1>Rubros</h1>
-					</div>
-					<div class="panel-body">
-						<div class="row">
-							<div class="col-md-2 col-md-offset-3">
-								<label for="">Rubro</label>
-								<input type="text" class="form-control{{ $errors->has('nombre_rubro') ? ' is-invalid' : '' }}" name="nombre_rubro" value="" placeholder="Nombre del rubro" required>
-                  					@if ($errors->has('nombre_rubro'))
-                    					<span class="invalid-feedback errors" role="alert">
-                      					<strong>{{ $errors->first('nombre_rubro') }}</strong>
-                    					</span>
-                  					@endif
-							</div>
-							
-							<div class="col-md-3">
-								<label for="">Detalle</label>
-								<input type="text" class="form-control" name="detalle_rubro" value="" placeholder="Detalle del rubro">
-							</div>
-						</div>
-			</div>
-			
-			<div class="row">
-                <div class="col-md-4 col-md-offset-4" style="margin-top: 10px">
-                  <button type="submit" class="btn button-primary">Guardar</button>
-                  <a class="btn button-primary" href="{{ route('rubros.create') }}">Cancelar</a>
-                  <button type="button" class="btn button-primary" id="volver" name="button">Volver</button>
-                </div>
-            </div>
-            <br>
-</form>
-			<table class="table table-responsive">
-				<thead>
-					<tr>
-						<th>Rubro</th>
-						<th>Detalle</th>
-						<th>Acción</th>
-					</tr>
-				</thead>
-				<tbody>
-					@foreach($rubros as $rubro)
+<style type="text/css">
+	#modalWidth{
+  		width:90% !important;
 
-					<tr>
-						<td>{{ $rubro->nombre_rubro }}</td>
-						<td>{{ $rubro->detalle_rubro }}</td>
-						<td>
-							<a  class="btn btn-link" href="{{ route('rubros.edit', $rubro->id) }}" >Editar</a>	
-							<form style="display: inline" method="POST" action="{{ route('rubros.destroy', $rubro->id) }}">
-					          {!! csrf_field() !!}
-					          {!! method_field('DELETE') !!}
-					          <button class="btn button-primary" type="submit">Eliminar</button>
-					        </form>
-						</td>
-					</tr>
-					@endforeach
-				</tbody>
-			</table>      
+	}
+</style>
+
+<form method="POST" action="{{ route('rubros.store') }}">
+	{!! csrf_field() !!}
+	<div class="container">
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h1>Rubros</h1>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-md-offset-11">
+							<button type="button"class="btn button-primary" title="Agregar Nueva Familia Rubro" data-toggle="modal" data-target="#myModal" style="margin-top: 10px"><i class="fa fa-plus" style="font-size:30px;"></i></button>
+						</div>
+					</div>		
+
+
+					<div class="row">
+						<div class="col-md-2 col-md-offset-1">
+							<label for="nombre" style="margin-top: 10px">Familia Rubros</label>
+
+							<select class="form-control input-sm select2" id="familia_rubro_id" name="familia_rubro_id">
+								@foreach ($fliaRubros as $fliaRubro) 
+								<option value={{$fliaRubro->id}}>{{$fliaRubro->nombre}}</option> 
+								@endforeach
+							</select>
+
+						</div>
+
+						<div class="col-md-4">
+							<label for="nombre" style="margin-top: 10px">Rubro</label>
+							<input type="text" class="form-control {{ $errors->has('nombre') ? ' is-invalid' : '' }}" name="nombre" value="" placeholder="Nombre del Rubro" required>
+
+							@if ($errors->has('nombre'))
+							<span class="invalid-feedback errors" role="alert">
+								<strong>{{ $errors->first('nombre') }}</strong>
+							</span>
+							@endif
+						</div>
+
+						<div class="col-md-2">
+							<label for="nombre" style="margin-top: 10px">Mano de obra</label>
+							<input type="text" class="form-control numeric {{ $errors->has('mano_obra') ? ' is-invalid' : '' }}" name="mano_obra" value="" placeholder="Monto en Gs." required>
+
+							@if ($errors->has('mano_obra'))
+							<span class="invalid-feedback errors" role="alert">
+								<strong>{{ $errors->first('mano_obra') }}</strong>
+							</span>
+							@endif
+						</div>
+
+						<div class="col-md-2">
+							<label for="nombre" style="margin-top: 10px">Unidad de medida</label>
+							<input type="text" class="form-control {{ $errors->has('unidad_medida') ? ' is-invalid' : '' }}" name="unidad_medida" value="" placeholder="Unidad de medida" required>
+
+							@if ($errors->has('unidad_medida'))
+							<span class="invalid-feedback errors" role="alert">
+								<strong>{{ $errors->first('unidad_medida') }}</strong>
+							</span>
+							@endif
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-4 col-md-offset-4" style="margin-top: 20px">
+							<button type="submit" class="btn button-primary">Guardar</button>
+							<a class="btn button-primary" href="{{ route('rubros.create') }}">Cancelar</a>
+							<button type="button" class="btn button-primary" id="volver" name="button">Volver</button>
+						</div>
+					</div>
+				</form>
+				<br>
+
+				<table id="listado" class="table table-responsive">
+					<thead>
+						<tr>
+							<th  style="text-align: center;">Familia Rubros</th>
+							<th  style="text-align: center;">Rubro</th>
+							<th  style="text-align: center;">Unidad de medida</th>
+							<th  style="text-align: center;">Mano de obra</th>
+							<th  style="text-align: center;">Agregar Materiales</th>
+							<th  style="text-align: center;">Detalles</th>
+						</tr>
+					</thead>
+
+					<tbody style="text-align: center">
+						@foreach($rubros as $rubro)
+						<tr>
+							<td>{{ $rubro->familiaRubro->nombre }}</td>
+							<td>{{ $rubro->nombre }}</td>
+							<td>{{ $rubro->unidad_medida }}</td>
+							<td>{{ number_format($rubro->mano_obra,2,",",".") }} Gs.</td>
+
+							<td>
+								<button type="button"class="btn button-primary" id="modalMateriales{{$rubro->id}}" title="Agregar materiales a rubros" data-toggle="modal" data-target="#myModal1{{ $rubro->id }}"><i class="fa fa-plus" style="font-size:20px;"></i></button>
+							</td>
+
+							<td>
+								<button id="myModal2" type="button" class="btn button-primary" data-toggle="modal" data-target="#myModal2{{ $rubro->id }}">Ver</button> 
+							</td>
+						</tr>
+						@endforeach 
+					</tbody>
+				</table>
+
+			</div>
+		</div>	
+	</div>		
+</div>
+</div>
+
+<div id="myModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="panel panel-default">
+					<form method="post" action="{{route('familiaRubros.store')}}">
+						{!! csrf_field() !!}
+
+						<div class="panel-heading">
+							<h2 style="text-align: center;">Familia de Rubros</h2>
+						</div>
+
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-5 col-md-offset-4">
+									<label for="Descripcion">Nombre del rubro</label>
+									<input type="text" class="form-control{{ $errors->has('nombre') ? ' is-invalid' : '' }}" name="nombre" value="" placeholder="Nombre" required>
+									@if ($errors->has('nombre'))
+									<span class="invalid-feedback errors" role="alert">
+										<strong>{{ $errors->first('nombre') }}</strong>
+									</span>
+									@endif
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-5 col-md-offset-4">
+									<input class="btn button-primary" value="Guardar" type="submit" style="margin-top: 20px">
+									<button type="button" class="btn button-primary" data-dismiss="modal"  name="button" style="margin-top: 20px">Cancelar</button>
+								</div>
+							</div>
+
+						</div>
+					</form>
+				</div>
+			</div>
 		</div>
 	</div>
+</div>
+
+@foreach($rubros as $rubro)
+<div id="myModal1{{$rubro->id}}" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-lg">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="panel panel-default">
+					<form method="post" action="#">
+						{!! csrf_field() !!}
+
+					<div class="panel-heading">
+						<h2 align="center">{{$rubro->nombre}}</h2>
+					</div>
+
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-md-5 col-md-offset-1">
+							<label for="material" style="margin-top: 10px">Materiales</label>
+
+							<select class="form-control input-sm select2" id="material_id" name="material_id">
+								@foreach ($materiales as $material) 
+								<option value={{$material->id}}>{{$material->m_descripcion}}Seleccione un material</option> 
+								@endforeach
+							</select>
+
+						</div>
+
+						<div class="col-md-2">
+							<label for="nombre" style="margin-top: 10px">Cantidad</label>
+							<input type="text" class="form-control numeric {{ $errors->has('cantidad') ? ' is-invalid' : '' }}" name="cantidad" value="" placeholder="Cantidad" required>
+
+							@if ($errors->has('cantidad'))
+							<span class="invalid-feedback errors" role="alert">
+								<strong>{{ $errors->first('cantidad') }}</strong>
+							</span>
+							@endif
+						</div>
+							{{-- <table class="table table-responsive" id="listaMateriales">
+								<thead>
+									<tr>
+										<th>Material</th>
+										<th>U.M.</th>
+										<th>Precio</th>
+										<th>Cant</th>
+										<th>Elegir</th>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach($materiales as $material)
+									<tr>
+										<td>{{ $material->m_descripcion }}</td>
+										<td>{{ $material->m_unidad_medida }}</td>
+										<td>{{ $material->m_costo }}</td>
+										<td>
+											<input type="text" class="form-control" name="cantidades" value="">
+										</td>
+										<td>
+							 --}}				{{-- <button type="button" id="confirmar" class="btn btn-primary"><i class="fa fa-check"></i></button> --}}
+											{{-- <input class="form-check-input" id="check" type="checkbox" class="form-control" size="1"  name="materiales[]" value="{{$material->id}}"> --}}
+										{{-- </td>
+									</tr>
+									@endforeach
+								</tbody> --}}
+							{{-- </table> --}}
+							{{-- <input type="hidden" class="form-control" id="rubro_id" name="rubro_id" value="{{ $rubro->id }}" size="5"> --}}
+						</div>
+
+						<div class="row">
+							<div class="col-md-8 col-md-offset-4">
+								<input class="btn button-primary" id="agregar{{$rubro->id}}" value="Agregar" type="button" style="margin-top: 20px">
+								<button type="button" class="btn button-primary" data-dismiss="modal"  name="button" style="margin-top: 20px">Cancelar</button>
+							</div>
+						</div>
+
+
+					</div>
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+@endforeach
+
+
+@foreach($rubros as $rubro)
+<div id="myModal2{{ $rubro->id }}" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h3 class="modal-title" style="text-align: center;">Materiales Asignados</h3>
+      </div>
+      <div class="modal-body">
+
+        <div class="row">
+          <div class="col-md-10 col-md-offset-1" style="margin-top: 15px">
+            <label for="nombre">Materiales asignados al rubro: {{$rubro->nombre}}</label>
+            @foreach($materialesRubros as $materialRubro)
+            	<li>{{$materialRubro}}</li>
+          	@endforeach
+
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4 col-md-offset-5">
+            <button type="button" style="margin-top: 20px" class="btn button-primary" data-dismiss="modal"  name="button" style="margin-top: 20px">Aceptar</button>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+@endforeach
 
 @push('scripts')
-	<script type="text/javascript">
-	  $("#volver").click(function(){
-	    $.ajax({
-	      url: "{{url()->current()}}",
-	      success: function(){
-	        window.location.replace("{{url()->previous()}}");
-	      }
-	    })
-	  })
-	</script>
-	{{-- expr --}}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+
+<script type="text/javascript">
+	$("#volver").click(function(){
+		$.ajax({
+			url: "{{url()->current()}}",
+			success: function(){
+				window.location.replace("{{url()->previous()}}");
+			}
+		})
+	})
+</script>
+
+
+
+<script>
+	$(document).ready(function() {
+		$('.numeric').inputmask("numeric", {
+        		radixPoint: ",",
+        		groupSeparator: ".",
+        		digits: 2,
+        		autoGroup: true,
+        		// prefix: '$', //No Space, this will truncate the first character
+        		rightAlign: false,
+        		oncleared: function () { self.Value(''); }
+			});
+
+		$('.select2').select2(); 
+
+		$("#listado").dataTable({
+				"aaSorting":[[0,"desc"]],
+				
+				language: {
+                	"search": "Buscar:",
+                	"info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+        			"infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+        			"lengthMenu":     "Mostrar _MENU_ registros",
+        			"paginate": {
+            			"first": "Primero",
+            			"last": "Último",
+            			"next": "Siguiente",
+            			"previous": "Anterior"
+        			}
+            	}
+		});
+
+		$("#listaMateriales").dataTable({
+				 "aaSorting":[[0,"desc"]],
+				 				language: {
+                	"search": "Buscar:",
+                	"info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+        			"infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+        			"lengthMenu":     "Mostrar _MENU_ registros",
+        			"paginate": {
+            			"first": "Primero",
+            			"last": "Último",
+            			"next": "Siguiente",
+            			"previous": "Anterior"
+        			}
+            	}
+		});
+
+		$("#itemList").select2({
+			ajax: {
+				
+				delay: 0,
+				data: function (params) {
+					return {
+					                    q: params.term, // search term
+					                    page: params.page
+					                };
+					            },
+					            processResults: function (data, params){
+					            	var results = $.map(data, function (value, key) {
+					            		return {
+					            			children: $.map(value, function (v) {
+					            				return {
+					            					id: key,
+					            					text: v
+					            				};
+					            			})
+					            		};
+					            	});
+					            	return {
+					            		results: results,
+					            	};
+					            },
+					            cache: true
+					        },
+					        escapeMarkup: function (markup) {
+					        	return markup;
+					        }, // let our custom formatter work
+					        minimumInputLength: 3,
+					    });
+
+	});
+</script>
 @endpush
 @endsection

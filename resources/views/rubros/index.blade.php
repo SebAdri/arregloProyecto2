@@ -1,4 +1,4 @@
-@extends('layout')
+{{-- @extends('layout')
 
 @section('contenido')
 
@@ -32,7 +32,7 @@
           <tr>
             <td>{{ $fliaRubro->nombre }}</td>
             <td>
-              <a class="btn button-primary" href="{{ route('rubros.edit', $fliaRubro->id) }}" title="Agregar Rubros"><i class="fa fa-plus" style="font-size:19px;"></i></button> 
+              <a class="btn button-primary" href="{{ route('rubros.edit', $fliaRubro->id) }}" title="Agregar Rubros"></button> 
               </td>
           </tr>
 
@@ -95,4 +95,4 @@
 @stop
 
 
-      
+       --}}

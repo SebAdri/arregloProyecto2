@@ -29,11 +29,10 @@ Route::resource('documentos', 'DocumentosController');
 Route::resource('obras', 'ObrasController');
 
 //REST Rubros
-Route::resource('rubros', 'FamiliaRubrosController');
-Route::post('storeFliaRubros', 'FamiliaRubrosController@storeFliaRubros');
-// Route::get('addRubros/{id}', 'FamiliaRubrosController@addRubros');
-// Route::get('addRubros/{id}', ['as' => 'addRubros', 'uses'=>'FamiliaRubrosController@addRubros']);
-
+Route::resource('rubros', 'RubrosController');
+Route::resource('familiaRubros', 'FamiliaRubrosController');
+// Route::post('storeFlia', ['as' => 'storeFlia', 'uses'=>'FamiliaRubrosController@storeFliaRubros']);
+Route::post('storeMateriales', ['as' => 'storeMateriales', 'uses'=>'FamiliaRubrosController@storeMateriales']);
 
 //REST Profesiones
 Route::resource('profesiones', 'ProfesionesController');

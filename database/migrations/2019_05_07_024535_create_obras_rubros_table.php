@@ -17,10 +17,10 @@ class CreateObrasRubrosTable extends Migration
             $table->increments('id');
             $table->integer('obra_id');
             $table->integer('rubro_id');
-            $table->integer('dimension_uno');
-            $table->integer('dimension_dos');
-            $table->integer('dimension_tres');
-            $table->integer('costo_obra_rubro');
+            $table->integer('superficie');
+            // $table->integer('dimension_dos');
+            // $table->integer('dimension_tres');
+            // $table->integer('costo_obra_rubro');
             $table->timestamps();
         });
     }

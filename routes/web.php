@@ -95,3 +95,6 @@ Route::resource('tipos_documentos', 'TiposDocumentosController');
 Route::resource('calculoCosto', 'CalculoCostoController');
 
 Route::post('calculoCosto/{id}', ['as' => 'calculoCosto.store', 'uses' => 'CalculoCostoController@store']);
+
+Route::get('jsonRubrosMateriales', ['as' => 'jsonRubrosMateriales', 'uses' => 'AjaxController@jsonRubrosMateriales']);
+// Route::get('/', ['as' => 'login', 'uses' => 'Auth\LoginController@showLoginForm']);

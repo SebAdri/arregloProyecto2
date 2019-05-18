@@ -37,7 +37,7 @@ class CalculoCostoController extends Controller
 
 
         //return $rubros->materiales()->get();
-        return view('calculoCosto.create', compact('rubros', 'id_obra', 'obras'));
+        return view('calculoCosto.create2', compact('rubros', 'id_obra', 'obras'));
     }
 
     /**
@@ -50,9 +50,15 @@ class CalculoCostoController extends Controller
     {
          //$parameters = \Request::segment(2);
          // dd($id_obra);
-         // dd($request);
+          // dd($request);
          // dd($request->all());
+
+        $asd = $request->submitCalculo;
+        dd($request->all());
+        dd($asd);
+
         $rubrosDeObras = $request->all();
+        // dd($rubrosDeObras);
          $existeObraConRubros = DB::table('obras_rubros')->where([
                                                 ['obra_id', '=', $id_obra]
                                             ])->exists();

@@ -15,6 +15,13 @@
 <link rel="stylesheet" href="{{asset("css/select2.min.css")}}" rel="stylesheet" />
 <link rel="stylesheet" href="{{asset("css/bootstrap-toggle.min.css")}}" rel="stylesheet" />
 
+
+{{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js">
+<link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.0/js/dataTables.select.min.js"> --}}
+
+
+
+
        @if (auth()->check())
        <div class="wrapper">
         <!-- Sidebar Holder -->

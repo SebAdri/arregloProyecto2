@@ -37,6 +37,6 @@ class Obra extends Model
 
     public function planos()
     {
-        return $this->belongsToMany(Plano::class);
+        return $this->hasMany(Plano::class);
     }
 }

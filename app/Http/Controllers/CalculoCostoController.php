@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Rubro;
 use App\Material;
-use Illuminate\Support\Facades\DB;
 use App\Obra;
+use App\Plano;
 
 class CalculoCostoController extends Controller
 {
@@ -27,9 +28,11 @@ class CalculoCostoController extends Controller
      */
     public function create()
     {
-        $rubros = Rubro::where('estado',1)->paginate(15);
+        $rubros = Rubro::where('estado',1)->get();
         $id_obra = 2;
         $obras = Obra::find($id_obra);
+        $planos = $obras->planos;
+        // dd($obras->planos);
         // dd($obras);
         // dd($obras->count());
         //json_encode($rubros);
@@ -37,7 +40,7 @@ class CalculoCostoController extends Controller
 
 
         //return $rubros->materiales()->get();
-        return view('calculoCosto.create2', compact('rubros', 'id_obra', 'obras'));
+        return view('calculoCosto.create2', compact('rubros', 'id_obra', 'obras', 'planos'));
     }
 
     /**
@@ -53,32 +56,38 @@ class CalculoCostoController extends Controller
           // dd($request);
          // dd($request->all());
 
-        $asd = $request->submitCalculo;
-        dd($request->all());
-        dd($asd);
+        
+         // dd($request->all());
+        
+        if ($request->submitRubro) {
+            return "ENTRO POR CALCULO";
 
-        $rubrosDeObras = $request->all();
-        // dd($rubrosDeObras);
-         $existeObraConRubros = DB::table('obras_rubros')->where([
-                                                ['obra_id', '=', $id_obra]
-                                            ])->exists();
-         if ($existeObraConRubros) {
-            DB::table('obras_rubros')->where('obra_id', '=', $id_obra)->delete();
+            $rubrosDeObras = $request->all();
+            $existeObraConRubros = DB::table('obras_rubros')->where([
+                                                    ['obra_id', '=', $id_obra]
+                                                ])->exists();
+            if ($existeObraConRubros) {
+               DB::table('obras_rubros')->where('obra_id', '=', $id_obra)->delete();
 
-            foreach ($rubrosDeObras['checkRubroesAsignado'] as $rubrosObra) {
-                DB::table('obras_rubros')->insert([
-                    ['obra_id' => $id_obra, 'rubro_id' => $rubrosObra]
-                ]);
+               foreach ($rubrosDeObras['checkRubroesAsignado'] as $rubrosObra) {
+                   DB::table('obras_rubros')->insert([
+                       ['obra_id' => $id_obra, 'rubro_id' => $rubrosObra]
+                   ]);
+               }
             }
-         }
-         else
-         {
-            foreach ($rubrosDeObras['checkRubroesAsignado'] as $rubrosObra) {
-                DB::table('obras_rubros')->insert([
-                    ['obra_id' => $id_obra, 'rubro_id' => $rubrosObra]
-                ]);
+            else
+            {
+               foreach ($rubrosDeObras['checkRubroesAsignado'] as $rubrosObra) {
+                   DB::table('obras_rubros')->insert([
+                       ['obra_id' => $id_obra, 'rubro_id' => $rubrosObra]
+                   ]);
+               }
             }
-         }
+        }
+        elseif ($request->submitCalculo) {
+            return "ENTRO POR CALCULO";
+        }
+
     }
 
     /**

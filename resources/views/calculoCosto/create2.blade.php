@@ -17,6 +17,16 @@
 					{{csrf_field()}}
 					<dir></dir>
 
+					<!--Check de lo splanos -->
+						  <label class="form-label">Planos de la obra {{$obras->nombre_proyecto}}</label>
+					<div class="form-check form-check-inline">
+					@foreach ($planos as $plano)
+						{{-- <input type="checkbox" class="form-check-input" id="{{$plano->id}}"> --}}
+						<input type="radio" name="{{$plano->id}}" value="{{$plano->id}}"> 
+						<label class="form-check-label" for="{{$plano->id}}">{{$plano->nombre}}</label>
+					@endforeach
+					</div>
+
 					<ul class="nav nav-tabs" id="myTab" role="tablist">
 						{{-- Primera pestaña --}}
 						<li class="nav-item">

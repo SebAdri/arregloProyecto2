@@ -58,7 +58,7 @@
 </div>
 <div class="row">
 	<div class="col-md-4 col-md-offset-4" style="margin-top: 10px">
-		<button type="submit" name="submitCalculo" class="btn button-primary">Guardar</button>
+		<button type="submit" name="submitCalculo" value="3" class="btn button-primary">Guardar</button>
 		<a class="btn button-primary" href="{{ route('calculoCosto.create') }}">Cancelar</a>
 		<button type="button" class="btn button-primary" id="volver" name="button">Volver</button>
 	</div>

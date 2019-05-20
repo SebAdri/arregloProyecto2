@@ -13,19 +13,9 @@
 					</div>
 				</div>
 
-				<form method="POST" action="{{ route('calculoCosto.store', $id_obra) }}">
+				<form method="POST" action="{{ route('calculoCosto.store') }}">
 					{{csrf_field()}}
 					<dir></dir>
-
-					<!--Check de lo splanos -->
-						  <label class="form-label">Planos de la obra {{$obras->nombre_proyecto}}</label>
-					<div class="form-check form-check-inline">
-					@foreach ($planos as $plano)
-						{{-- <input type="checkbox" class="form-check-input" id="{{$plano->id}}"> --}}
-						<input type="radio" name="{{$plano->id}}" value="{{$plano->id}}"> 
-						<label class="form-check-label" for="{{$plano->id}}">{{$plano->nombre}}</label>
-					@endforeach
-					</div>
 
 					<ul class="nav nav-tabs" id="myTab" role="tablist">
 						{{-- Primera pestaña --}}
@@ -43,6 +33,16 @@
 						<div class="tab-pane fade in active" id="rubros" role="tabpanel" aria-labelledby="rubros-tab">
 							{{-- <div class="tab-pane fade show active" id="rubros" role="tabpanel" aria-labelledby="rubros-tab"> --}}
 								<div class="panel-body">
+									<!--Check de lo splanos -->
+									<label class="form-label">Planos de la obra {{$obras->nombre_proyecto}}</label>
+									<div class="form-check form-check-inline">
+									@foreach ($planos as $plano)
+										{{-- <input type="checkbox" class="form-check-input" id="{{$plano->id}}"> --}}
+										<input type="radio" name="plano_seleccionado" value="{{$plano->id}}"> 
+										<label class="form-check-label" for="{{$plano->id}}">{{$plano->nombre}}</label>
+									@endforeach
+									</div>
+									<br></br>
 									{{-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name"> --}}
 									@include('calculoCosto.partials.rubro-part2')
 								</div>

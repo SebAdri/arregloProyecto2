@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Obra;
 use App\Cliente;
 use App\Empleado;
+// prueba para agregar modelos para avance
+use App\Rubro;
+//
 
 class ObrasController extends Controller
 {
@@ -17,13 +20,17 @@ class ObrasController extends Controller
 
     function __construct()
     {
-        $this->middleware(['auth', 'roles:obras']);
+        // $this->middleware(['auth', 'roles:obras']);
 
     }
     public function index()
     {
+        $rubros = Rubro::where('estado',1)->get();
+        $id_obra = 2;
+        $obras = Obra::find($id_obra);
+        $planos = $obras->planos;
              
-        //      
+        return view('obras.homeObra', compact('rubros', 'id_obra', 'obras', 'planos'));
     }
 
     /**
@@ -60,6 +67,7 @@ class ObrasController extends Controller
      */
     public function show($id) //muestra empleados de obra
     {
+        // dd($id);
         $empleadosObras = Obra::find($id)->empleados()->get();
         $obra = Obra::find($id);
         $empleados = Empleado::all();

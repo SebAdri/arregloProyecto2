@@ -106,6 +106,18 @@
 
 $(document).ready(function() {
 	var dt = $('#tablaRubros').DataTable({
+		language: {
+                	"search": "Buscar:",
+                	"info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+        			"infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+        			"lengthMenu":     "Mostrar _MENU_ registros",
+        			"paginate": {
+            			"first": "Primero",
+            			"last": "Último",
+            			"next": "Siguiente",
+            			"previous": "Anterior"
+        			}
+            	},
 		"processing": true,
         // "serverSide": true,
         "ajax": "{{route('jsonRubrosMateriales')}}",

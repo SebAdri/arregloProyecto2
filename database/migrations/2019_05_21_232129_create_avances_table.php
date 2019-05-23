@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePlanosRubrosTable extends Migration
+class CreateAvancesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreatePlanosRubrosTable extends Migration
      */
     public function up()
     {
-        Schema::create('planos_rubros', function (Blueprint $table) {
+        Schema::create('avances', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('plano_id');
             $table->integer('rubro_id');
-            $table->integer('area')->nullable();
-            
+            $table->integer('progreso');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreatePlanosRubrosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('planos_rubros');
+        Schema::dropIfExists('avances');
     }
 }

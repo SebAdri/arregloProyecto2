@@ -39,7 +39,11 @@
  												<input class="form-control" type="text" value="{{$rubrosObra->pivot->progreso}}" id="inputProgreso_{{$rubrosObra->pivot->progreso}}" name="inputProgreso[{{$plano->id}}-{{$rubrosObra->id}}]">
  											</div>
  										</td>
- 										<td>{{'Mostrar con una barra el progreso'}}</td>
+ 										<td>
+ 											<div class="progress">
+											  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="{{4/$rubrosObra->pivot->area}}" aria-valuemin="0" aria-valuemax="100" style="width: 75%">{{round(4/$rubrosObra->pivot->area,2)*100}}%</div>
+											</div>
+ 										</td>
  									</tr>
  									@endforeach
  								</tbody>

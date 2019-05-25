@@ -141,12 +141,6 @@ $(document).ready(function() {
         	},
         	width: "5%"
         },
-            // { "data": "Elegir" },
-            // { "data": "Nro" },
-            // { "data": "Rubro" },
-            // { "data": "Mano de Obra" },
-            // { "data": "Unidad" }
-            // { "data": "Elegir" },
             { "data": "id" },
             { "data": "nombre" },
             { "data": "mano_obra" },
@@ -185,80 +179,26 @@ $(document).ready(function() {
 
     // On each draw, loop over the `detailRows` array and show any child rows
     dt.on( 'draw', function () {
-    	$.each( detailRows, function ( i, id ) {
-    		$('#'+id+' td.details-control').trigger( 'click' );
-    	} );
-    } );
-} );
+	    	$.each( detailRows, function ( i, id ) {
+	    		$('#'+id+' td.details-control').trigger( 'click' );
+	    	} );
+	    } );
+	} );
 
+	$('#tablaRubros body').on('keyup', function(){
+		var calculo = $("#tablaCalculos").val();
+		var tr = $(this).closest('tr');
+    	var row = dt.row( tr );
+    	console.log(calculo);
+    	console.log(tr);
+    	console.log(row);
+		
+	})
 
-
-	// $(document).ready(function(response) {
-	// 	var t = $('#tablaRubros').DataTable({	
-	// 		// "processing": true,
- //   //          "serverSide": true,
-	// 		"ordering": false,
-	// 		"ajax":{
-    			// url: "route('prueba')",
- //    			type: "GET",
-	// 		},  
-	// 		"columns": [
-	// 		{
-	// 			"className": "details-control",
-	// 			"orderable": false,
-	// 			"data": null,
-	// 			"defaultContent": ""
-	// 		},
-	// 		{ "data": "Elegir"},
-	// 		{ "data": "Nro"},
-	// 		{ "data": "Nombre Rubro" },
-	// 		{ "data": "Familia" },
-	// 		// { "data": "salida" },
-	// 		// { "data": "m_unidad_medida" },
-
-	// 		],
-	// 	});
-	// 		// console.log(t.columns);
-
-	// var detailRows = [];
-
-	// $('#recibidos tbody').on( 'click', 'tr td.details-control', function () {
-	// 	var tr = $(this).closest('tr');
-	// 	var row = t.row( tr );
-	// 	var idx = $.inArray( tr.attr('id'), detailRows );
-	// 	if ( row.child.isShown() ) {
-	// 		tr.removeClass('details');
-	// 		row.child.hide();
-
- //            // Remove from the 'open' array
- //            detailRows.splice( idx, 1 );
- //        }
- //        else {
- //        	tr.addClass('details');
- //        	console.log( row.index());
- //        	row.child( format( row.data() ) ).show();
- //            // Add to the 'open' array
- //            if ( idx === -1 ) {
- //            	detailRows.push( tr.attr('id') );
- //            }
- //        }
- //    } );
-
- //    // On each draw, loop over the `detailRows` array and show any child rows
- //    t.on( 'draw', function () {
- //    	$.each( detailRows, function ( i, id ) {
- //    		$('#'+id+' td.details-control').trigger( 'click' );
- //    	} );
- //    } );	
- //    function format ( d ) {
- //    	// console.log(d);
- //    	var text ='';
- //    	for (i = 0; i < d.materiales.length; i++) { 
-	// 	  text += d.materiales[i].m_descripcion + "<br>";
-	// 	}
- //    	return 'el detalle es ' + text ;
- //    }	
-// })
+	$('#tablaCalculos tr').each(function() {
+    var customerId = $(this).find("inputSuperficiePlano").html(); 
+    console.log(customerId);   
+ });
 
 </script>
 @endpush

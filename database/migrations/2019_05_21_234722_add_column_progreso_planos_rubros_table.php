@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateObrasRubrosTable extends Migration
+class AddColumnProgresoPlanosRubrosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateObrasRubrosTable extends Migration
      */
     public function up()
     {
-        Schema::create('obras_rubros', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('obra_id');
-            $table->integer('rubro_id');
-            $table->integer('area');
-            $table->timestamps();
+        Schema::table('planos_rubros', function (Blueprint $table) {
+            $table->integer('progreso')->nullable();
         });
     }
 
@@ -29,6 +25,8 @@ class CreateObrasRubrosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('obras_rubros');
+        Schema::table('planos_rubros', function (Blueprint $table) {
+            $table->dropColumn('progreso');
+        });
     }
 }

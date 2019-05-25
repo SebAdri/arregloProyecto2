@@ -169,11 +169,11 @@ class PermissionTableSeeder extends Seeder
 
     // (19, 'addEmpl', 'agregar empleados', 'c', '3', 20, '2018-10-03 21:14:50', '2018-10-03 21:14:56'),
         $permission = new Permission;
-        $permission->permission_name = 'addEmpl';
-        $permission->permission_description = 'agregar empleados';
+        $permission->permission_name = 'empl';
+        $permission->permission_description = 'empleados';
         $permission->permission_widget = 'c';
         $permission->permission_level = '3';
-        $permission->id_padre = 20;
+        $permission->id_padre = 18;
         $permission->save();
 
     // (20, 'emplMant', 'mantenimiento empleado', 'b', '2', 18, '2018-10-03 21:39:12', '2018-10-07 11:52:25'),

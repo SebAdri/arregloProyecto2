@@ -15,11 +15,11 @@ class CreateMaterialRubroTable extends Migration
     {
         Schema::create('material_rubro', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('obra_id');
+            $table->integer('plano_id');
             $table->integer('rubro_id');
             $table->integer('material_id');
             $table->float('cantidad_material');
-            $table->float('costo_x_material');
+            //$table->float('costo_x_material');
             $table->timestamps();
         });
     }

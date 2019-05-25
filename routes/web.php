@@ -96,5 +96,3 @@ Route::resource('calculoCosto', 'CalculoCostoController');
 
 Route::post('calculoCosto/{id}', ['as' => 'calculoCosto.store', 'uses' => 'CalculoCostoController@store']);
 
-//REST Avanced
-Route::resource('avance', 'AvanceController');

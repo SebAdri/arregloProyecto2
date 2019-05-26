@@ -27,6 +27,9 @@ Route::resource('documentos', 'DocumentosController');
 
 //REST Obras
 Route::resource('obras', 'ObrasController');
+//REST Proyectos
+Route::resource('proyecto', 'ProyectoController');
+Route::get('calculoCosto/{id}', ['as'=>'calculoCosto', 'uses' => 'ProyectoController@calculoCostos']);
 
 //REST Rubros
 Route::resource('rubros', 'RubrosController');
@@ -62,14 +65,18 @@ Route::get('desvincular/{obra}/{id}', ['as' => 'desvincular', 'uses'=>'ObrasCont
 
 Route::resource('almacen', 'AlmacenController');
 Route::post('updatePedido', ['as'=>'updatePedido' , 'uses' =>  'AlmacenController@updatePedido']);
-Route::post('almacenMateriales', ['as'=>'almacenMateriales', 'uses' => 'searchController@getMateriales']);
+Route::get('comprasRealizadas', ['as'=>'comprasRealizadas' , 'uses' =>  'AlmacenController@comprasRealizadas']);
+Route::get('pedidosRecibidos', ['as'=>'pedidosRecibidos' , 'uses' =>  'AlmacenController@pedidosRecibidos']);
+Route::get('pedidosEnviados', ['as'=>'pedidosEnviados' , 'uses' =>  'AlmacenController@pedidosEnviados']);
+Route::get('recepcionPedido', ['as'=>'recepcionPedido' , 'uses' =>  'AlmacenController@recepcionPedido']);
+Route::get('recepcionPedido', ['as'=>'recepcionPedido' , 'uses' =>  'AlmacenController@recepcionPedido']);
+Route::get('recepcionPedido', ['as'=>'recepcionPedido' , 'uses' =>  'AlmacenController@recepcionPedido']);
+Route::get('recepcionCompra', ['as'=>'recepcionCompra' , 'uses' =>  'AlmacenController@recepcionCompra']);
+Route::post('aceptarPedido', ['as'=>'aceptarPedido' , 'uses' =>  'AlmacenController@aceptarPedido']);
+Route::post('gestionPedido', ['as'=>'gestionPedido' , 'uses' =>  'AlmacenController@gestionPedido']);
 
-
-Route::resource('almacen', 'AlmacenController');
-Route::post('almacenMateriales' , ['as'=> 'almacenMateriales', 'uses' => 'AlmacenController@getMateriales']);
-
-
-Route::resource('almacen', 'AlmacenController');
+Route::post('registrarEgresos', ['as'=>'registrarEgresos' , 'uses' =>  'AlmacenController@registrarEgresos']);
+Route::post('generarOrdenCompra', ['as'=>'generarOrdenCompra' , 'uses' =>  'AlmacenController@generarOrdenCompra']);
 Route::post('almacenMateriales' , ['as'=> 'almacenMateriales', 'uses' => 'AlmacenController@getMateriales']);
 
 //REST Almacenes

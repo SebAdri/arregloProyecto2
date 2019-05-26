@@ -10,8 +10,8 @@ h1
  color: #575757;
  text-align: center; 
 } 
-#aviso{
-  background: #FF896F;
+#aviso td{
+  color: red;
 }
 label 
 { 

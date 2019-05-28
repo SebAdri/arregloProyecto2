@@ -68,7 +68,7 @@
           <br>
           <button type="button" class="btn button-primary" id="add" name="button">Agregar</button>
           {{-- <button type="button" class="btn button-primary"  name="button">Cancelar</button> --}}
-          <a class="btn button-primary" href="{{ route('facturasGestion.create') }}">Cancelar</a>
+          <a class="btn button-primary" href="{{ route('facturas.create') }}">Cancelar</a>
           <button type="button" class="btn button-primary" name="button">Imprimir Facturar</button>
 
           <button type="button" class="btn button-primary" name="button">Generar Factura</button>

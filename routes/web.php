@@ -87,7 +87,7 @@ Route::resource('almacenGeneral', 'AlmacenGeneralController');
 
 
 //REST Facturas
-// Route::resource('facturasGestion', 'FacturasGestionController');
+Route::resource('facturas', 'FacturasController');
 
 //REST Tipos de documentos
 Route::resource('tipos_documentos', 'TiposDocumentosController');

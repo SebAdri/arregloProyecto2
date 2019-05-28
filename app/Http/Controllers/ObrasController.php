@@ -25,12 +25,7 @@ class ObrasController extends Controller
     }
     public function index()
     {
-        $rubros = Rubro::where('estado',1)->get();
-        $id_obra = 2;
-        $obras = Obra::find($id_obra);
-        $planos = $obras->planos;
-             
-        return view('obras.homeObra', compact('rubros', 'id_obra', 'obras', 'planos'));
+       //
     }
 
     /**
@@ -40,7 +35,7 @@ class ObrasController extends Controller
      */
     public function create()
     {
-        $obras = Obra::where('id', '>', 1)->get();
+        $obras = Obra::all();
         $clientes = Cliente::all();
         
         return view('obras.create', compact('obras','clientes'));
@@ -65,14 +60,14 @@ class ObrasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id) //muestra empleados de obra
+    public function show($id) 
     {
-        // dd($id);
-        $empleadosObras = Obra::find($id)->empleados()->get();
-        $obra = Obra::find($id);
-        $empleados = Empleado::all();
-
-        return view('obras.show', compact('empleadosObras','obra','empleados'));    
+        $rubros = Rubro::where('estado',1)->get();
+        $obras = Obra::find($id);
+        $planos = $obras->planos;
+             
+        return view('obras.homeObra', compact('rubros', 'obras', 'planos'));
+        // dd($id);    
     }
 
     /**
@@ -89,6 +84,8 @@ class ObrasController extends Controller
         return view('obras.create', compact('obra','clientes'));
          // return view('obras.create', compact('clientes'));
     }
+
+  
 
     /**
      * Update the specified resource in storage.

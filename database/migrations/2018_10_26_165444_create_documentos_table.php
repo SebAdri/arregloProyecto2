@@ -18,7 +18,6 @@ class CreateDocumentosTable extends Migration
             $table->string('nombre');
             $table->string('tipo_doc_id');
             $table->date('fecha_emision');
-            $table->string('ubicacion')->nullable();
             $table->integer('obra_id');
             $table->timestamps();
         });

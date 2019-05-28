@@ -3,17 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Documento;
-use App\TipoDocumento;
-use App\Obra;
 
-class DocumentosController extends Controller
+class FacturasController extends Controller
 {
-    function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -31,7 +23,7 @@ class DocumentosController extends Controller
      */
     public function create()
     {
-        // 
+        return view('facturas.create');
     }
 
     /**
@@ -41,11 +33,8 @@ class DocumentosController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {       
-        // dd($request->all());
-        Documento::create($request->all());
-        
-        return redirect()->route('documentos.show', $request->obra_id); 
+    {
+        //
     }
 
     /**
@@ -54,13 +43,9 @@ class DocumentosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id_obra)
+    public function show($id)
     {
-        $tipo_documentos = TipoDocumento::all();
-        $documentos = Documento::all();
-        $obraDocumentos[] = Obra::findOrFail($id_obra)->documentos()->get();
-
-        return view('documentos.create', compact('obraDocumentos', 'id_obra', 'tipo_documentos'));
+        //
     }
 
     /**
@@ -71,9 +56,7 @@ class DocumentosController extends Controller
      */
     public function edit($id)
     {
-        $documento = Documento::findOrFail($id);
-        
-        return view('documentos.edit', compact('documento'));
+        //
     }
 
     /**
@@ -85,10 +68,7 @@ class DocumentosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $documento = Documento::findOrFail($id);
-        $documento->update($request->all());
-
-        return redirect()->route('documentos.show', $request->obra_id); 
+        //
     }
 
     /**

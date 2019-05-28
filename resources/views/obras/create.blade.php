@@ -39,9 +39,6 @@
             <td>{{ $obra->fecha_inicio }}</td>
             <td>
               <a><button type="button" title="Editar"  data-toggle="modal" data-target="#editar{{ $obra->id }}" href="{{ route('obras.edit', $obra->id) }}" class="btn button-primary btn-rounded btn-sm my-0"><i class="fa fa-edit" style="font-size:20px;"></i></button></a>
-              <a href="{{ route('documentos.show', $obra->id) }}"><button type="button" title="Documentos" class="btn button-primary btn-rounded btn-sm my-0"><i class="fa fa-file" style="font-size:20px"></i></button></a>
-              <a href="{{ route('obras.show', $obra->id) }}"><button type="button" title="Empleados" class="btn button-primary btn-rounded btn-sm my-0"><i class="fa fa-users" style="font-size:20px;"></i></button></a>
-              <a href="{{route('almacen.show', $obra->id)}}"> <button type="button" title="Almacen de la obra" class="btn button-primary btn-rounded btn-sm my-0"><i class="fa fa-wrench" style="font-size:20px;"></i></button></a>
             </td>
           </tr>
 
@@ -169,7 +166,7 @@
                 <div class="col-md-5 col-md-offset-4">
                   <label for="Coste" style="margin-top: 10px">Cliente</label>
                   <div class="form-group">
-                  <select class="form-control" id="cliente_id" name="cliente_id">
+                  <select class="form-control" id="cliente_id" name="cliente_id" disabled="disabled">
                       @foreach ($clientes as $cliente) 
                         @if($cliente->estado == 1)
                           <option value={{$cliente->id}}>{{$cliente->nombre}}</option> 
@@ -177,15 +174,13 @@
                       @endforeach
                   </select>
                 </div>
-
-
                 </div>
               </div>
 
               <div class="row">
                 <div class="col-md-5 col-md-offset-4">
                   <label for="minimo" style="margin-top: 10px">Fecha Inicio</label>
-                  <input type="date"class="form-control {{ $errors->has('fecha_inicio') ? ' is-invalid' : '' }}" name="fecha_inicio" value="{{$obra->fecha_inicio}}" required>
+                  <input type="date"class="form-control {{ $errors->has('fecha_inicio') ? ' is-invalid' : '' }}" name="fecha_inicio" value="{{$obra->fecha_inicio}}" disabled="disabled">
                     @if ($errors->has('fecha_inicio'))
                       <span class="invalid-feedback errors" role="alert">
                         <strong>{{ $errors->first('fecha_inicio') }}</strong>

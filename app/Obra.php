@@ -39,4 +39,10 @@ class Obra extends Model
     {
         return $this->hasMany(Plano::class);
     }
+    function bandejaEnviado(){
+        return $this->hasMany(Pedido::Class, 'id_obra_solicitante');
+    }
+    function bandejaEntrada(){
+        return $this->hasMany(Pedido::Class, 'id_obra_destino');
+    }
 }

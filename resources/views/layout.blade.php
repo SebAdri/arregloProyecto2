@@ -13,8 +13,10 @@
 <link rel="stylesheet" type="text/css" href="{{asset("css/dataTables.min.css")}}">
 <link rel="stylesheet" href="{{asset("css/select2.min.css")}}" rel="stylesheet" />
 <link rel="stylesheet" href="{{asset("css/bootstrap-toggle.min.css")}}" rel="stylesheet" />
+
+<link rel="canonical" href="https://getbootstrap.com/docs/4.3/components/progress/">
 <!-- Ionicons -->
-<link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
+{{-- <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css"> --}}
 
 
 {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js">

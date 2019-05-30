@@ -138,8 +138,53 @@
 
   </div>
 
+@push('scripts')
+<script type="text/javascript">
+	$(document).ready(function() {
+		calcular_porcentaje();
+
+		$('.produccion').keyup(function(){
+			let produccion = parseInt($(this).val());
+			let area = parseInt($(this).parent().parent().find('.area').first().text());
+			let porcentaje = $(this).parent().parent().find('.porcentaje').first();
+			let porcentaje2 = $(this).parent().children().find('.porcentaje').first().val();
+			console.log(produccion +' '+ area +' '+ porcentaje2);
+			// porcentaje.val((area/produccion)*100);
+			porcentaje.css('width',((produccion/area)*100).toFixed(1)+'%');
+			porcentaje.text(((produccion/area)*100).toFixed(1) + '%');
+
+			calcular_porcentaje();
+		});
+
+		function calcular_porcentaje()
+		{
+			var sumProd = 0;
+			var sumArea = 0;
+			$(".produccion").each(function() {
+				sumProd += Number($(this).val());
+			});
+			$(".area").each(function() {
+				sumArea += Number($(this).text());
+			});
+			$(".total_porcentaje").val(((sumProd/sumArea)*100).toFixed(1));
+			$(".total_porcentaje").text('TOTAL PORCENTAJE DEL AVANCE DE LA OBRA: '+((sumProd/sumArea)*100).toFixed(1) + '%');
+			// console.log('a ver' + sumProd);
+		}
+
+		$('#beneficio').keyup(function(){
+			let beneficio = parseInt($(this).val());
+			let iva = parseInt($("#iva").val());
+			let subtotal = parseInt($(".costo_sub_total_obra").text());
+			$("#costo_total_obra").val((parseInt($(".costo_sub_total_obra").text()) * (1+parseFloat($("#iva").val())))+parseInt($(this).val()));
+		});
+
+	});
+</script>
+@endpush
+
 @stop
 
 
 
 {{-- hasta aca --}}
+	

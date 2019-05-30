@@ -32,16 +32,22 @@ class Obra extends Model
     public function rubros()
     {
         return $this->belongsToMany(Rubro::class, 'obras_rubros')->withPivot('area');
-        // return $this->belongsToMany(Rubro::class, 'obras_rubros')->withPivot('dimension_uno', 'dimension_dos', 'dimension_tres', 'costo_obra_rubro');
     }
 
     public function planos()
     {
         return $this->hasMany(Plano::class);
     }
+
+    public function presupuesto()
+    {
+        return $this->hasOne(Presupuesto::class);
+    }
+
     function bandejaEnviado(){
         return $this->hasMany(Pedido::Class, 'id_obra_solicitante');
     }
+
     function bandejaEntrada(){
         return $this->hasMany(Pedido::Class, 'id_obra_destino');
     }

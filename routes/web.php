@@ -29,7 +29,7 @@ Route::resource('documentos', 'DocumentosController');
 Route::resource('obras', 'ObrasController');
 //REST Proyectos
 Route::resource('proyecto', 'ProyectoController');
-Route::get('calculoCosto/{id}', ['as'=>'calculoCosto', 'uses' => 'ProyectoController@calculoCostos']);
+// Route::get('calculoCosto/{id}', ['as'=>'calculoCosto', 'uses' => 'ProyectoController@calculoCostos']);
 
 //REST Rubros
 Route::resource('rubros', 'RubrosController');
@@ -102,7 +102,7 @@ Route::resource('tipos_documentos', 'TiposDocumentosController');
 Route::resource('calculoCosto', 'CalculoCostoController');
 
 
-Route::post('calculoCosto/{id}', ['as' => 'calculoCosto.store', 'uses' => 'CalculoCostoController@store']);
+// Route::post('calculoCosto/{id}', ['as' => 'calculoCosto.store', 'uses' => 'CalculoCostoController@store']);
 
 
 

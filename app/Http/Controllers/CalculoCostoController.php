@@ -8,6 +8,7 @@ use App\Rubro;
 use App\Material;
 use App\Obra;
 use App\Plano;
+use App\Presupuesto;
 
 class CalculoCostoController extends Controller
 {
@@ -32,8 +33,8 @@ class CalculoCostoController extends Controller
         $id_obra = 2;
         $obras = Obra::find($id_obra);
         $planos = $obras->planos;
+         // dd($rubros);
         // dd($obras->planos);
-        // dd($obras);
         // dd($obras->count());
         //json_encode($rubros);
         // $rubros = Rubro::Find(1);        
@@ -54,7 +55,7 @@ class CalculoCostoController extends Controller
          //$parameters = \Request::segment(2);
          // dd($id_obra);
           // dd($request);
-         // dd($request->all());
+          // dd($request->all());
 
          //dd(Input::get('plano_seleccionado'));
         
@@ -112,6 +113,31 @@ class CalculoCostoController extends Controller
                        return 'No existe plano y rubro';
                     }
             }
+
+            //Aqui guardamos el presupuesto
+            if (isset($request->beneficio) && isset($request->costo_total_obra)) {
+                $existePresupuestoConObra = DB::table('presupuestos')->where([
+                                                    ['obra_id', '=', $request->id_obra],
+                                                ])->exists();
+                if ($existePresupuestoConObra) {
+                    // dd($request->all());
+                    Presupuesto::where('obra_id', $request->id_obra)
+                              ->update(['iva' => $request->iva, 
+                                       'beneficio' => $request->beneficio,
+                                       'costo_total_obra' => $request->costo_total_obra]);
+                }
+                else
+                {
+                    $presupuesto = new Presupuesto;
+                    $presupuesto->obra_id = $request->id_obra;
+                    $presupuesto->iva = $request->iva;
+                    $presupuesto->beneficio = $request->beneficio;
+                    $presupuesto->costo_total_obra = $request->costo_total_obra;
+                    $presupuesto->save();
+                }
+            }
+            
+
         }
 
         return redirect()->route('calculoCosto.create');

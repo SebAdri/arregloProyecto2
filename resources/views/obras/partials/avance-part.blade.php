@@ -31,17 +31,17 @@
  									@foreach($plano->rubros as $rubrosObra)
  									<tr>
  										<td>{{$rubrosObra->nombre}}</td>
- 										<td>
+ 										<td class="area">
  											{{$rubrosObra->pivot->area}}
  										</td>
  										<td>
- 											<div>
- 												<input class="form-control" type="text" value="{{$rubrosObra->pivot->progreso}}" id="inputProgreso_{{$rubrosObra->pivot->progreso}}" name="inputProgreso[{{$plano->id}}-{{$rubrosObra->id}}]">
- 											</div>
+ 											{{-- <div> --}}
+ 												<input class="produccion" type="text" value="{{$rubrosObra->pivot->progreso}}" id="inputProgreso_{{$rubrosObra->pivot->progreso}}" name="inputProgreso[{{$plano->id}}-{{$rubrosObra->id}}]">
+ 											{{-- </div> --}}
  										</td>
  										<td>
  											<div class="progress">
-											  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="{{4/$rubrosObra->pivot->area}}" aria-valuemin="0" aria-valuemax="100" style="width: 75%">{{round(4/$rubrosObra->pivot->area,2)*100}}%</div>
+											  <div class="progress-bar progress-bar-striped progress-bar-animated porcentaje" role="progressbar" aria-valuenow="{{4/$rubrosObra->pivot->area}}" aria-valuemin="0" aria-valuemax="100" style="width: 75%">{{round(4/$rubrosObra->pivot->area,2)*100}}%</div>
 											</div>
  										</td>
  									</tr>
@@ -53,6 +53,16 @@
  				</tr>
  				@endforeach
  			</tbody>
+ 			<tfoot>
+			    <tr>
+			      <td>
+			      	<div class="progress" style="text-align: right">
+				      	<div class="progress-bar progress-bar-striped progress-bar-animated total_porcentaje" role="progressbar" aria-valuenow="{{4/$rubrosObra->pivot->area}}" aria-valuemin="0" aria-valuemax="100" style="width: 75%;">{{round(4/$rubrosObra->pivot->area,2)*100}}%
+				      	</div>
+			      	</div>
+			      </td>
+			    </tr>
+			</tfoot>
  		</table>
  	</div>
  </div>

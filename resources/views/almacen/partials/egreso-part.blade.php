@@ -5,25 +5,23 @@
 	<div class="panel-body">
 		<div class="col-md-12">
 			<div class="table-responsive mailbox-messages">
-				<table class="table table-responsive table-hover table-striped" id="compras" style="width: 100%">
+				<table class="table table-responsive table-hover table-striped" id="tEgresos" style="width: 100%">
 					<thead>
 						<tr>
 							<th></th>
 							<th>Cod. Compra</th>
 							<th>Proveedor</th>
 							<th>Fecha Compra</th>
-							<th>Fecha Recepcion</th>
 						</tr>
 					</thead>
 					<tbody>
 
-						@foreach ($compras as $compra)
+						@foreach ($egresos as $egreso)
 						<tr>
 							<th></th>
-							<td>{{$compra->id}}</td>
-							<td>{{$compra->proveedor->ruc}} {{$compra->proveedor->nombre}}</td>
-							<td>{{$compra->fecha_compra}}</td>
-							<td>{{$compra->fecha_recepcion}}</td>
+							<td>{{$egreso->id}}</td>
+							<td>{{$egreso->obra}}</td>
+							<td>{{$egreso->fecha_envio}}</td>
 
 						</tr>
 						@endforeach
@@ -37,12 +35,12 @@
 @push('scripts')
 <script type="text/javascript">
 	$(document).ready(function(response) {
-		var tCompra = $('#compras').DataTable({	
+		var tEgresos = $('#tEgresos').DataTable({	
 			"processing": false,
 			"serverSide": false,
 			"ordering": false,
 			"ajax":{
-				url: '{{route('comprasRealizadas')}}',
+				url: '{{route('egresosRealizados')}}',
 				type: "get",
 				data :{
 					obra :'{{$obra->id}}',	
@@ -56,18 +54,18 @@
 				"defaultContent": ""
 			},
 			{ "data": "id"},
-			{ "data": "proveedor.nombre"},
-			{ "data": "fecha_compra" },
-			{ "data": "fecha_recepcion" },
+			{ "data": "obra_solicitante"},
+			{ "data": "fecha_envio" },
+			// { "data": "fecha_recepcion" },
 			],
 		});
 			// console.log(t.columns);
 
 			var detailRows = [];
 
-			$('#compras tbody').on( 'click', 'tr td.details-control', function () {
+			$('#tEgresos tbody').on( 'click', 'tr td.details-control', function () {
 				var tr = $(this).closest('tr');
-				var row = tCompra.row( tr );
+				var row = tEgresos.row( tr );
 				var idx = $.inArray( tr.attr('id'), detailRows );
 				if ( row.child.isShown() ) {
 					tr.removeClass('details');
@@ -84,7 +82,7 @@
             if ( idx === -1 ) {
             	detailRows.push( tr.attr('id') );
             }
-            $('#dcompras tbody').on( 'click', '#recepCompra', function () {
+            $('#dEgresos tbody').on( 'click', '#recepCompra', function () {
 				// alert('se presiino');
 				var id = $('#recepenviado').val();
 				var material = row.data().materiales[id].id;
@@ -111,7 +109,7 @@
 					$("#message").show();
 					$("#message").hide(1500);
 					// location.reload();
-        			tCompra.ajax.reload();
+        			tEgresos.ajax.reload();
 				})
 				.fail(function(){
 					alert('ocurrio un error interno, contacte con Rolo');
@@ -123,7 +121,7 @@
     } );
 
     // On each draw, loop over the `detailRows` array and show any child rows
-    tCompra.on( 'draw', function () {
+    tEgresos.on( 'draw', function () {
     	$.each( detailRows, function ( i, id ) {
     		$('#'+id+' td.details-control').trigger( 'click' );
     	} );
@@ -132,15 +130,11 @@
     	// console.log(d);
     	var text ='';
     	text += '<div class="table-responsive">';
-    	text += '<table class="table table-responsive table-hover table-striped" id="dcompras" >';
+    	text += '<table class="table table-responsive table-hover table-striped" id="dEgresos" >';
     	text +='<thead>';
     	text +='<tr>';
-    	text +='<th>Materiales</th>'
-
 		text +='<th>Cantidad Solicitada</th>';
 		text +='<th>Cantidad Recibida</th>';
-		text +='<th>Cantidad Recibida</th>';
-		text +='<th>Accion</th>';
 		// // text +='	<th>Fecha Atencion</th>';
 		// // text +='	<th>Estado</th>';
 		text +='	</tr>';
@@ -150,13 +144,6 @@
 			text += '<tr>';
 			text += '<td>'+d.materiales[i].nombre_material + "</td>";
 			text += '<td>'+d.materiales[i].cantidad_solicitada + "</td>";
-			if (d.materiales[i].cantidad_recibida != null) {
-				text += '<td>'+d.materiales[i].cantidad_recibida + "</td>";
-
-			}else{
-				text += '<td><input type="text" onkeyup="format(this)" id="cantRecepCompra" name="cantRecepCompra" placeholder="Cantidad Recibida"></td>';
-				text += '<td><button type="button" id="recepCompra" name"recepCompra" class="btn btn-primary"><i class="fa fa-paper-plane-o"></i></button></td>';
-			}
 			text += '</tr>';
 		}
 		text+= '</tbody>';

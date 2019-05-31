@@ -42,7 +42,8 @@ class DocumentosController extends Controller
      */
     public function store(Request $request)
     {       
-        // dd($request->all());
+        $cuotas = $request->cuotas;
+        dd($cuotas);
         Documento::create($request->all());
         
         return redirect()->route('documentos.show', $request->obra_id); 

@@ -30,7 +30,7 @@
 									@include('almacen.partials.compra-part')
 								</div>
 								<div class="tab-pane fade" id="egreso">
-									<p>Egresos</p>
+									@include('almacen.partials.egreso-part')
 								</div>
 							</div>
 						</div>

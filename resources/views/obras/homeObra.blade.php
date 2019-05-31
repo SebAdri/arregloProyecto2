@@ -2,7 +2,8 @@
 
 @section('contenido')
 
-
+<body>
+	
 {{-- desde aca --}}
 
 <div class="row">
@@ -17,7 +18,7 @@
 					</div>
 				</div>
 
-				{{-- <form method="POST" action="{{ route('obra') }}"> --}}
+				<form method="POST" action="{{ route('avance.store') }}">
 					{{csrf_field()}}
 					<dir></dir>
 
@@ -127,7 +128,7 @@
 						
 
 					</div>
-				{{-- </form> --}}
+				</form>
 			</div>    
 
 		</div>
@@ -137,38 +138,72 @@
 </div>
 
   </div>
-
+      
+</body>
 @push('scripts')
 <script type="text/javascript">
 	$(document).ready(function() {
-		calcular_porcentaje();
+		calcular_porcentaje_final();
+		
 
 		$('.produccion').keyup(function(){
-			let produccion = parseInt($(this).val());
+			// alert('llego');
 			let area = parseInt($(this).parent().parent().find('.area').first().text());
+			let produccion = parseInt($(this).val());
 			let porcentaje = $(this).parent().parent().find('.porcentaje').first();
 			let porcentaje2 = $(this).parent().children().find('.porcentaje').first().val();
-			console.log(produccion +' '+ area +' '+ porcentaje2);
-			// porcentaje.val((area/produccion)*100);
-			porcentaje.css('width',((produccion/area)*100).toFixed(1)+'%');
-			porcentaje.text(((produccion/area)*100).toFixed(1) + '%');
 
-			calcular_porcentaje();
+			if (produccion != 0) {
+				console.log(produccion +' '+ area +' '+ porcentaje2);
+				// porcentaje.val((area/produccion)*100);
+				porcentaje.css('width',((produccion/area)*100).toFixed(1)+'%');
+				porcentaje.text(((produccion/area)*100).toFixed(1) + '%');
+
+				calcular_porcentaje_final();
+			}
+			else
+			{
+				porcentaje.css('width',(0).toFixed(1)+'%');
+				porcentaje.text(0 + '%');
+				
+			}
 		});
 
-		function calcular_porcentaje()
+
+		function calcular_porcentaje_final()
 		{
 			var sumProd = 0;
 			var sumArea = 0;
 			$(".produccion").each(function() {
 				sumProd += Number($(this).val());
+				if (Number($(this).val()) == 0) {
+					$(this).parent().parent().find('.porcentaje').first().css('width',(0).toFixed(1)+'%');
+					$(this).parent().parent().find('.porcentaje').first().text(0 + '%');
+				}
+				else
+				{
+					let area = parseInt($(this).parent().parent().find('.area').first().text());
+					let produccion = parseInt($(this).val());
+					console.log(Number($(this).val()));
+					let porcentaje = $(this).parent().parent().find('.porcentaje').first();
+					porcentaje.css('width',((produccion/area)*100).toFixed(1)+'%');
+					porcentaje.text(((produccion/area)*100).toFixed(1) + '%');			
+				}
+
 			});
 			$(".area").each(function() {
 				sumArea += Number($(this).text());
 			});
-			$(".total_porcentaje").val(((sumProd/sumArea)*100).toFixed(1));
-			$(".total_porcentaje").text('TOTAL PORCENTAJE DEL AVANCE DE LA OBRA: '+((sumProd/sumArea)*100).toFixed(1) + '%');
-			// console.log('a ver' + sumProd);
+			if (sumProd != 0) {
+				$(".total_porcentaje").css('width',((sumProd/sumArea)*100).toFixed(1) + '%');
+				$(".total_porcentaje").text('TOTAL PORCENTAJE DEL AVANCE DE LA OBRA: '+((sumProd/sumArea)*100).toFixed(1) + '%');
+			}
+			else
+			{
+				$(".total_porcentaje").css('width',(0).toFixed(1)+'%');
+				$(".total_porcentaje").text('TOTAL PORCENTAJE DEL AVANCE DE LA OBRA: '+0+ '%');
+			}
+
 		}
 
 		$('#beneficio').keyup(function(){

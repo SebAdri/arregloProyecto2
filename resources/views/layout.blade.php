@@ -13,16 +13,11 @@
 <link rel="stylesheet" type="text/css" href="{{asset("css/dataTables.min.css")}}">
 <link rel="stylesheet" href="{{asset("css/select2.min.css")}}" rel="stylesheet" />
 <link rel="stylesheet" href="{{asset("css/bootstrap-toggle.min.css")}}" rel="stylesheet" />
-
-<link rel="canonical" href="https://getbootstrap.com/docs/4.3/components/progress/">
 <!-- Ionicons -->
-{{-- <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css"> --}}
-
-
-{{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js">
-<link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.0/js/dataTables.select.min.js"> --}}
-
-
+<link rel="stylesheet" href="{{asset("bower_components/Ionicons/css/ionicons.min.css")}}" rel="stylesheet" />
+<link href="https://unpkg.com/ionicons@4.5.5/dist/css/ionicons.min.css" rel="stylesheet">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="{{asset("bower_components/font-awesome/css/font-awesome.min.css")}}" rel="stylesheet"/>
 
 
        @if (auth()->check())
@@ -135,6 +130,9 @@
       <script src="{{ asset('js/bootstrap-toggle.min.js') }}"></script>
       <script src="{{ asset('js/select2.min.js') }}"></script>
 
+      <script  src = "{{asset('https://unpkg.com/ionicons@4.5.5/dist/ionicons.js')}}" ></ script >
+      <script src="https://unpkg.com/ionicons@4.5.5/dist/ionicons.js"></script>
+
       <!-- Bootstrap Js CDN -->
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
       <script src="{{ asset('js/dataTables.bootstrap.min.js') }}"></script>
@@ -146,23 +144,5 @@
          });
        });
 
-       function myFunction(){
-          var input, filter, table, tr, td, i, txtValue;
-          input = document.getElementById("myInput");
-          filter = input.value.toUpperCase();
-          table = document.getElementById("tablaRubros");
-          tr = table.getElementsByTagName("tr");
-          for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[2];
-            if (td) {
-              txtValue = td.textContent || td.innerText;
-              if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-              } else {
-                tr[i].style.display = "none";
-              }
-            }       
-          }       
-       }
      </script>
      @stack('scripts')

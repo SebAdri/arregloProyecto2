@@ -13,9 +13,6 @@ class AjaxController extends Controller
         $obras = Obra::find($id_obra);
         $planos = $obras->planos[0]->rubros;
         //dd($planos);
-    	// $rubros = Rubro::where('estado',1)->get();
-    	//$rubros = $obras->planos->rubros;
-
         $data['data'] = array();
 
 
@@ -44,22 +41,6 @@ class AjaxController extends Controller
 	        }
         }
         return($data);
-        //return view('calculoCosto.create2', compact('rubros', 'id_obra', 'obras'));
-        // foreach ($bandejaEntrada as $loQueMePiden) {
-        //     $arrayAux = array();
-        //     $arrayAux['id'] = $loQueMePiden->id;
-        //     // dd($loQueMePiden->detallePedido);
-        //     foreach ($loQueMePiden->detallePedido as $detalle) {
-                
-        //         $arrayAux['materiales'][] = $detalle->materiales; 
-        //     }
-        //     $arrayAux['fecha_pedido'] = $loQueMePiden->fecha_pedido;
-        //     $arrayAux['fecha_recibido'] = $loQueMePiden->fecha_recibido;
-        //     $arrayAux['nombre_proyecto'] = $loQueMePiden->bandejaEnviado;
-        //     $arrayAux['observacion'] = $loQueMePiden->observacion;
-        //     // dd($loQueMePiden->bandejaEnviado);
-        //     $data['data'][]=$arrayAux;
-        // }
-        // return $data;
+
     }
 }

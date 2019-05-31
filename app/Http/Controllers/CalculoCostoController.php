@@ -91,7 +91,7 @@ class CalculoCostoController extends Controller
                  // dd(($request->all()) );
                  // dd($request->inputSuperficiePlano['planos'] );
                 // dd(array_keys($plano) );
-                $planos_rubros_areas = $request->inputSuperficiePlano;
+            $planos_rubros_areas = $request->inputSuperficiePlano;
             foreach (array_keys($planos_rubros_areas) as $plano_rubro_area) {
                     // dd($planos_rubros_areas[$plano_id]);
                     // dd($plano_rubro_area);

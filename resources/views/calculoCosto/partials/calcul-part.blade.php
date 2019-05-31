@@ -21,10 +21,10 @@
  							<table id="tablaCalculos" class="table table-condensed tabCalculos" style="border-collapse:collapse;">
  								<thead>
  									<tr>
- 										<th>Nombre del Rubro</th>
- 										<th>Costo del Rubro</th>
- 										<th>Superficie o Área</th>
- 										<th>Total Costo Producción</th>
+ 										<th style="width: 40%;">Nombre del Rubro</th>
+ 										<th style="width: 20%;">Costo del Rubro</th>
+ 										<th style="width: 20%;">Superficie o Área</th>
+ 										<th style="width: 20%;">Total Costo Producción</th>
  									</tr>
  								</thead>
  								<tbody>

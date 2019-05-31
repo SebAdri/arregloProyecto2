@@ -100,9 +100,8 @@ Route::resource('facturas', 'FacturasController');
 Route::resource('tipos_documentos', 'TiposDocumentosController');
 //REST Tipos de caclculo de costo de la obra
 Route::resource('calculoCosto', 'CalculoCostoController');
-
-
-// Route::post('calculoCosto/{id}', ['as' => 'calculoCosto.store', 'uses' => 'CalculoCostoController@store']);
+//REST del avance de la obra
+Route::resource('avance', 'AvanceController');
 
 
 

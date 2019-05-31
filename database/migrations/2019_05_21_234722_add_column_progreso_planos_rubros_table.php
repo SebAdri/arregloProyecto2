@@ -14,7 +14,7 @@ class AddColumnProgresoPlanosRubrosTable extends Migration
     public function up()
     {
         Schema::table('planos_rubros', function (Blueprint $table) {
-            $table->integer('progreso')->nullable();
+            $table->integer('progreso')->default(0);
         });
     }
 

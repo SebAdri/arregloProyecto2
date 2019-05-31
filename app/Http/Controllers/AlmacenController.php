@@ -101,7 +101,7 @@ class AlmacenController extends Controller
         $bandejaEnviado = $obra->bandejaEnviado()->get();
         $egresos = Egreso::where('obra_id', $id)->get();
         $materiales = Material::all();
-        return view('almacen.almacen', compact('obra', 'inventarioObra', 'bandejaEntrada', 'bandejaEnviado', 'materiales', 'obras', 'compras'));
+        return view('almacen.almacen', compact('obra', 'inventarioObra', 'bandejaEntrada', 'bandejaEnviado', 'materiales', 'obras', 'compras', 'egresos'));
     }
 
 
@@ -314,6 +314,28 @@ class AlmacenController extends Controller
         }
         // dd($data);
         return $data;
+    }
+    public function egresosRealizados (Request $request){
+        $egresos = Egreso::where('obra_id', $request->obra)->get();
+        // $compras = Compra::where('obra_id', 1)->get();
+        $data['data']=array();
+
+        foreach ($egresos as $egreso) {
+            $arrayAux = array();
+            $arrayAux['id'] = $egreso->id;
+            foreach ($egreso->detalleEgreso as $detalle) {
+                $arrayAux2['id']= $detalle->material->id;
+                $arrayAux2['nombre_material'] = $detalle->material->m_descripcion;
+                $arrayAux2['cantidad']= $detalle->cantidad_solicitada;
+                $arrayAux['materiales'][] = $arrayAux2;
+            }
+            $arrayAux['fecha_envio'] = $egreso->fecha_envio;
+            $arrayAux['obra_solicitante'] = $egreso->obra->nombre_proyecto;
+            $data['data'][]=$arrayAux;
+        }
+        // dd($data);
+        return $data;
+
     }
     function updatePedido(Request $request){    
         

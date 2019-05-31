@@ -70,7 +70,7 @@ Route::get('pedidosRecibidos', ['as'=>'pedidosRecibidos' , 'uses' =>  'AlmacenCo
 Route::get('pedidosEnviados', ['as'=>'pedidosEnviados' , 'uses' =>  'AlmacenController@pedidosEnviados']);
 Route::get('recepcionPedido', ['as'=>'recepcionPedido' , 'uses' =>  'AlmacenController@recepcionPedido']);
 Route::get('recepcionPedido', ['as'=>'recepcionPedido' , 'uses' =>  'AlmacenController@recepcionPedido']);
-Route::get('recepcionPedido', ['as'=>'recepcionPedido' , 'uses' =>  'AlmacenController@recepcionPedido']);
+Route::get('egresosRealizados', ['as'=>'egresosRealizados' , 'uses' =>  'AlmacenController@egresosRealizados']);
 Route::get('recepcionCompra', ['as'=>'recepcionCompra' , 'uses' =>  'AlmacenController@recepcionCompra']);
 Route::post('aceptarPedido', ['as'=>'aceptarPedido' , 'uses' =>  'AlmacenController@aceptarPedido']);
 Route::post('gestionPedido', ['as'=>'gestionPedido' , 'uses' =>  'AlmacenController@gestionPedido']);

@@ -41,7 +41,7 @@
  										</td>
  										<td>
  											<div class="progress">
-											  <div class="progress-bar progress-bar-striped progress-bar-animated porcentaje" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+											  <div class="progress-bar progress-bar-striped porcentaje" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
 											</div>
  										</td>
  									</tr>
@@ -57,7 +57,7 @@
 			    <tr>
 			      <td>
 			      	<div class="progress" style="text-align: right">
-				      	<div class="progress-bar progress-bar-striped progress-bar-animated total_porcentaje" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width: 75%;">
+				      	<div class="progress-bar progress-bar-striped total_porcentaje" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width: 75%;">
 				      	</div>
 			      	</div>
 			      </td>

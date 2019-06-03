@@ -34,13 +34,13 @@
 										<div class="small-box bg-green">
 											<div class="inner">
 												<h3>53<sup style="font-size: 20px">%</sup></h3>
-												<p>Avance</p>
+												<p style="color:white">Avance</p>
 											</div>
 											<div class="icon">
 												<i class="ion ion-stats-bars"></i>
 											</div>
 											{{-- <a class="nav-link active" id="rubros-tab" data-toggle="tab" href="#rubros" role="tab" aria-controls="rubros" aria-selected="true">Rubros</a> --}}
-											<a class="nav-link active" id="rubros-tab" data-toggle="tab" href="#rubros" role="tab" aria-controls="rubros" aria-selected="true" class="small-box-footer">Más info <i class="fa fa-arrow-circle-right"></i></a>
+											<a class="small-box-footer" id="rubros-tab" data-toggle="tab" href="#rubros" role="tab" aria-controls="rubros" aria-selected="true" class="small-box-footer">Más info <i class="fa fa-arrow-circle-right"></i></a>
 										</div>
 									</li>
 								</div>
@@ -51,13 +51,13 @@
 										<div class="small-box bg-yellow">
 											<div class="inner">
 												<h3>53<sup style="font-size: 20px">%</sup></h3>
-												<p>Almacen</p>
+												<p style="color:white">Almacen</p>
 											</div>
 											<div class="icon">
-												<i class="ion ion-stats-bars"></i>
+												<i class="ion ion-bag"></i>
 											</div>
 											{{-- <a class="nav-link active" id="rubros-tab" data-toggle="tab" href="#rubros" role="tab" aria-controls="rubros" aria-selected="true">Rubros</a> --}}
-											<a class="nav-link active" id="almacen-tab" data-toggle="tab" href="#almacen" role="tab" aria-controls="almcacen" aria-selected="true" class="small-box-footer">Más info <i class="fa fa-arrow-circle-right"></i></a>
+											<a class="small-box-footer" id="almacen-tab" data-toggle="tab" href="#almacen" role="tab" aria-controls="almcacen" aria-selected="true" class="small-box-footer">Más info <i class="fa fa-arrow-circle-right"></i></a>
 										</div>
 									</li>	
 								</div>
@@ -69,13 +69,13 @@
 										<div class="small-box bg-red">
 											<div class="inner">
 												<h3>53<sup style="font-size: 20px">%</sup></h3>
-												<p>Empleados</p>
+												<p style="color:white">Empleados</p>
 											</div>
 											<div class="icon">
-												<i class="ion ion-stats-bars"></i>
+												<i class="ion ion-person"></i>
 											</div>
 											{{-- <a class="nav-link active" id="rubros-tab" data-toggle="tab" href="#rubros" role="tab" aria-controls="rubros" aria-selected="true">Rubros</a> --}}
-											<a class="nav-link active" id="rubros-tab" data-toggle="tab" href="#rubros" role="tab" aria-controls="rubros" aria-selected="true" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+											<a class="small-box-footer" id="rubros-tab" data-toggle="tab" href="#rubros" role="tab" aria-controls="rubros" aria-selected="true" class="small-box-footer">Más info <i class="fa fa-arrow-circle-right"></i></a>
 										</div>
 									</li>
 								</div>
@@ -86,13 +86,13 @@
 										<div class="small-box bg-aqua">
 											<div class="inner">
 												<h3>53<sup style="font-size: 20px">%</sup></h3>
-												<p>Documentos</p>
+												<p style="color:white">Documentos</p>
 											</div>
 											<div class="icon">
 												<i class="ion ion-stats-bars"></i>
 											</div>
-											{{-- <a class="nav-link active" id="rubros-tab" data-toggle="tab" href="#rubros" role="tab" aria-controls="rubros" aria-selected="true">Rubros</a> --}}
-											<a class="nav-link active" id="rubros-tab" data-toggle="tab" href="#rubros" role="tab" aria-controls="rubros" aria-selected="true" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+											{{-- <a class="small-box-footer" id="rubros-tab" data-toggle="tab" href="#rubros" role="tab" aria-controls="rubros" aria-selected="true">Rubros</a> --}}
+											<a class="small-box-footer" id="rubros-tab" data-toggle="tab" href="#rubros" role="tab" aria-controls="rubros" aria-selected="true" class="small-box-footer">Más info <i class="fa fa-arrow-circle-right"></i></a>
 										</div>
 									</li>
 								</div>

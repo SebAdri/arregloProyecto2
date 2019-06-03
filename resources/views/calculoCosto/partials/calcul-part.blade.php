@@ -64,12 +64,21 @@
   <div class="panel panel-info">
     <div class="panel-heading">Ingrese los valores correspondiente al IVA y el Beneficio</div>  
     <div class="panel-body">
-    	<select name="iva" id="iva">
-		  <option value="0.05"> 5%</option>
-		  <option value="0.1"> 10%</option>
-		</select>
-    	<input type="text" name="beneficio" id="beneficio">
-    	<input type="text" name="costo_total_obra" id="costo_total_obra">
+    	<div class="input-field col s4">
+	    	<select name="iva" id="iva" value="{{$presupuestos->iva}}">
+			  <option value="0.05"> 5%</option>
+			  <option value="0.1"> 10%</option>
+			</select>
+			<label>IVA</label>
+		</div>
+		<div class="input-field col s4">
+    		<input type="text" name="beneficio" id="beneficio" value="{{$presupuestos->beneficio}}">
+    		<label>Beneficio</label>
+    	</div>
+    	<div class="input-field col s4">
+    		<input type="text" name="costo_total_obra" id="costo_total_obra" value="{{$presupuestos->costo_total_obra}}">
+    		<label class="active">Costo total de la obra</label>
+    	</div>
 	</div>
   </div>
 

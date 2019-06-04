@@ -25,7 +25,7 @@ class DocumentosController extends Controller
      */
     public function index()
     {
-        //
+        // agregando algo para probar y commitear
     }
 
     /**

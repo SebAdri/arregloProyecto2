@@ -33,6 +33,8 @@ class CalculoCostoController extends Controller
         $id_obra = 2;
         $obras = Obra::find($id_obra);
         $planos = $obras->planos;
+        $presupuestos = Presupuesto::where('obra_id', $id_obra)->get()[0];
+        // dd($presupuestos);
          // dd($rubros);
         // dd($obras->planos);
         // dd($obras->count());
@@ -41,7 +43,7 @@ class CalculoCostoController extends Controller
 
 
         //return $rubros->materiales()->get();
-        return view('calculoCosto.create2', compact('rubros', 'id_obra', 'obras', 'planos'));
+        return view('calculoCosto.create2', compact('rubros', 'id_obra', 'obras', 'planos', 'presupuestos'));
     }
 
     /**
@@ -62,7 +64,7 @@ class CalculoCostoController extends Controller
          // dd($request->plano_seleccionado);
         
         if ($request->submitRubro) {
-
+            // dd($request->all());
             $rubrosDeObras = $request->all();
             $existeObraConRubros = DB::table('planos_rubros')->where([
                                                     ['plano_id', '=', $request->plano_seleccionado]
@@ -140,7 +142,7 @@ class CalculoCostoController extends Controller
 
         }
 
-        return redirect()->route('calculoCosto.create');
+        return redirect()->route('documentos.create');
 
     }
 

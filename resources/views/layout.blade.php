@@ -15,9 +15,11 @@
 <link rel="stylesheet" href="{{asset("css/bootstrap-toggle.min.css")}}" rel="stylesheet" />
 <!-- Ionicons -->
 <link rel="stylesheet" href="{{asset("bower_components/Ionicons/css/ionicons.min.css")}}" rel="stylesheet" />
-<link href="https://unpkg.com/ionicons@4.5.5/dist/css/ionicons.min.css" rel="stylesheet">
+{{-- <link href="https://unpkg.com/ionicons@4.5.5/dist/css/ionicons.min.css" rel="stylesheet"> --}}
 <!-- Font Awesome -->
 <link rel="stylesheet" href="{{asset("bower_components/font-awesome/css/font-awesome.min.css")}}" rel="stylesheet"/>
+<!-- Compiled and minified CSS sacamos nomas mientras -->
+{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> --}}
 
 
        @if (auth()->check())
@@ -130,8 +132,9 @@
       <script src="{{ asset('js/bootstrap-toggle.min.js') }}"></script>
       <script src="{{ asset('js/select2.min.js') }}"></script>
 
-      <script  src = "{{asset('https://unpkg.com/ionicons@4.5.5/dist/ionicons.js')}}" ></ script >
-      <script src="https://unpkg.com/ionicons@4.5.5/dist/ionicons.js"></script>
+       <!-- Compiled and minified JavaScript sacamos nomas mientras -->
+
+      {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>             --}}
 
       <!-- Bootstrap Js CDN -->
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

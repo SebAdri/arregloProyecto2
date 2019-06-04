@@ -11,11 +11,32 @@ class AjaxController extends Controller
     public function jsonRubrosMateriales(){
         $id_obra = 2;
         $obras = Obra::find($id_obra);
-        $planos = $obras->planos[0]->rubros;
-        //dd($planos);
+        //$planos = $obras->planos[0]->rubros;
+        $rubros = Rubro::all();
+        // dd($obras->planos);
         $data['data'] = array();
 
 
+
+        foreach ($rubros as $rubro) {
+        	$arrayAux = array();
+        	$arrayAux['id'] = $rubro->id;
+        	$arrayAux['nombre'] = $rubro->nombre;
+        	$arrayAux['mano_obra'] = $rubro->mano_obra;
+        	$arrayAux['unidad_medida'] = $rubro->unidad_medida;
+        	$arrayAux['familia_rubro_id'] = $rubro->familia_rubro_id;
+        	$arrayAux['estado'] = $rubro->estado;
+        	foreach ($rubro->materiales as $materialRubro) {
+        		// return($rubro);
+        		$arrayAux['material'][] = $materialRubro;
+        	}
+        		// return($arrayAux);
+        	$data['data'][] = $arrayAux;
+        }
+        
+        return($data);
+
+        /* codigo que permite obtener todos los rubros de los planos de una obra
         foreach ($obras->planos as $plano) {
 	        foreach ($plano->rubros as $rubro) {
 	        	$arrayAux = array();
@@ -40,7 +61,7 @@ class AjaxController extends Controller
 	        	$data['data'][] = $arrayAux;
 	        }
         }
-        return($data);
+        return($data);*/
 
     }
 }

@@ -15,7 +15,8 @@ class Rubro extends Model
 
     public function materiales()
     {
-		return $this->belongsToMany(Material::class, 'material_rubro', 'material_id')->withPivot('cantidad_material');
+        return $this->belongsToMany(Material::class)->withPivot('cantidad_material');// al final dejo asi la relacion
+		// return $this->belongsToMany(Material::class, 'material_rubro', 'material_id')->withPivot('cantidad_material');//porque si dejo asi funciona rarola relacion. cuando se trae el primer rubro, y se trae los materiales del rubro. trae todos los materiales que sean igual
     }
     public function obras()
     {

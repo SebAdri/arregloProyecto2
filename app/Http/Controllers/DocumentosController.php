@@ -3,9 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\Documento;
 use App\TipoDocumento;
+use Illuminate\Support\Facades\DB;
+use App\Rubro;
+use App\Material;
 use App\Obra;
+use App\Plano;
+use App\Presupuesto;
 
 class DocumentosController extends Controller
 {
@@ -21,7 +27,7 @@ class DocumentosController extends Controller
      */
     public function index()
     {
-        //
+        // agregando algo para probar y commitear
     }
 
     /**
@@ -31,7 +37,13 @@ class DocumentosController extends Controller
      */
     public function create()
     {
-        // 
+        $rubros = Rubro::where('estado',1)->get();
+        $id_obra = 2;
+        $obras = Obra::find($id_obra);
+        $planos = $obras->planos;
+        $presupuestos = Presupuesto::where('obra_id', $id_obra)->get()[0];
+        
+        return view('documentos.create2', compact('rubros', 'id_obra', 'obras', 'planos', 'presupuestos'));
     }
 
     /**

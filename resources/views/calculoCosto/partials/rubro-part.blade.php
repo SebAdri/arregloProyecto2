@@ -1,6 +1,6 @@
  <div class="row">
 	<div class="table-responsive" >
-		<table id="tablaRubros" class="table table-condensed" style="border-collapse:collapse;">
+		<table id="tablaRubros" class="table table-condensed" style="border-collapse:collapse; width: 100%">
 
 			<thead>
 				<tr>

@@ -20,7 +20,7 @@
 			<li><a  data-toggle="tab" href="#compra"><i class="fa fa-inbox text-red"></i>Compras Realizadas<span class="label label-primary pull-right">@isset ($compras){{count($compras)}}@endisset</span></a></li>
 
 			<h5 class="text-bold">Egresos</h5>
-			<li><a data-toggle="tab" href="#egreso"><i class="fa fa-inbox text-red"></i>Mercaderias Salientes<span class="label label-primary pull-right">@isset ($compras){{count($compras)}}@endisset</span></a></li>									
+			<li><a data-toggle="tab" href="#egreso"><i class="fa fa-inbox text-red"></i>Mercaderias Salientes<span class="label label-primary pull-right">@isset ($egresos){{count($egresos)}}@endisset</span></a></li>									
 		</ul>
 	</div>
 </div>

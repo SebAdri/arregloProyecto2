@@ -124,7 +124,7 @@
 		var materiales = [];
 
 		for (i = 0; i <tRedactar.data().length; i++ ){
-			materiales.push(t.rows().data()[i]); 
+			materiales.push(tRedactar.rows().data()[i]); 
 		}
 		$.ajax({
 			headers: {

@@ -319,7 +319,7 @@ class AlmacenController extends Controller
         $egresos = Egreso::where('obra_id', $request->obra)->get();
         // $compras = Compra::where('obra_id', 1)->get();
         $data['data']=array();
-
+        echo count($egresos);
         foreach ($egresos as $egreso) {
             $arrayAux = array();
             $arrayAux['id'] = $egreso->id;
@@ -333,7 +333,8 @@ class AlmacenController extends Controller
             $arrayAux['obra_solicitante'] = $egreso->obra->nombre_proyecto;
             $data['data'][]=$arrayAux;
         }
-        // dd($data);
+        // dd($egresos);
+        dd($data);
         return $data;
 
     }

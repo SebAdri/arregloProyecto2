@@ -1,5 +1,5 @@
 
-<h2>Compras</h2>
+<h2>Egresos</h2>
 <div id="avisoRecepcionCompra"></div>
 <div class="panel panel-default">
 	<div class="panel-body">

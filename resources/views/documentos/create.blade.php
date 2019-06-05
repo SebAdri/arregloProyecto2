@@ -8,7 +8,7 @@
     <div class="row">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h1>Documentos</h1>
+          <h1>Contratos</h1>
         </div>
 
         <div class="panel-body">
@@ -53,7 +53,7 @@
             </div>
           </div>
 
-          <input type="hidden"class="form-control" name="obra_id" value={{$id_obra}}>
+          <input type="hidden"class="form-control" id="obra" name="obra_id" value={{$id_obra}}>
 
 
 
@@ -68,21 +68,28 @@
             <div class="row"><br></div>
 
             <div class="panel-heading">
-              <h4>Detalle</h4>
+              <h4>Detalles sobre el Pago</h4>
             </div>
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <label for="monto_total"> Monto de la Obra</label>
                 <input type="text" class="form-control numeric" id="monto" name="monto_total" value="1000000" disabled="disabled">
               </div>
-              <div class="col-md-4">
-                <label for="prod">Produccion</label>
-                <input type="text" class="form-control numeric" id="prod" name="prod" value="">
+              <div class="col-md-3">
+                <label for="porcentajePago">Porcentaje de Pago</label>
+                <input type="text" class="form-control numeric" name="porcentajePago" id="porcentajePago" value="" placeholder="Porcentaje de Pago ">
               </div>
-              <div class="col-md-4">
-                <span></span>
-                <button type="button"class="btn button-primary" id="addRow" title="Agregar"><i class="fa fa-plus" style="font-size:20px;"></i></button>
-                <button type="button"class="btn button-primary" id="rmvrow" title="Eliminar"><i class="fa fa-minus" style="font-size:20px;"></i></button>
+              <div class="col-md-3">
+                <label for="prod">Porcentaje de Produccion</label>
+                <input type="text" class="form-control numeric" id="prod" name="prod" value="" placeholder="Porcentaje de Produccion">
+              </div>
+              <div class="col-md-3">
+                <label>Acciones</label>
+                <div class="row">
+                  <button type="button"class="btn button-primary" id="addRow" title="Agregar"><i class="fa fa-plus" style="font-size:20px;"></i></button>
+                  <button type="button"class="btn button-primary" id="rmvrow" title="Eliminar"><i class="fa fa-minus" style="font-size:20px;"></i></button>
+                  
+                </div>
               </div>
             </div>
             <div class="row">
@@ -95,6 +102,7 @@
                   <th style="text-align: center;">Nro.</th>
                   <th style="text-align: center;">Saldo</th>
                   <th  style="text-align: center;">Monto pago</th>
+                  <th  style="text-align: center;">Pago(%)</th>
                   <th  style="text-align: center;">Producción(%)</th>
                   {{-- <th  style="text-align: center;"></th> --}}
                 </tr>
@@ -130,9 +138,10 @@
       var saldo = montoTotal;
 
       $('#addRow').on('click', function () {
-        var prod = Number($('#prod').val());
+        var porcentajePago = Number($('#porcentajePago').val());
         var porcentaje = 100;
-        saldo = saldo - montoTotal*(prod/100);
+        var produccion = Number($('#prod').val());
+        saldo = saldo - montoTotal*(porcentajePago/100);
         // for (var i = 0; i < (porcentaje/prod); i++) {
         //   monto = monto - montoTotal/(porcentaje/prod) ;
         //   t.row.add( [
@@ -153,13 +162,13 @@
         //   $('#monto').val(monto - monto*(prod/100));
         // }
 
-        if (montoTotal !='' && prod != '' ) {
+        if (montoTotal !='' && porcentajePago != '' ) {
           // saldo = saldo - montoTotal*(prod/100);
           t.row.add( [
             counter,
             saldo, 
-            montoTotal*(prod/100),
-            prod
+            montoTotal*(porcentajePago/100),
+            porcentajePago, produccion
             ] ).draw( false );
           // $('#monto').val(monto - monto*(prod/100));
           counter++;
@@ -170,6 +179,7 @@
         var nombreDoc = $('#nombreDoc').val();
         var fecha_emision = $('#fecha_emision').val();
         var tipo_documento = $('#tipo_documento_id').val();
+        var obra = $('#obra').val();
         var cuotas = [];
         // console.log(t.data());
         for (i = 0; i <t.data().length; i++ ){
@@ -186,6 +196,7 @@
             nombreDoc: nombreDoc,
             fecha_emision: fecha_emision,
             tipo_documento: tipo_documento,
+            obra: obra,
           },
           // dataType: 'json',
           // processData: false

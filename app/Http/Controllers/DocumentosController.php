@@ -42,8 +42,20 @@ class DocumentosController extends Controller
      */
     public function store(Request $request)
     {       
+        dd($request);
         $cuotas = $request->cuotas;
-        dd($cuotas);
+        $arrayCuotas = array();
+        foreach ($cuotas as $cuota) {
+            $arrayAux = array();
+            $arrayAux['nro_cuota'] = $cuota[0];
+            $arrayAux['saldo'] = $cuota[1];
+            $arrayAux['monto_pago'] = $cuota[2];
+            $arrayAux['porcentaje_pago'] = $cuota[3];
+            $arrayAux['porcentaje_obra'] = $cuota[4];
+            $arrayCuotas[] = $arrayAux;
+        }
+        $nombre_doc = $request->nombreDoc;
+        $fecha = $request->fecha_emision; 
         Documento::create($request->all());
         
         return redirect()->route('documentos.show', $request->obra_id); 

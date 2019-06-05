@@ -102,7 +102,9 @@ Route::resource('tipos_documentos', 'TiposDocumentosController');
 Route::resource('calculoCosto', 'CalculoCostoController');
 //REST del avance de la obra
 Route::resource('avance', 'AvanceController');
-
+//REST de los pagos
+Route::resource('pagos', 'PagoController');
+Route::post('getPago',['as'=> 'getPago', 'uses' => 'PagoController@getPagoObra'] );
 
 
 Route::get('jsonRubrosMateriales', ['as' => 'jsonRubrosMateriales', 'uses' => 'AjaxController@jsonRubrosMateriales']);

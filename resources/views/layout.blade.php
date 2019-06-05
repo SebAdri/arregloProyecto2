@@ -56,8 +56,16 @@
             <li>
               <a href="{{ route('subMant') }}"><i class="fa fa-address-card fa-2x"></i> Facturas</a>
             </li>
-            
             @endif
+            <li >
+              <a href="{{ route('pagos.index') }}">
+                <i class="fa fa-address-card"></i>
+                <span>Pagos</span>
+                <span class="pull-right-container">
+                  <i class="fa pull-right"></i>
+                </span>
+              </a>
+            </li>
             @if (auth()->user()->hasPermission(['mant']))
             {{-- <li>
               <a href="{{ route('subMant') }}"><i class="fa fa-cube fa-2x"></i> Mantenedores</a>

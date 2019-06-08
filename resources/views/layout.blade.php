@@ -80,6 +80,11 @@
             </li>
             @endif
             @if (auth()->user()->hasPermission(['mant']))
+            <li>
+              <a href="{{ route('subMant') }}"><i class="fa fa-address-card fa-2x"></i> Pagos</a>
+            </li>
+            @endif
+            @if (auth()->user()->hasPermission(['mant']))
             {{-- <li>
               <a href="{{ route('subMant') }}"><i class="fa fa-cube fa-2x"></i> Mantenedores</a>
             </li> --}}

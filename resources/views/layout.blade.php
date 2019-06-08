@@ -21,7 +21,6 @@
 <!-- Compiled and minified CSS sacamos nomas mientras -->
 {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> --}}
 
-
        @if (auth()->check())
        <div class="wrapper">
         <!-- Sidebar Holder -->

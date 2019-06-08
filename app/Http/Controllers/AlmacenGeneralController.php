@@ -104,7 +104,7 @@ class AlmacenGeneralController extends Controller
         $id_obra = $request->obra_id;
         //$cantidad_solicitada =$request->cantidad_solicitada;
         foreach ($heramientasAsignadas['checkHerramientasAsignado'] as $herramientasAsignado) {
-            $existeEnInventario = DB::table('inventario')->where([
+            $existeEnInventario = DB::table('inventarios')->where([
                                                 ['herramienta_id', '=', $herramientasAsignado],
                                                 ['obra_id', '=', $id_obra],
                                             ])->exists();
@@ -112,7 +112,7 @@ class AlmacenGeneralController extends Controller
             if ($existeEnInventario) {
 
                 //obtenemos el material en caso de que exista
-                //$mat = DB::table('inventario')->where([
+                //$mat = DB::table('inventarios')->where([
                 //                                ['herramienta_id', '=', $herramientasAsignado],
                 //                                ['obra_id', '=', $id_obra]
                 //                            ])->get();
@@ -126,7 +126,7 @@ class AlmacenGeneralController extends Controller
 
                 //$cantidad_actual = intval($mat[0]->cantidad_disponible) - intval($cantidad_solicitada);
                 //y actualizamosel registro en cuestion
-                $herramienta = DB::table('inventario')->where([
+                $herramienta = DB::table('inventarios')->where([
                                                ['herramienta_id', '=', $herramientasAsignado],
                                                ['obra_id', '=', $id_obra]
                                            ])->update(['obra_id' => $id_obra]);
@@ -134,7 +134,7 @@ class AlmacenGeneralController extends Controller
             else
             {
                 //en caso contrario insertamos
-                DB::table('inventario')->insert([
+                DB::table('inventarios')->insert([
                     ['herramienta_id' => $herramientasAsignado,
                      'obra_id' => $id_obra
                      //'cantidad_disponible' => $cantidad_solicitada
@@ -174,7 +174,7 @@ class AlmacenGeneralController extends Controller
         $id_obra = $request->obra_id;
         //$cantidad_solicitada =$request->cantidad_solicitada;
         foreach ($maquinariasAsignadas['checkMaquinariasAsignado'] as $maquinariasAsignado) {
-            $existeEnInventario = DB::table('inventario')->where([
+            $existeEnInventario = DB::table('inventarios')->where([
                                                 ['maquinaria_id', '=', $maquinariasAsignado],
                                                 ['obra_id', '=', $id_obra],
                                             ])->exists();
@@ -188,7 +188,6 @@ class AlmacenGeneralController extends Controller
                 //                            ])->get();
 
                 $maquinaria = Maquinaria::findOrFail($maquinariasAsignado);
-                $maquinaria->h_ubicacion = $id_obra;
                 $maquinaria->save();
                 //calculamos el nuevo stock
                 // dd($mat);
@@ -196,7 +195,7 @@ class AlmacenGeneralController extends Controller
 
                 //$cantidad_actual = intval($mat[0]->cantidad_disponible) - intval($cantidad_solicitada);
                 //y actualizamosel registro en cuestion
-                $maquinaria = DB::table('inventario')->where([
+                $maquinaria = DB::table('inventarios')->where([
                                                ['maquinaria_id', '=', $maquinariasAsignado],
                                                ['obra_id', '=', $id_obra]
                                            ])->update(['obra_id' => $id_obra]);
@@ -204,7 +203,7 @@ class AlmacenGeneralController extends Controller
             else
             {
                 //en caso contrario insertamos
-                DB::table('inventario')->insert([
+                DB::table('inventarios')->insert([
                     ['maquinaria_id' => $maquinariasAsignado,
                      'obra_id' => $id_obra
                      //'cantidad_disponible' => $cantidad_solicitada
@@ -213,7 +212,6 @@ class AlmacenGeneralController extends Controller
                 
                 //y actualizamos a tabla de herrramienta
                 $maquinaria = Maquinaria::findOrFail($maquinariasAsignado);
-                $maquinaria->h_ubicacion = $id_obra;
                 $maquinaria->save();
             }
         }
@@ -240,12 +238,12 @@ class AlmacenGeneralController extends Controller
 
     public function asignarMaterialObra(Request $request, $id)
     {
-        dd($request->all());
+         // dd($request->all());
         $materialesAsignadas = $request->all();
-        $id_obra = $request->obra_id;
+        $id_obra = $request->materialObra_id;
         $cantidad_solicitada =$request->cantidad_solicitada;
         foreach ($materialesAsignadas['checkMaterialesAsignado'] as $materialesAsignado) {
-            $existeEnInventario = DB::table('inventario')->where([
+            $existeEnInventario = DB::table('inventarios')->where([
                                                 ['material_id', '=', $materialesAsignado],
                                                 ['obra_id', '=', $id_obra],
                                             ])->exists();
@@ -253,7 +251,7 @@ class AlmacenGeneralController extends Controller
             if ($existeEnInventario) {
 
                 //obtenemos el material en caso de que exista
-                $mat = DB::table('inventario')->where([
+                $mat = DB::table('inventarios')->where([
                                                 ['material_id', '=', $materialesAsignado],
                                                 ['obra_id', '=', $id_obra],
                                             ])->get();
@@ -263,18 +261,18 @@ class AlmacenGeneralController extends Controller
 
                 $cantidad_actual = intval($mat[0]->cantidad_disponible) - intval($cantidad_solicitada);
                 //y actualizamosel registro en cuestion
-                $material = DB::table('inventario')->where([
+                $material = DB::table('inventarios')->where([
                                                 ['material_id', '=', $materialesAsignado],
                                                 ['obra_id', '=', $id_obra]
-                                            ])->update(['cantidad_disponible' => $cantidad_actual]);
+                                            ])->update(['cantidad_actual' => $cantidad_actual]);
             }
             else
             {
                 //en caso contrario insertamos
-                DB::table('inventario')->insert([
+                DB::table('inventarios')->insert([
                     ['material_id' => $materialesAsignado,
                      'obra_id' => $id_obra,
-                     'cantidad_disponible' => $cantidad_solicitada
+                     'cantidad_actual' => $cantidad_solicitada
                     ]
                 ]);
             }

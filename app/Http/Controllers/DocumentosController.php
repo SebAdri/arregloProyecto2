@@ -37,6 +37,9 @@ class DocumentosController extends Controller
      */
     public function create()
     {
+        // return Rubro::where('familia_rubro_id', 1)->get();
+
+
         $rubros = Rubro::where('estado',1)->get();
         $id_obra = 2;
         $obras = Obra::find($id_obra);
@@ -56,6 +59,7 @@ class DocumentosController extends Controller
     {       
         dd($request);
         $cuotas = $request->cuotas;
+<<<<<<< Updated upstream
         $arrayCuotas = array();
         foreach ($cuotas as $cuota) {
             $arrayAux = array();
@@ -68,9 +72,13 @@ class DocumentosController extends Controller
         }
         $nombre_doc = $request->nombreDoc;
         $fecha = $request->fecha_emision; 
+=======
+        dd($request->all());
+>>>>>>> Stashed changes
         Documento::create($request->all());
         
-        return redirect()->route('documentos.show', $request->obra_id); 
+        // return redirect()->route('documentos.show', $request->obra_id); 
+        return redirect()->route('documentos.create'); 
     }
 
     /**

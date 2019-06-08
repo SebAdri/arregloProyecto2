@@ -43,9 +43,9 @@
                     <td>{{ $herramienta->h_nro_serie }}</td>
                     <td>{{ $herramienta->h_fecha_adquisicion }}</td>
                     <td>
-                      {{-- @foreach($herramienta->obras as $obrasHerramienta)
+                      @foreach($herramienta->obras as $obrasHerramienta)
                       {{$obrasHerramienta->nombre_proyecto}}
-                      @endforeach --}}
+                      @endforeach
                     </td>
                   </tr>
                   @endforeach
@@ -82,9 +82,9 @@
                     <td>{{ $maquinaria->ma_marca .' '. $maquinaria->ma_modelo }}</td>
                     <td>{{ $maquinaria->ma_fecha_adquisicion }}</td>
                     <td>
-                      {{-- @foreach($maquinaria->obras as $obrasMaquinaria)
-                      {{$obrasMaquinaria->nombre_proyecto}}
-                      @endforeach --}}
+                      @foreach($maquinaria->obras as $obrasMaquinaria)
+                        {{$obrasMaquinaria->nombre_proyecto}}
+                      @endforeach
                     </td>
 
                   </tr>
@@ -111,7 +111,6 @@
                     <th>Nombre</th>
                     <th>Unidad</th>
                     <th>Costo</th>
-                    {{-- <th>Cantidad total</th> --}}
                     <th>Cantidad dispobible</th>
                     <th>Obra asignada</th>
                   </tr>
@@ -124,21 +123,15 @@
                     <td>{{ $material->m_descripcion }}</td>
                     <td>{{ $material->m_unidad_medida }}</td>
                     <td>{{ $material->m_costo }}</td>
-                    {{dd($material->obras)}}
-                    {{-- <td>
-                      @foreach($material->obras as $obrasMaterial)
-                      {{$obrasMaterial->pivot->cantidad_inicial}}
-                      @endforeach
-                    </td> --}}
                     <td>
-                      {{-- @foreach($material->obras as $obrasMaterial)
-                      {{$obrasMaterial->pivot->cantidad_disponible}}
-                      @endforeach --}}
+                       @foreach($material->obras as $obrasMaterial)
+                      {{ $obrasMaterial->pivot->cantidad_actual}}
+                      @endforeach 
                     </td>
                     <td>
-                      {{-- @foreach($material->obras as $obrasMaterial)
+                      @foreach($material->obras as $obrasMaterial)
                       {{$obrasMaterial->nombre_proyecto}}
-                      @endforeach --}}
+                      @endforeach
                     </td>
                   </tr>
                   @endforeach
@@ -234,7 +227,7 @@
 
 
 <!-- Modal MAquinaria-->
-{{-- <div id="myModalMaquinaria" class="modal fade" role="dialog">
+<div id="myModalMaquinaria" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
@@ -294,7 +287,7 @@
       </form>
     </div>
   </div>
-</div> --}}
+</div> 
 
 
 

@@ -18,7 +18,6 @@ class CreatePlanosRubrosTable extends Migration
             $table->integer('plano_id');
             $table->integer('rubro_id');
             $table->integer('area')->nullable();
-            
             $table->timestamps();
         });
     }

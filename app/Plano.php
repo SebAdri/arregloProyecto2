@@ -11,4 +11,9 @@ class Plano extends Model
         return $this->belongsToMany(Rubro::class, 'planos_rubros')->withPivot('area','progreso');
         
     }
+
+    public function obras()
+    {
+        return $this->belongsTo(Obra::class, 'obra_id');
+    }
 }

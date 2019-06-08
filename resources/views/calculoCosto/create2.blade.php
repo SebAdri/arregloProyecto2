@@ -27,10 +27,11 @@
 					</ul>
 
 					<div class="tab-content" id="myTabContent">
+
 						{{-- Primera pestaña detalle--}}
 						<div class="tab-pane fade in active" id="rubros" role="tabpanel" aria-labelledby="rubros-tab">
 							{{-- <div class="tab-pane fade show active" id="rubros" role="tabpanel" aria-labelledby="rubros-tab"> --}}
-								<div class="panel-body">
+								<div class="form-control">
 									<!--Check de lo splanos -->
 									<label class="form-label">Planos de la obra {{$obras->nombre_proyecto}}</label>
 									<div class="form-check form-check-inline">

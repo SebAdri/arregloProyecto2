@@ -1,6 +1,5 @@
  <div class="row">
-
- 	<table class="table" id="tablaRubros" name="tablaRubros" >
+ 	<table class="table" name="tablaRubros" id="tablaRubros">
  		<thead>
  			<tr>
  				<th></th>
@@ -12,7 +11,6 @@
  			</tr>
  		</thead>
  		<tbody>
-
  			@if (isset($rubros))
  			@foreach($rubros as $rubro)
  			<tr>
@@ -21,7 +19,7 @@
  				{{-- <td> <input type="checkbox" class="form-check-input" id="elegirRubro"> </td> --}}
  				<td>{{$rubro->id}}</td>
  				<td>{{$rubro->nombre}}</td>
- 				<td>{{$rubro->mano_obra}}</td>
+ 				<td id="mano_obra_rubro">{{$rubro->mano_obra}}</td>
  				<td>{{$rubro->unidad_medida}}</td>
  			</tr>
  			@endforeach
@@ -30,9 +28,9 @@
  	</table>  
  </div>
  <div class="row">
-	<div class="col-md-4 col-md-offset-4" style="margin-top: 10px">
-		<button type="submit" name="submitRubro" value="2" class="btn button-primary">Guardar</button>
-		<a class="btn button-primary" href="{{ route('calculoCosto.create') }}">Cancelar</a>
-		<button type="button" class="btn button-primary" id="volver" name="button">Volver</button>
-	</div>
-</div>
+ 	<div class="col-md-4 col-md-offset-4" style="margin-top: 10px">
+ 		<button type="submit" name="submitRubro" value="2" class="btn button-primary">Guardar</button>
+ 		<a class="btn button-primary" href="{{ route('calculoCosto.create') }}">Cancelar</a>
+ 		<button type="button" class="btn button-primary" id="volverRubro" name="button">Volver</button>
+ 	</div>
+ </div>

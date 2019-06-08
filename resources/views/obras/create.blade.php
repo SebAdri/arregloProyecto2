@@ -10,11 +10,12 @@
       </div>
      
       <div class="panel-body">
+        {{-- se saca de obras agregar porque en proyectos se agrega
         <div class="row">
           <div class="col-md-offset-11">
             <button type="button"class="btn button-primary" title="Agregar Nuevo" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus" style="font-size:30px;"></i></button>
           </div>
-        </div>
+        </div> --}}
         
        <br>
  
@@ -33,14 +34,29 @@
           
     <tbody>
       @foreach($obras as $obra)
-          <tr>
-            <td>{{ $obra->nombre_proyecto }}</td>
-            <td>{{ $obra->cliente['nombre'] }}</td> 
-            <td>{{ $obra->fecha_inicio }}</td>
-            <td>
+      <tr>
+        <td>{{ $obra->nombre_proyecto }}</td>
+        <td>{{ $obra->cliente['nombre'] }}</td> 
+        <td>{{ $obra->fecha_inicio }}</td>
+            {{-- <td>
               <a><button type="button" title="Editar"  data-toggle="modal" data-target="#editar{{ $obra->id }}" href="{{ route('obras.edit', $obra->id) }}" class="btn button-primary btn-rounded btn-sm my-0"><i class="fa fa-edit" style="font-size:20px;"></i></button></a>
-            </td>
-          </tr>
+            </td> --}}
+        <td>
+          <a ><button type="button" title="Editar"  data-toggle="modal" data-target="#editar{{ $obra->id }}" href="{{ route('obras.edit', $obra->id) }}" class="btn button-primary btn-rounded btn-sm my-0"><i class="fa fa-edit" style="font-size:20px;"></i></button></a>
+          {{-- <a href="{{ route('documentos.show', $obra->id) }}">
+            <button type="button" title="Documentos" class="btn button-primary btn-rounded btn-sm my-0"><i class="fa fa-file" style="font-size:20px"></i></button>
+          </a>
+          <a href="{{ route('obras.show', $obra->id) }}">
+            <button type="button" title="Empleados" class="btn button-primary btn-rounded btn-sm my-0"><i class="fa fa-users" style="font-size:20px;"></i></button>
+          </a>--}}
+          <a href="">
+            <button type="button" title="Almacen de la obra" class="btn button-primary btn-rounded btn-sm my-0"><i class="fa fa-wrench" style="font-size:20px;"></i></button>
+          </a> 
+          <a href="{{ route('avance.show', $obra->id) }}">
+            <button type="button" title="Avance de la obra" class="btn button-primary btn-rounded btn-sm my-0"><i class="fa fa-bar-chart" aria-hidden="true" style="font-size:20px;"></i></button>
+          </a>
+          </td>
+        </tr>
 
       @endforeach
 

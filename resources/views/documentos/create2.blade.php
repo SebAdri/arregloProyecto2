@@ -8,7 +8,7 @@
     <div class="row">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h1>Documentos u otro mejor nombre</h1>
+          <h1>Documentos</h1>
         </div>
 
         <div class="panel-body">
@@ -31,16 +31,27 @@
                 <!--all subtab menu-->
                 <!--subtab rubros-->
                 <div id="tabRubro" class="tab-pane fade in active">
+                  <br>
+                  <div class = "form-label">
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <button type="button" class="btn button-primary" title="Agregar Nuevo" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus" style="font-size:10px; margin-top: 10%; margin-bottom: 10%"></i></button>
+                      <label>Desea agregar planos a la obra?</label>
+                      </div>
+                    </div>
+                  </div>
                   {{-- <p>Mostrando rubros</p> --}}
                   {{-- <iframe class="embed-responsive-item" id="iframCalculo" src="http://arregloproyecto2.test/calculoCosto/create"></iframe> --}}
+                  <br>
                   <label class="form-label">Planos de la obra {{$obras->nombre_proyecto}}</label>
                   <div class="form-check form-check-inline">
                     @foreach ($planos as $plano)
                     {{-- <input type="checkbox" class="form-check-input" id="{{$plano->id}}"> --}}
-                    <input type="radio" name="plano_seleccionado" value="{{$plano->id}}"> 
-                    <label class="form-check-label" for="{{$plano->id}}">{{$plano->nombre}}</label>
+                    <input type="radio" name="plano{{$plano->id}}" value="{{$plano->id}}"> 
+                    <label class="form-check-label" for="plano{{$plano->id}}">{{$plano->nombre}}</label>
                     @endforeach
                   </div>
+                  <br>
                   @include('calculoCosto.partials.rubro-part2')
                 </div>
 
@@ -64,6 +75,79 @@
     </div>
   </div>
 </form>
+</div>
+
+
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="panel panel-default">
+          <form method="POST" action="{{ route('documentos.store') }}">
+            {!! csrf_field() !!}
+
+            <div class="panel-heading">
+              <h1>Nuevo Plano</h1>
+            </div>
+
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-5 col-md-offset-4">
+                  <label for="nombre">Nombre del Plano</label>
+                  <input type="text" class="form-control{{ $errors->has('nombre') ? ' is-invalid' : '' }}" name="nombre" value="" placeholder="Nombre del Plano" required>
+                  @if ($errors->has('nombre'))
+                  <span class="invalid-feedback errors" role="alert">
+                    <strong>{{ $errors->first('nombre') }}</strong>
+                  </span>
+                  @endif
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-5 col-md-offset-4">
+                  <label for="cliente_id" style="margin-top: 10px">Cliente</label>
+                  <div class="form-group">
+                    <select class="form-control" id="cliente_id" name="cliente_id">
+                            <option value={{$obras->cliente_id}}>{{$obras->cliente->nombre}}</option> 
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-5 col-md-offset-4">
+                  <label for="fecha" style="margin-top: 10px">Fecha</label>
+                  <input type="date" class="form-control {{ $errors->has('fecha_inicio') ? ' is-invalid' : '' }}" name="fecha" value="" required>
+                  @if ($errors->has('fecha'))
+                  <span class="invalid-feedback errors" role="alert">
+                    <strong>{{ $errors->first('fecha') }}</strong>
+                  </span>
+                  @endif
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-5 col-md-offset-4">
+                  <input class="btn button-primary" value="Guardar" type="submit" style="margin-top: 20px">
+                  <button type="button" class="btn button-primary" data-dismiss="modal"  name="button" style="margin-top: 20px">Cancelar</button>
+                </div>
+              </div>
+
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
 
 @push('scripts')
 <script type="text/javascript">
@@ -152,7 +236,9 @@
     },
     { "data": "id" },
     { "data": "nombre" },
-    { "data": "mano_obra" },
+    { "data": "mano_obra",
+      render: $.fn.dataTable.render.number( '.', ',', 0, 'Gs ' )
+    },
     { "data": "unidad_medida" }
     ],
     "order": [[1, 'asc']]

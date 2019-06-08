@@ -28,8 +28,8 @@ Route::resource('documentos', 'DocumentosController');
 //REST Obras
 Route::resource('obras', 'ObrasController');
 //REST Proyectos
-Route::resource('proyecto', 'ProyectoController');
-// Route::get('calculoCosto/{id}', ['as'=>'calculoCosto', 'uses' => 'ProyectoController@calculoCostos']);
+Route::resource('proyectos', 'ProyectoController');
+Route::get('calculoCosto/{id}', ['as'=>'calculoCosto', 'uses' => 'ProyectoController@calculoCostos']);
 
 //REST Rubros
 Route::resource('rubros', 'RubrosController');

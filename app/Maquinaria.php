@@ -10,7 +10,7 @@ class Maquinaria extends Model
 
     public function obras()
 	{
-		return $this->belongsToMany(Obra::class, 'assigned_maquinarias');
+		return $this->belongsToMany(Obra::class, 'inventarios')->withPivot('cantidad_minima','cantidad_actual');
 	}
 
 	public function hasObras(array $obras)

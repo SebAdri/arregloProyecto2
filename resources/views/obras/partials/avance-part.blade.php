@@ -1,4 +1,6 @@
  <div class="row">
+ 	{{-- <input type="text" class="datepicker"> --}}
+ 	Fecha: <input type="date" name="fecha_avance" id="fecha_avance">
  	<div class="table-responsive" >
  		<table id="tablaPlanoRubros" class="table table-condensed" style="border-collapse:collapse;">
  			<thead>

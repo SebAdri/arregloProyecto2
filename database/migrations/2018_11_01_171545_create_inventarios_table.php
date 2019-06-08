@@ -18,8 +18,8 @@ class CreateInventariosTable extends Migration
             $table->string('material_id')->nullable();
             $table->string('herramienta_id')->nullable();
             $table->string('maquinaria_id')->nullable();
-            $table->string('cantidad_minima');
-            $table->integer('cantidad_actual');
+            $table->string('cantidad_minima')->default(0);
+            $table->integer('cantidad_actual')->nullable();
             $table->integer('obra_id')->nullable();
             $table->timestamps();
         });

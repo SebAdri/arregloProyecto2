@@ -20,9 +20,7 @@ class Herramienta extends Model
 
   public function obras()
   {
-    return $this->belongsToMany(Obra::class, 'assigned_herramientas');
-    // return $this->belongsToMany(Obra::class, 'assigned_herramientas')->withPivot('herramienta_id','obra_id');
-    //return $this->belongsToMany('Role')->withPivot('foo', 'bar');
+    return $this->belongsToMany(Obra::class, 'inventarios')->withPivot('cantidad_minima','cantidad_actual');
   }
 
   public function hasObras(array $obras)

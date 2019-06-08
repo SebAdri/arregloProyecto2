@@ -19,7 +19,8 @@ class CreateObrasTable extends Migration
             $table->string('cliente_id');
             $table->date('fecha_inicio');
             $table->date('fecha_fin')->nullable();
-            $table->boolean('es_obra');
+            $table->boolean('es_obra')->default(0);//0 =proyecto ; 1= obra
+            $table->integer('estado')->default(1);
             $table->timestamps();
         });
     }

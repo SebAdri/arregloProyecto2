@@ -32,6 +32,7 @@ class EmpleadosController extends Controller
      */
     public function create()
     {
+        
         $empleados = Empleado::all();
         $profesiones = Profesion::where('estado','1')->get();
         //dd($profesiones);

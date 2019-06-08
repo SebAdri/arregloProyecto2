@@ -17,10 +17,10 @@ class ProyectoController extends Controller
     {
         
     }
-    public function calculoCostos($obra){
-        $obra = Obra::findOrFail($obra)->where('estado','1')->get();
-        return view('obras.create2', compact('obra'));
-    }
+    // public function calculoCostos($obra){
+    //     $obra = Obra::findOrFail($obra)->where('estado','1')->get();
+    //     return view('obras.create2', compact('obra'));
+    // }
 
     /**
      * Show the form for creating a new resource.
@@ -29,7 +29,7 @@ class ProyectoController extends Controller
      */
     public function create()
     {
-        $obras = Obra::where('estado', '1')->get();
+        $obras = Obra::where('es_obra', '1')->get();
         $clientes = Cliente::all();
         return view('proyecto.create', compact('obras', 'clientes'));
     }

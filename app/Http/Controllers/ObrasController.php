@@ -35,7 +35,7 @@ class ObrasController extends Controller
      */
     public function create()
     {
-        $obras = Obra::all();
+        $obras = Obra::where('es_obra',0)->get();
         $clientes = Cliente::all();
         
         return view('obras.create', compact('obras','clientes'));
@@ -49,9 +49,10 @@ class ObrasController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         Obra::create($request->all());
 
-        return redirect()->route('obras.create'); 
+        return redirect()->route('proyectos.create'); 
     }
 
     /**
@@ -62,12 +63,7 @@ class ObrasController extends Controller
      */
     public function show($id) 
     {
-        $rubros = Rubro::where('estado',1)->get();
-        $obras = Obra::find($id);
-        $planos = $obras->planos;
-             
-        return view('obras.homeObra', compact('rubros', 'obras', 'planos'));
-        // dd($id);    
+        //
     }
 
     /**

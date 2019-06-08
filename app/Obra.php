@@ -11,9 +11,8 @@ class Obra extends Model
     public function cliente(){
         return $this->belongsTo(Cliente::Class);
     }
-
 	public function empleados(){
-	return $this->belongsToMany(Empleado::Class)->withTimestamps();;
+	   return $this->belongsToMany(Empleado::Class)->withTimestamps();;
 	}
 
 	public function documentos(){

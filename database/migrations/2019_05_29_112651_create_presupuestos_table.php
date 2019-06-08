@@ -17,8 +17,8 @@ class CreatePresupuestosTable extends Migration
             $table->increments('id');
             $table->integer('obra_id');
             $table->float('iva');
-            $table->float('beneficio');
-            $table->float('costo_total_obra');
+            $table->float('beneficio',15,2);
+            $table->float('costo_total_obra',15,20);
             $table->timestamps();
         });
     }

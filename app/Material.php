@@ -31,6 +31,6 @@ class Material extends Model
     {
 		return $this->belongsToMany(Rubro::Class);    	
     }
-
+    
     
 }

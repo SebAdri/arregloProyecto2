@@ -20,6 +20,8 @@
 <link rel="stylesheet" href="{{asset("bower_components/font-awesome/css/font-awesome.min.css")}}" rel="stylesheet"/>
 <!-- Compiled and minified CSS sacamos nomas mientras -->
 {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> --}}
+{{-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/> --}}
+<script src="https://kit.fontawesome.com/31dfeb78b4.js"></script>
 
 
        @if (auth()->check())
@@ -43,14 +45,18 @@
               </ul> 
             </li>
             @if (auth()->user()->hasPermission(['obras']))
-
+            <li>
+              <a href="{{ route('proyectos.create') }}"><i class="fas fa-drafting-compass fa-2x"></i> Proyectos</a>
+            </li>
+            @endif
+            @if (auth()->user()->hasPermission(['obras']))
             <li>
               <a href="{{ route('obras.create') }}"><i class="fa fa-home fa-2x"></i> Obras</a>
             </li>
             @endif
             @if (auth()->user()->hasPermission(['storage']))
             <li>
-              <a href="{{ route('storages.create') }}"><i class="fa fa-industry fa-2x"></i> Almacen</a>
+              <a href="{{ route('almacenGeneral.create') }}"><i class="fa fa-industry fa-2x"></i> Almacen</a>
             </li>
             
             @endif
@@ -68,6 +74,11 @@
                 </span>
               </a>
             </li>
+            @if (auth()->user()->hasPermission(['mant']))
+            <li>
+              <a href="{{ route('subMant') }}"><i class="fa fa-address-card fa-2x"></i> Pagos</a>
+            </li>
+            @endif
             @if (auth()->user()->hasPermission(['mant']))
             {{-- <li>
               <a href="{{ route('subMant') }}"><i class="fa fa-cube fa-2x"></i> Mantenedores</a>

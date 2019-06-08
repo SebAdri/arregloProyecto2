@@ -18,7 +18,7 @@
  				<tr>
  					<td>
  						<div class="table-responsive" >
- 							<table id="tablaCalculos" class="table table-condensed tabCalculos" style="border-collapse:collapse;">
+ 							<table id="tablaCalculos{{$plano->id}}" class="table table-condensed tabCalculos" style="border-collapse:collapse;">
  								<thead>
  									<tr>
  										<th style="width: 40%;">Nombre del Rubro</th>
@@ -86,7 +86,7 @@
  	<div class="col-md-4 col-md-offset-4" style="margin-top: 10px">
  		<button type="submit" name="submitCalculo" value="3" class="btn button-primary">Guardar</button>
  		<a class="btn button-primary" href="{{ route('calculoCosto.create') }}">Cancelar</a>
- 		<button type="button" class="btn button-primary" id="volver" name="button">Volver</button>
+ 		<button type="button" class="btn button-primary" id="volverCalculo" name="button">Volver</button>
  		<input type="hidden" name="id_obra" id="id_obra" value={{$id_obra}}>
  	</div>
  </div>

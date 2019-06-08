@@ -23,7 +23,6 @@
 {{-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/> --}}
 <script src="https://kit.fontawesome.com/31dfeb78b4.js"></script>
 
-
        @if (auth()->check())
        <div class="wrapper">
         <!-- Sidebar Holder -->

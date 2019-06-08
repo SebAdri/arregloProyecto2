@@ -53,9 +53,19 @@ class PagoController extends Controller
     */
     public function getPagoObra(Request $request){
 
-        $obra = Obra::where('nombre_proyecto', $request->busqueda);
-        $obra->documentos();
-        return $obra;
+        $obra = Obra::where('nombre_proyecto', $request->busqueda)->first();
+        $documentos = $obra->documentos()->where('tipo_doc', 1)->first()->pagos()->get();
+        for ($i=0; $i < count($documentos); $i++) { 
+            if ($documentos[$i]->estado == 0) {
+                $documentos[$i]->estado = '<td>Pendiente</td><td><a href="#"><button type=button>Generar Factura</button><a></td>';
+            }elseif ($documentos[$i]->estado == 1) {
+                $documentos[$i]->estado = '<td>Pagado</td><td><a href="#"><button type=button>Imprimir Factura</button><a></td>';
+                # code...
+            }
+        }
+        return $documentos;
+
+        
     }
 
     /**

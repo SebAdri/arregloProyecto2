@@ -61,9 +61,13 @@ class ObrasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id) 
+    public function show($id) //muestra los empleados asignados a la obra
     {
-        //
+         $empleadosObras = Obra::find($id)->empleados()->get();
+        $obra = Obra::find($id);
+        $empleados = Empleado::all();
+
+        return view('obras.show', compact('empleadosObras','obra','empleados'));   
     }
 
     /**

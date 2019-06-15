@@ -11,10 +11,10 @@ use App\Http\Requests\UpdateEmpleadoRequest;
 
 class EmpleadosController extends Controller
 {
-    function __construct()
-    {
-        $this->middleware(['auth', 'roles:emplMant']); 
-    }
+    // function __construct()
+    // {
+    //     $this->middleware(['auth', 'roles:emplMant']); 
+    // }
     /**
      * Display a listing of the resource.
      *

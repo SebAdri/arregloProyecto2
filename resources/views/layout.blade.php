@@ -1,174 +1,253 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
-<title>Filartiga - Cárdenas</title>
-<meta name="csrf-token" content="{{ csrf_token() }}">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://code.jquery.com/jquery-3.1.1.js">
-<link rel="stylesheet" href="https://code.jquery.com/jquery-3.1.1.min.js">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<html lang="en">
+  <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="{{asset('images/favicon.ico')}}" type="image/ico" />
+  {{-- del layout antiguo --}}
 <link rel="stylesheet" type="text/css" href="{{asset("css/style.css")}}">
-<link rel="stylesheet" type="text/css" href="{{asset("css/AdminLTE.css")}}">
 <link rel="stylesheet" href="{{asset("css/select2.min.css")}}" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="{{asset("css/dataTables.min.css")}}">
-<link rel="stylesheet" href="{{asset("css/select2.min.css")}}" rel="stylesheet" />
-<link rel="stylesheet" href="{{asset("css/bootstrap-toggle.min.css")}}" rel="stylesheet" />
-<!-- Ionicons -->
-<link rel="stylesheet" href="{{asset("bower_components/Ionicons/css/ionicons.min.css")}}" rel="stylesheet" />
-{{-- <link href="https://unpkg.com/ionicons@4.5.5/dist/css/ionicons.min.css" rel="stylesheet"> --}}
-<!-- Font Awesome -->
-<link rel="stylesheet" href="{{asset("bower_components/font-awesome/css/font-awesome.min.css")}}" rel="stylesheet"/>
-<!-- Compiled and minified CSS sacamos nomas mientras -->
-{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> --}}
-{{-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/> --}}
 <script src="https://kit.fontawesome.com/31dfeb78b4.js"></script>
 
-       @if (auth()->check())
-       <div class="wrapper">
-        <!-- Sidebar Holder -->
-        <nav class="sidebar-menu" data-widget="tree" id="sidebar">
-          <div class="sidebar-header">
-            <h3>Menu de accesos</h3>
-          </div>
+{{-- del layout antiguo --}}
 
-          <ul class="list-unstyled components">
-            {{-- <p>Dummy Heading</p> --}}
-            <li class="active">
-              <a class="navbar" href="{{ url('home') }}">Constructora Filartiga-Cárdenas</a>
-            </li>
-            @if (auth()->check())
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ auth()->user()->name }}<b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="/logout">Cerrar Sesión</a></li>
-              </ul> 
-            </li>
-            @if (auth()->user()->hasPermission(['obras']))
-            <li>
-              <a href="{{ route('proyectos.create') }}"><i class="fas fa-drafting-compass fa-2x"></i> Proyectos</a>
-            </li>
-            @endif
-            @if (auth()->user()->hasPermission(['obras']))
-            <li>
-              <a href="{{ route('obras.create') }}"><i class="fa fa-home fa-2x"></i> Obras</a>
-            </li>
-            @endif
-            @if (auth()->user()->hasPermission(['storage']))
-            <li>
-              <a href="{{ route('almacenGeneral.create') }}"><i class="fa fa-industry fa-2x"></i> Almacen</a>
-            </li>
-            
-            @endif
-            @if (auth()->user()->hasPermission(['fact']))
-            <li>
-              <a href="{{ route('subMant') }}"><i class="fa fa-address-card fa-2x"></i> Facturas</a>
-            </li>
-            @endif
-            <li >
-              <a href="{{ route('pagos.index') }}">
-                <i class="fa fa-address-card"></i>
-                <span>Pagos</span>
-                <span class="pull-right-container">
-                  <i class="fa pull-right"></i>
-                </span>
-              </a>
-            </li>
-            @if (auth()->user()->hasPermission(['mant']))
-            <li>
-              <a href="{{ route('subMant') }}"><i class="fa fa-address-card fa-2x"></i> Pagos</a>
-            </li>
-            @endif
-            @if (auth()->user()->hasPermission(['mant']))
-            <li>
-              <a href="{{ route('subMant') }}"><i class="fa fa-address-card fa-2x"></i> Pagos</a>
-            </li>
-            @endif
-            @if (auth()->user()->hasPermission(['mant']))
-            {{-- <li>
-              <a href="{{ route('subMant') }}"><i class="fa fa-cube fa-2x"></i> Mantenedores</a>
-            </li> --}}
-            <li class="treeview">
-                <a href="#">
-                  <i class="fa fa-cogs"></i>
-                  <span>Mantenimiento</span>
-                  <span class="pull-right-container">
-                    <i class="fa fa-angle-left pull-right"></i>
-                  </span>
-                </a>
-                <ul class="treeview-menu">
-                  <li>Empleados</li>
-                  <li><a href="{{ route('rubros.create') }}"><i class="fa fa-gear"></i>Rubros</a></li>
-                  <li><a href="{{ route('materiales.create') }}"><i class="fa fa-cube"></i>Materiales</a></li>
-                  <li><a href="{{ route('maquinarias.create') }}"><i class="fa fa-truck"></i>Maquinarias</a></li>
-                  <li><a href="{{ route('herramientas.create') }}"><i class="fa fa-wrench"></i>Herramientas</a></li>
-                </ul>
-              </li>
-            @endif
-            @if (auth()->user()->hasPermission(['sec']))
-            {{-- <li>
-              <a href="{{ route('userRole') }}"><i class="fa fa-gear fa-2x"></i> Seguridad</a>
-            </li> --}}
-              <li class="treeview">
-                <a href="#">
-                  <i class="fa fa-users"></i>
-                  <span>Seguridad</span>
-                  <span class="pull-right-container">
-                    <i class="fa fa-angle-left pull-right"></i>
-                  </span>
-                </a>
-                <ul class="treeview-menu">
-                  <li><a href="{{ route('users.create') }}"><i class="fa fa-user"></i>Usuarios</a></li>
-                  <li><a href="{{ route('roles.index') }}"><i class="fa fa-flag"></i>Roles</a></li>
-                </ul>
-              </li>
-            @endif
-            @endif
-          </ul>
+    <title>F&C! | Asociados</title>
 
-        </nav>
-        <!-- Page Content Holder -->
-        <div id="content">
-          <nav class="">
-            <div class="">
+    <!-- Bootstrap -->
+    <link href="{{asset('bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link href="{{asset('font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="{{asset('nprogress/nprogress.css')}}" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="{{asset('iCheck/skins/flat/green.css')}}" rel="stylesheet">
+	
+    <!-- bootstrap-progressbar -->
+    <link href="{{asset('bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css')}}" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="{{asset('jqvmap/dist/jqvmap.min.css')}}" rel="stylesheet"/>
+    <!-- bootstrap-daterangepicker -->
+    <link href="{{asset('bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
 
-              <div class="navbar-header">
-                <button type="button" id="sidebarCollapse" class="navbar-btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </button>
+    <!-- Custom Theme Style -->
+    <link href="{{asset('css2/custom.min.css')}}" rel="stylesheet">
+  </head>
+
+  @if (auth()->check())
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span style="font-size: 80%">Filártiga&Cárdenas!</span></a>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <!-- menu profile quick info -->
+            <div class="profile clearfix">
+              <div class="profile_pic">
+                {{-- <img src="images/img.jpg" alt="..." class="img-circle profile_img"> --}}
               </div>
-
-              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <div class="profile_info">
+                <span>Bienvenido,</span>
+                  <h2>{{ auth()->user()->name }}</h2>
               </div>
             </div>
-          </nav>
+            <!-- /menu profile quick info -->
 
+            <br />
+
+            <!-- sidebar menu -->
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              <div class="menu_section">
+                <h3>General</h3>
+                <ul class="nav side-menu">
+                  @if (auth()->user()->hasPermission(['obras']))
+                  <li><a><i class="fa fa-home"></i> Inicio <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ route('proyectos.create') }}"><i class="fas fa-drafting-compass fa-2x"></i> Proyectos</a></li>
+                      <li><a href="{{ route('obras.create') }}"><i class="fa fa-home fa-2x"></i> Obras</a></li>
+                    </ul>
+                  </li>
+                  @endif
+                  @if (auth()->user()->hasPermission(['storage']))
+                  <li><a><i class="fa fa-edit"></i> Almacen <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ route('almacenGeneral.create') }}"><i class="fa fa-industry fa-2x"></i> General o Principal</a></li>
+                    </ul>
+                  </li>
+                  @endif
+                  {{-- falta autenticacion --}}
+                  <li><a><i class="fas fa-dollar-sign"></i> Pagos <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ route('pagos.index') }}"><i class="fa fa-table fa-2x"></i> Lista de Pagos</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+              <div class="menu_section">
+                <h3>Mantenimiento</h3>
+                <ul class="nav side-menu">
+                  @if (auth()->user()->hasPermission(['mant']))
+                  <li><a><i class="fa fa-windows"></i> Carga de Datos <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ route('rubros.create') }}"><i class="fa fa-gear"></i>Rubros</a></li>
+                      <li><a href="{{ route('materiales.create') }}"><i class="fa fa-cube"></i>Materiales</a></li>
+                      <li><a href="{{ route('maquinarias.create') }}"><i class="fa fa-truck"></i>Maquinarias</a></li>
+                      <li><a href="{{ route('herramientas.create') }}"><i class="fa fa-wrench"></i>Herramientas</a></li>
+                      <li><a href="{{ route('clientes.create') }}"><i class="fa fa-user"></i>Clientes</a></li>
+                      <li><a href="{{ route('profesiones.create') }}"><i class="fa fa-user"></i>Profesiones</a></li>
+                      <li><a href="{{ route('empleados.create') }}"><i class="fa fa-user"></i>Empleados</a></li>
+                      <li><a href="{{ route('empleados.create') }}"><i class="fa fa-user"></i>Famili</a></li>
+                    </ul>
+                  </li>
+                  @endif
+                </ul>
+              </div>
+              <div class="menu_section">
+                <h3>Seguridad</h3>
+                <ul class="nav side-menu">
+                  @if (auth()->user()->hasPermission(['sec']))
+                  <li><a><i class="fa fa-bug"></i> Permisos <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ route('users.create') }}"><i class="fa fa-user"></i>Usuarios</a></li>
+                      <li><a href="{{ route('roles.index') }}"><i class="fa fa-flag"></i>Roles</a></li>
+                    </ul>
+                  </li>
+                  @endif
+                </ul>
+              </div>
+
+            </div>
+            <!-- /sidebar menu -->
+
+            <!-- /menu footer buttons -->
+            <div class="sidebar-footer hidden-small">
+              <a data-toggle="tooltip" data-placement="top" title="Settings">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="Lock">
+                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+              </a>
+            </div>
+            <!-- /menu footer buttons -->
+          </div>
         </div>
-      {{-- </body> --}}
-      @endif
-      @yield('contenido')
-      <!-- jQuery CDN -->
-      <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+          <div class="nav_menu">
+            <nav>
+              <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i> asd</a>
+              </div>
+
+              <ul class="nav navbar-nav navbar-right">
+                <li class="">
+                  <a href="#" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    {{-- <img src="images/img.jpg" alt="">John Doe --}}
+                    {{ auth()->user()->name }}<span class=" fa fa-angle-down"></span>
+                  </a>
+                  <ul class="dropdown-menu dropdown-usermenu pull-right">
+                    {{-- <li><a href="#"> Profile</a></li>
+                    <li><a href="#"><span class="badge bg-red pull-right">50%</span><span>Settings</span></a></li>
+                    <li><a href="#">Help</a></li> --}}
+                    <li><a href="/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <!-- /top navigation -->
+        @endif
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+		    
+        @yield('contenido')
+
+          
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer>
+          <div class="pull-right">
+            Filártiga&Cárdenas - Construyendo el futuro de su <a href="https://colorlib.com">vivienda</a>
+          </div>
+          <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+      </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="{{asset('jquery/dist/jquery.min.js')}}"></script>
+    <!-- Bootstrap -->
+    <script src="{{asset('bootstrap/dist/js/bootstrap.min.js')}}"></script>
+    <!-- FastClick -->
+    {{-- <script src="../vendors/fastclick/lib/fastclick.js"></script> --}}
+    <!-- NProgress -->
+    <script src="{{asset('nprogress/nprogress.js')}}"></script>
+    <!-- Chart.js -->
+    {{-- <script src="../vendors/Chart.js/dist/Chart.min.js"></script> --}}
+    <!-- gauge.js -->
+    {{-- <script src="../vendors/gauge.js/dist/gauge.min.js"></script> --}}
+    <!-- bootstrap-progressbar -->
+    <script src="{{asset('bootstrap-progressbar/bootstrap-progressbar.min.js')}}"></script>
+    <!-- iCheck -->
+    <script src="{{asset('iCheck/icheck.min.js')}}"></script>
+    <!-- Skycons -->
+    <script src="{{asset('skycons/skycons.js')}}"></script>
+    <!-- Flot -->
+    {{-- <script src="../vendors/Flot/jquery.flot.js"></script>
+    <script src="../vendors/Flot/jquery.flot.pie.js"></script>
+    <script src="../vendors/Flot/jquery.flot.time.js"></script>
+    <script src="../vendors/Flot/jquery.flot.stack.js"></script>
+    <script src="../vendors/Flot/jquery.flot.resize.js"></script> --}}
+    <!-- Flot plugins -->
+    {{-- <script src="../vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script> --}}
+    {{-- <script src="../vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+    <script src="../vendors/flot.curvedlines/curvedLines.js"></script> --}}
+    <!-- DateJS -->
+    {{-- <script src="../vendors/DateJS/build/date.js"></script> --}}
+    <!-- JQVMap -->
+    <script src="{{asset('jqvmap/dist/jquery.vmap.js')}}"></script>
+    <script src="{{asset('jqvmap/dist/maps/jquery.vmap.world.js')}}"></script>
+    <script src="{{asset('jqvmap/examples/js/jquery.vmap.sampledata.js')}}"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="{{asset('moment/min/moment.min.js')}}"></script>
+    <script src="{{asset('bootstrap-daterangepicker/daterangepicker.js')}}"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="{{asset('js2/custom.min.js')}}"></script>
+
+    {{-- del layput antiguo --}}
       <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
-      <script src="{{ asset('js/adminlte.min.js') }}"></script>
-      <script src="{{ asset('js/bootstrap-toggle.min.js') }}"></script>
+
       <script src="{{ asset('js/select2.min.js') }}"></script>
-
-       <!-- Compiled and minified JavaScript sacamos nomas mientras -->
-
-      {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>             --}}
-
-      <!-- Bootstrap Js CDN -->
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
       <script src="{{ asset('js/dataTables.bootstrap.min.js') }}"></script>
-      <script type="text/javascript">
-       $(document).ready(function () {
-         $('#sidebarCollapse').on('click', function () {
-           $('#sidebar').toggleClass('active');
-           $(this).toggleClass('active');
-         });
-       });
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-     </script>
+
+
+    {{-- del layput antiguo --}}
      @stack('scripts')
+	
+  </body>
+</html>

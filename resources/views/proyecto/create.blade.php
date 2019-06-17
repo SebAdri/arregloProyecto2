@@ -39,7 +39,7 @@
               <td>{{ $obra->fecha_inicio }}</td>
               <td>
                 <button type="button" title="Editar"  data-toggle="modal" data-target="#editar{{ $obra->id }}" class="btn button-primary btn-rounded btn-sm my-0"><i class="fa fa-edit" style="font-size:20px;"></i></button>
-                <a href="{{ route('documentos.create') }}">
+                <a href="{{ route('documentos.show', $obra->id) }}">
                   <button type="button" title="Documentos" class="btn button-primary btn-rounded btn-sm my-0"><i class="fa fa-calculator" style="font-size:20px"></i></button></a>
                 </td>
               </tr>

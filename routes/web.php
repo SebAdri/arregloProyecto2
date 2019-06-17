@@ -105,7 +105,8 @@ Route::resource('avance', 'AvanceController');
 //REST de los pagos
 Route::resource('pagos', 'PagoController');
 Route::post('getPago',['as'=> 'getPago', 'uses' => 'PagoController@getPagoObra'] );
-
+//REST de Planos
+Route::resource('planos', 'PlanosController');
 
 Route::get('jsonRubrosMateriales', ['as' => 'jsonRubrosMateriales', 'uses' => 'AjaxController@jsonRubrosMateriales']);
 // Route::get('/', ['as' => 'login', 'uses' => 'Auth\LoginController@showLoginForm']);

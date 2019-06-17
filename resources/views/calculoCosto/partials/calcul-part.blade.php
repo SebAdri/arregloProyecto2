@@ -1,4 +1,4 @@
- <div class="row">
+ {{-- <div class="row"> --}}
  	<div class="table-responsive" >
  		<table id="tablaPlanoRubros" class="table table-condensed" style="border-collapse:collapse;">
  			<thead>
@@ -59,10 +59,10 @@
 			</tfoot>
  		</table>
  	</div>
- </div>
+ {{-- </div> --}}
 
   <div class="panel panel-info">
-    <div class="panel-heading">Ingrese los valores correspondiente al IVA y el Beneficio</div>  
+    <div class="panel-heading">Ingrese los valores correspondiente al IVA y el Beneficio</div> 
     <div class="panel-body">
     	<div class="input-field col s4">
 	    	<select name="iva" id="iva" value="{{$presupuestos->iva}}">
@@ -84,7 +84,7 @@
 
  <div class="row">
  	<div class="col-md-4 col-md-offset-4" style="margin-top: 10px">
- 		<button type="submit" name="submitCalculo" value="3" class="btn button-primary">Guardar</button>
+ 		<button type="submit" name="submitDocumento" value="3" class="btn button-primary">Guardar</button>
  		<a class="btn button-primary" href="{{ route('calculoCosto.create') }}">Cancelar</a>
  		<button type="button" class="btn button-primary" id="volverCalculo" name="button">Volver</button>
  		<input type="hidden" name="id_obra" id="id_obra" value={{$id_obra}}>

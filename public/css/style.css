@@ -130,7 +130,7 @@ a, a:hover, a:focus {
       padding: 20px;
       background: #1d1d1e;
     }
-    #sidebar ul.treeview-menu li a {
+    /*#sidebar ul.treeview-menu li a {
       color: #ffffff;
       background: #1d1d1e;
     }
@@ -149,8 +149,8 @@ a, a:hover, a:focus {
       font-size: 1.1em;
       display: block;
       color: #ffffff;
-    }
-    #sidebar ul li a:hover {
+    }*/
+    /*#sidebar ul li a:hover {
       color: #ffffff;
       background: #101010;
     }
@@ -159,7 +159,7 @@ a, a:hover, a:focus {
       color: #ffffff;
       background: #1d1d1e;
     }
-
+*/
 
     a[data-toggle="collapse"] {
       position: relative;
@@ -178,13 +178,13 @@ a, a:hover, a:focus {
     }*/
 
 
-    ul ul a {
+   /* ul ul a {
       font-size: 0.9em !important;
       padding-left: 30px !important;
       background: #cdcdcd;
-    }
+    }*/
 
-    ul.CTAs {
+    /*ul.CTAs {
       padding: 20px;
     }
 
@@ -200,7 +200,7 @@ a, a:hover, a:focus {
       background: #cdcdcd !important;
       color: #fff !important;
     }
-
+*/
 
 
 /* ---------------------------------------------------

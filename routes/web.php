@@ -109,3 +109,5 @@ Route::post('getPago',['as'=> 'getPago', 'uses' => 'PagoController@getPagoObra']
 
 Route::get('jsonRubrosMateriales', ['as' => 'jsonRubrosMateriales', 'uses' => 'AjaxController@jsonRubrosMateriales']);
 // Route::get('/', ['as' => 'login', 'uses' => 'Auth\LoginController@showLoginForm']);
+//generar pdf
+Route::get('generate-pdf/{data}','PdfController@generatePDF');

@@ -1,13 +1,13 @@
 
 <div form-horizontal>
-	@empty($records)
+	@empty($planos)
 	    <h5>No hay planos cargados para esta obra. Cargue primeramente por favor...</h5>
 	@endempty
 	@isset ($planos)
 	    <div class="form-check form-check-inline">
 	    	@foreach ($planos as $plano)
-				<input class="form-check-input" type="radio" name="plano_id" id="inlineRadio1" value="{{$plano->id}}">
-				<label class="form-check-label" for="inlineRadio1">{{$plano->nombre}}</label>
+				<input class="form-check-input" type="radio" name="plano_seleccionado" id="plano_seleccionado" value="{{$plano->id}}">
+				<label class="form-check-label" for="plano_seleccionado">{{$plano->nombre}}</label>
 	    	@endforeach
 		</div>
 	@endisset
@@ -44,7 +44,7 @@
 {{-- </div> --}} 
 <div class="row">
 	<div class="col-md-4 col-md-offset-4" style="margin-top: 10px">
-		<button type="submit" name="submitDocumentoss" value="2" class="btn button-primary">Guardar</button>
+		<button type="submit" name="submitDocumento" value="2" class="btn button-primary">Guardar</button>
 		<a class="btn button-primary" href="{{ route('documentos.create', $id_obra) }}">Cancelar</a>
 		<button type="button" class="btn button-primary" id="volverRubro" name="button">Volver</button>
 	</div>

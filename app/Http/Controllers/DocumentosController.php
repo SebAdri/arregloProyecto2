@@ -63,7 +63,7 @@ class DocumentosController extends Controller
         switch ($request->submitDocumento) {
             case '1'://Plano
                 $this->guardarPlanos($request);
-                return redirect()->route('documentos.show', $request->id_obra);
+                // return redirect()->route('documentos.show', $request->id_obra);
                 break;
             case '2'://Rubro
                 $this->guardarRubros($request);
@@ -77,26 +77,14 @@ class DocumentosController extends Controller
             default:
                 # code...
                 break;
-        }
-        
 
-        // $cuotas = $request->cuotas;
-        // $arrayCuotas = array();
-        // foreach ($cuotas as $cuota) {
-        //     $arrayAux = array();
-        //     $arrayAux['nro_cuota'] = $cuota[0];
-        //     $arrayAux['saldo'] = $cuota[1];
-        //     $arrayAux['monto_pago'] = $cuota[2];
-        //     $arrayAux['porcentaje_pago'] = $cuota[3];
-        //     $arrayAux['porcentaje_obra'] = $cuota[4];
-        //     $arrayCuotas[] = $arrayAux;
-        // }
-        // $nombre_doc = $request->nombreDoc;
-        // $fecha = $request->fecha_emision; 
-        // Documento::create($request->all());
+        }
+        if ($request->btnGuardar) {
+            // dd($request->btnGuardar);
+            $this->guardarContratos($request);
+        }
+        return redirect()->route('documentos.show', $request->id_obra);
         
-        // // return redirect()->route('documentos.show', $request->obra_id); 
-        // return redirect()->route('documentos.create'); 
     }
 
     /**
@@ -112,9 +100,10 @@ class DocumentosController extends Controller
         // $id_obra = 2;
         $obras = Obra::find($id_obra);
         $clientes = $obras->cliente->first();
-        // dd($obras);
         $planos = $obras->planos;
-        $presupuestos = Presupuesto::where('obra_id', $id_obra)->get()[0];
+        $presupuestos = Presupuesto::where('obra_id', $id_obra)->first();
+        // dd($presupuestos);
+        
         // hasta aca
         $tipo_documentos = TipoDocumento::all();
         $documentos = Documento::all();
@@ -183,17 +172,20 @@ class DocumentosController extends Controller
                DB::table('planos_rubros')->insert([
                    ['plano_id' => $request->plano_seleccionado, 'rubro_id' => $rubrosObra]
                ]);
+               // DB::table('planos_rubros')->insert(['plano_id' => $request->plano_seleccionado, 'rubro_id' => $rubrosObra]);
            }
         }
         else
         {
            foreach ($rubrosDeObras['checkRubroesAsignado'] as $rubrosObra) {
+            // dd($rubrosDeObras);
+                // dd($request->plano_seleccionado. ' -> ' .$rubrosObra);
                DB::table('planos_rubros')->insert([
                    ['plano_id' => $request->plano_seleccionado, 'rubro_id' => $rubrosObra]
                ]);
            }
         }
-        return redirect()->route('documentos.show', $request->id_obra);
+        // return redirect()->route('documentos.show', $request->id_obra);
     }
 
     public function guardarCalculos(Request $request)
@@ -249,6 +241,33 @@ class DocumentosController extends Controller
 
     public function guardarContratos(Request $request)
     {
+        //Primeramente guardamos el contrato
+        dd($request->all());
+        $contrato = new Documento;
+        $contrato->nombre = $request->nombre;
+        $contrato->tipo_doc_id = TipoDocumento::where('nombre', 'Contrato')->first()->id;
+        $contrato->fecha_emision = $request->fecha;
+        $contrato->ubicacion = $request->descripcion_contrato;
+        $contrato->obra_id = $request->id_obra;
+
+        $cuotas = $request->cuotas;
+        $arrayCuotas = array();
+        foreach ($cuotas as $cuota) {
+            $arrayAux = array();
+            $arrayAux['nro_cuota'] = $cuota[0];
+            $arrayAux['saldo'] = $cuota[1];
+            $arrayAux['monto_pago'] = $cuota[2];
+            $arrayAux['porcentaje_pago'] = $cuota[3];
+            $arrayAux['porcentaje_obra'] = $cuota[4];
+            $arrayCuotas[] = $arrayAux;
+        }
+        dd($arrayCuotas);
+        $nombre_doc = $request->nombreDoc;
+        $fecha = $request->fecha_emision; 
+        Documento::create($request->all());
+        
+        // // return redirect()->route('documentos.show', $request->obra_id); 
+        // return redirect()->route('documentos.create'); 
 
     }
 }

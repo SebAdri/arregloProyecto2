@@ -37,7 +37,7 @@
  										</td>
  										<td>
  											{{-- <div> --}}
- 												<input class="produccion" type="text" value="{{$rubrosObra->pivot->area}}" id="inputSuperficie_{{$rubrosObra->id}}" name="inputSuperficiePlano[{{$plano->id}}-{{$rubrosObra->id}}]">
+ 												<input class="produccion form-control" type="text" value="{{$rubrosObra->pivot->area}}" id="inputSuperficie_{{$rubrosObra->id}}" name="inputSuperficiePlano[{{$plano->id}}-{{$rubrosObra->id}}]">
  											{{-- </div> --}}
  										</td>
  										<td class="costo_produccion">
@@ -64,20 +64,20 @@
   <div class="panel panel-info">
     <div class="panel-heading">Ingrese los valores correspondiente al IVA y el Beneficio</div> 
     <div class="panel-body">
-    	<div class="input-field col s4">
-	    	<select name="iva" id="iva" value="{{$presupuestos->iva}}">
+    	<div class="col-md-3">
+			<label for="beneficio">IVA</label>
+	    	<select name="iva" id="iva" value="{{$presupuestos == null? 0: $presupuestos->iva}}">
 			  <option value="0.05"> 5%</option>
 			  <option value="0.1"> 10%</option>
 			</select>
-			<label>IVA</label>
 		</div>
-		<div class="input-field col s4">
-    		<input type="text" name="beneficio" id="beneficio" value="{{$presupuestos->beneficio}}">
-    		<label>Beneficio</label>
+		<div class="col-md-3">
+    		<label for="beneficio">Beneficio</label>
+    		<input type="text" name="beneficio" id="beneficio" value="{{$presupuestos == null? 0:$presupuestos->beneficio}}">
     	</div>
-    	<div class="input-field col s4">
-    		<input type="text" name="costo_total_obra" id="costo_total_obra" value="{{$presupuestos->costo_total_obra}}">
-    		<label class="active">Costo total de la obra</label>
+    	<div class="col-md-5">
+    		<label for="costo_total_obra">Costo total de la obra</label>
+    		<input type="text" name="costo_total_obra" id="costo_total_obra" value="{{$presupuestos == null? 0:$presupuestos->costo_total_obra}}">
     	</div>
 	</div>
   </div>

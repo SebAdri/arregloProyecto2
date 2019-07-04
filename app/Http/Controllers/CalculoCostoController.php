@@ -65,7 +65,6 @@ class CalculoCostoController extends Controller
         
         if ($request->submitRubro) {
             // dd($request->all());
-            $rubrosDeObras = $request->all();
             $existeObraConRubros = DB::table('planos_rubros')->where([
                                                     ['plano_id', '=', $request->plano_seleccionado]
                                                 ])->exists();
@@ -80,6 +79,7 @@ class CalculoCostoController extends Controller
             }
             else
             {
+               $rubrosDeObras = $request->all();
                foreach ($rubrosDeObras['checkRubroesAsignado'] as $rubrosObra) {
                    DB::table('planos_rubros')->insert([
                        ['plano_id' => $request->plano_seleccionado, 'rubro_id' => $rubrosObra]

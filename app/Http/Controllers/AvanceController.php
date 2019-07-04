@@ -86,8 +86,11 @@ class AvanceController extends Controller
         $rubros = Rubro::where('estado',1)->get();
         $obras = Obra::find($id);
         $planos = $obras->planos;
+        $planos_id = $planos->pluck('id');
+        $plano_log = DB::table('planos_rubros_log')->select('plano_id','rubro_id', DB::raw('SUM(progreso) as total_sales'))->whereIN('plano_id',$planos_id)->groupBy('plano_id','rubro_id')->get();
+        // dd($plano_log);
              
-        return view('obras.homeObra', compact('rubros', 'obras', 'planos'));
+        return view('obras.homeObra', compact('rubros', 'obras', 'planos', 'plano_log'));
         // dd($id);    
     }
 

@@ -1,5 +1,4 @@
  <div class="row">
- 	{{-- <input type="text" class="datepicker"> --}}
  	Fecha: <input type="date" name="fecha_avance" id="fecha_avance">
  	<div class="table-responsive" >
  		<table id="tablaPlanoRubros" class="table table-condensed" style="border-collapse:collapse;">
@@ -26,6 +25,7 @@
  										<th style="width: 40%;">Nombre del Rubro</th>
  										<th style="width: 20%;">Superficie o Área</th>
  										<th style="width: 20%;">Progreso</th>
+ 										<th style="width: 20%;">Avance</th>
  										<th style="width: 20%;">Porcentaje</th>
  									</tr>
  								</thead>
@@ -37,9 +37,10 @@
  											{{$rubrosObra->pivot->area}}
  										</td>
  										<td>
- 											{{-- <div> --}}
- 												<input class="produccion" type="text" value="{{$rubrosObra->pivot->progreso}}" id="inputProgreso_{{$rubrosObra->pivot->progreso}}" name="inputProgreso[{{$plano->id}}-{{$rubrosObra->id}}]">
- 											{{-- </div> --}}
+ 											<input class="produccion" type="text" value="{{$plano_log->where('plano_id', $plano->id)->where('rubro_id', $rubrosObra->id)->first()->total_sales}}" id="inputProgreso_{{$rubrosObra->pivot->progreso}}" readonly disabled> 											
+ 										</td>
+ 										<td> 
+ 											<input class="produccionDos" type="text" value="" id="inputProgreso_{{$rubrosObra->pivot->progreso}}" name="inputProgreso[{{$plano->id}}-{{$rubrosObra->id}}]">
  										</td>
  										<td>
  											<div class="progress">

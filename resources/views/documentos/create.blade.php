@@ -174,8 +174,8 @@
       var obra = $('#obra').val();
       var cuotas = [];
         // console.log(t.data());
-        for (i = 0; i <t.data().length; i++ ){
-         cuotas.push(t.rows().data()[i]); 
+       for (i = 0; i <t.data().length; i++ ){
+        cuotas.push(t.rows().data()[i]); 
        }
        $.ajax({
         headers: {

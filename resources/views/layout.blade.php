@@ -7,14 +7,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" href="{{asset('images/favicon.ico')}}" type="image/ico" />
-  {{-- del layout antiguo --}}
-<link rel="stylesheet" type="text/css" href="{{asset("css/style.css")}}">
-<link rel="stylesheet" href="{{asset("css/select2.min.css")}}" rel="stylesheet" />
-<link rel="stylesheet" type="text/css" href="{{asset("css/dataTables.min.css")}}">
-<script src="https://kit.fontawesome.com/31dfeb78b4.js"></script>
+  	<link rel="icon" href="{{asset('images/favicon.ico')}}" type="image/ico" />
+    {{-- del layout antiguo --}}
+    <link rel="stylesheet" type="text/css" href="{{asset("css/style.css")}}">
+    <link rel="stylesheet" href="{{asset("/css/select2.min.css")}}" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{{asset("css/dataTables.min.css")}}">
+    <script src="https://kit.fontawesome.com/31dfeb78b4.js"></script>
 
-{{-- del layout antiguo --}}
+    {{-- del layout antiguo --}}
 
     <title>F&C! | Asociados</title>
 
@@ -91,13 +91,19 @@
                       <li><a href="{{ route('pagos.index') }}"><i class="fa fa-table fa-2x"></i> Lista de Pagos</a></li>
                     </ul>
                   </li>
+                  {{-- falta autenticacion --}}
+                  <li><a><i class="fas fa-dollar-sign"></i> Reportes <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ route('mostrarAvance') }}"><i class="fa fa-table fa-2x"></i> Reportes</a></li>
+                    </ul>
+                  </li>
                 </ul>
               </div>
               <div class="menu_section">
                 <h3>Mantenimiento</h3>
                 <ul class="nav side-menu">
                   @if (auth()->user()->hasPermission(['mant']))
-                  <li><a><i class="fa fa-windows"></i> Carga de Datos <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-windows"></i> Parámetros del Sistema <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ route('rubros.create') }}"><i class="fa fa-gear"></i>Rubros</a></li>
                       <li><a href="{{ route('materiales.create') }}"><i class="fa fa-cube"></i>Materiales</a></li>
@@ -106,7 +112,7 @@
                       <li><a href="{{ route('clientes.create') }}"><i class="fa fa-user"></i>Clientes</a></li>
                       <li><a href="{{ route('profesiones.create') }}"><i class="fa fa-user"></i>Profesiones</a></li>
                       <li><a href="{{ route('empleados.create') }}"><i class="fa fa-user"></i>Empleados</a></li>
-                      <li><a href="{{ route('empleados.create') }}"><i class="fa fa-user"></i>Famili</a></li>
+                      {{-- <li><a href="{{ route('empleados.create') }}"><i class="fa fa-user"></i>Famili</a></li> --}}
                     </ul>
                   </li>
                   @endif
@@ -153,20 +159,19 @@
           <div class="nav_menu">
             <nav>
               <div class="nav toggle">
-                <a id="menu_toggle"><i class="fa fa-bars"></i> asd</a>
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
               </div>
 
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="#" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    {{-- <img src="images/img.jpg" alt="">John Doe --}}
-                    {{ auth()->user()->name }}<span class=" fa fa-angle-down"></span>
+                    <img src="images/img.jpg" alt="">{{ auth()->user()->name }} <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
                     {{-- <li><a href="#"> Profile</a></li>
                     <li><a href="#"><span class="badge bg-red pull-right">50%</span><span>Settings</span></a></li>
                     <li><a href="#">Help</a></li> --}}
-                    <li><a href="/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li><a href="/logout"><i class="fa fa-sign-out pull-right"></i> Cerrar Sesión</a></li>
                   </ul>
                 </li>
               </ul>
@@ -200,32 +205,14 @@
     <script src="{{asset('jquery/dist/jquery.min.js')}}"></script>
     <!-- Bootstrap -->
     <script src="{{asset('bootstrap/dist/js/bootstrap.min.js')}}"></script>
-    <!-- FastClick -->
-    {{-- <script src="../vendors/fastclick/lib/fastclick.js"></script> --}}
     <!-- NProgress -->
     <script src="{{asset('nprogress/nprogress.js')}}"></script>
-    <!-- Chart.js -->
-    {{-- <script src="../vendors/Chart.js/dist/Chart.min.js"></script> --}}
-    <!-- gauge.js -->
-    {{-- <script src="../vendors/gauge.js/dist/gauge.min.js"></script> --}}
     <!-- bootstrap-progressbar -->
     <script src="{{asset('bootstrap-progressbar/bootstrap-progressbar.min.js')}}"></script>
     <!-- iCheck -->
     <script src="{{asset('iCheck/icheck.min.js')}}"></script>
     <!-- Skycons -->
     <script src="{{asset('skycons/skycons.js')}}"></script>
-    <!-- Flot -->
-    {{-- <script src="../vendors/Flot/jquery.flot.js"></script>
-    <script src="../vendors/Flot/jquery.flot.pie.js"></script>
-    <script src="../vendors/Flot/jquery.flot.time.js"></script>
-    <script src="../vendors/Flot/jquery.flot.stack.js"></script>
-    <script src="../vendors/Flot/jquery.flot.resize.js"></script> --}}
-    <!-- Flot plugins -->
-    {{-- <script src="../vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script> --}}
-    {{-- <script src="../vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
-    <script src="../vendors/flot.curvedlines/curvedLines.js"></script> --}}
-    <!-- DateJS -->
-    {{-- <script src="../vendors/DateJS/build/date.js"></script> --}}
     <!-- JQVMap -->
     <script src="{{asset('jqvmap/dist/jquery.vmap.js')}}"></script>
     <script src="{{asset('jqvmap/dist/maps/jquery.vmap.world.js')}}"></script>
@@ -238,16 +225,29 @@
     <script src="{{asset('js2/custom.min.js')}}"></script>
 
     {{-- del layput antiguo --}}
-      <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
 
-      <script src="{{ asset('js/select2.min.js') }}"></script>
-      <script src="{{ asset('js/dataTables.bootstrap.min.js') }}"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="{{ asset('js/select2.min.js') }}"></script>
+    <script src="{{ asset('js/dataTables.bootstrap.min.js') }}"></script>
+    {{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> --}}
 
+    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 
+    {{-- jquery para exportar a pdf --}}
+    {{-- <script src="{{ asset('DataTables') }}"></script> --}}
+
+    {{-- <script src="https://code.jquery.com/jquery-3.3.1.js"></script> --}}
+    {{-- <script src="https://cdn.datatables.net/1.10.19/js/  jquery.dataTables.min.js"></script> --}}
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
 
     {{-- del layput antiguo --}}
      @stack('scripts')
-	
+	 
   </body>
 </html>

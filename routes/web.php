@@ -111,6 +111,11 @@ Route::resource('planos', 'PlanosController');
 Route::get('jsonRubrosMateriales', ['as' => 'jsonRubrosMateriales', 'uses' => 'AjaxController@jsonRubrosMateriales']);
 // Route::get('/', ['as' => 'login', 'uses' => 'Auth\LoginController@showLoginForm']);
 
+
 // Rutas para reportes
 Route::get('mostrarAvance', ['as' => 'mostrarAvance', 'uses'=>'ReporteController@mostrarAvance']);
 Route::post('generarReporteAvance', ['as' => 'generarAvance', 'uses'=>'ReporteController@generarReporteAvance']);
+
+//generar pdf
+Route::get('generate-pdf/{data}','PdfController@generatePDF');
+

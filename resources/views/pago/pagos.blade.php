@@ -41,12 +41,27 @@
 						</thead>
 
 						<tbody id="tPagosBody" style="text-align: center">
-				{{-- 			@foreach ($documentos as $pago)
-							<tr>
-								<td>{{$pago->nro_pago}}</td>
-								<td>{{number_format($pago->monto_pago, 0, '','.')}}</td>
-							</tr>
-							@endforeach --}}
+							@isset ($pagos)
+								@foreach ($pagos as $pago)
+								<tr>
+									<td>{{$pago->nro_pago}}</td>
+									<td>{{$pago->saldo}}</td>
+									<td>{{number_format($pago->monto_pago, 0, '','.')}}</td>
+
+									@if ($pago->estado==0)
+										<td>Pendiente</td>
+									@else
+										<td>Pagado</td>
+									@endif
+									@if ($pago->estado==0)
+										<td><a href="{{ route('facturas.show', $pago->id) }}"><button type=button>Generar Factura</button><a></td>
+									@else
+										<td><a><button type=button>Imprimir Factura</button><a></td>
+									@endif
+								</tr>
+								@endforeach
+							    
+							@endisset
 						</tbody>
 					</table>
 
@@ -65,55 +80,55 @@
 @endsection
 @push('scripts')
 	<script type="text/javascript">
-		$('#buscar').on('click', function(event){
-			event.preventDefault();
-			var busqueda = $('#busqueda').val();
-			if (busqueda != '') {
-				$.ajax({
-					headers: {
-						'X-CSRF-TOKEN' : $('meta[name = "csrf-token"]').attr('content')
-					},
-					url:"{{ route('getPago') }}",
-					method: 'post', 
-					data: {
-						busqueda: busqueda,
-					},
-      			})
-				.done(function (response){
-					// var pagos = JSON.parse(response);
-					var pagos = response;
-					console.log(pagos);
-					var text = "";
-					for (var i = 0; i < pagos.length; i++) {
-						text += '<tr>';
-						text += '<td>'+pagos[i].nro_pago+'</td>';
-						text += '<td>'+pagos[i].saldo+'</td>';
-						text += '<td>'+pagos[i].monto_pago+'</td>';
-						text += pagos[i].estado;
-						// if (pagos[i].estado ==0) {
-						// 	text += '<td>Pendiente</td>';
-						// 	text += '<td><a href="#"><button type=button>Generar Factura</button><a></td>'
-						// }else if(pagos[i].estado ==1){
-						// 	text += '<td>Pagado</td>';
-						// 	text += '<td><a href="#"><button type=button>Imprimir Factura</button><a></td>'
-						// }
-						// text += '<td>'+pagos[i]+'</td>';
-						text += '</tr>'
-					}
-					$("#tPagosBody").html(text);
-					var tPagos = $('#tPagos').DataTable();
+		// $('#buscar').on('click', function(event){
+		// 	event.preventDefault();
+		// 	var busqueda = $('#busqueda').val();
+		// 	if (busqueda != '') {
+		// 		$.ajax({
+		// 			headers: {
+		// 				'X-CSRF-TOKEN' : $('meta[name = "csrf-token"]').attr('content')
+		// 			},
+		// 			url:"{{ route('getPago') }}",
+		// 			method: 'post', 
+		// 			data: {
+		// 				busqueda: busqueda,
+		// 			},
+  //     			})
+		// 		.done(function (response){
+		// 			// var pagos = JSON.parse(response);
+		// 			var pagos = response;
+		// 			console.log(pagos);
+		// 			var text = "";
+		// 			for (var i = 0; i < pagos.length; i++) {
+		// 				text += '<tr>';
+		// 				text += '<td>'+pagos[i].nro_pago+'</td>';
+		// 				text += '<td>'+pagos[i].saldo+'</td>';
+		// 				text += '<td>'+pagos[i].monto_pago+'</td>';
+		// 				// text += pagos[i].estado;
+		// 				// if (pagos[i].estado ==0) {
+		// 				// 	text += '<td>Pendiente</td>';
+		// 				// 	text += '<td><a href="#"><button type=button>Generar Factura</button><a></td>'
+		// 				// }else if(pagos[i].estado ==1){
+		// 				// 	text += '<td>Pagado</td>';
+		// 				// 	text += '<td><a href="#"><button type=button>Imprimir Factura</button><a></td>'
+		// 				// }
+		// 				// text += '<td>'+pagos[i]+'</td>';
+		// 				text += '</tr>'
+		// 			}
+		// 			$("#tPagosBody").html(text);
+		// 			var tPagos = $('#tPagos').DataTable();
 
-					$("#pedido").modal('hide');
-					$("#message").html('<p>Se ha enviado la solicitud</p>');
-					$("#message").show();
-					$("#message").hide(1500);
-          // location.reload();
-      			})
-				.fail(function(){
-					alert('ocurrio un error interno, contacte con Rolo');
-				})
-			}
-		})
+		// 			$("#pedido").modal('hide');
+		// 			$("#message").html('<p>Se ha enviado la solicitud</p>');
+		// 			$("#message").show();
+		// 			$("#message").hide(1500);
+  //         // location.reload();
+  //     			})
+		// 		.fail(function(){
+		// 			alert('ocurrio un error interno, contacte con Rolo');
+		// 		})
+		// 	}
+		// })
 		
 	</script>
 	@endpush

@@ -56,7 +56,7 @@
 									@if ($pago->estado==0)
 										<td><a href="{{ route('facturas.show', $pago->id) }}"><button type=button>Generar Factura</button><a></td>
 									@else
-										<td><a><button type=button>Imprimir Factura</button><a></td>
+										<td><a href="{{ route('generate-factura', $pago->id) }}"><button type=button>Imprimir Factura</button><a></td>
 									@endif
 								</tr>
 								@endforeach

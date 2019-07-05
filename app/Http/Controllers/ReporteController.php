@@ -60,4 +60,12 @@ class ReporteController extends Controller
 
       return $pdf->stream();
     }
+    public function reporteCompras(){
+      $obras = Obra::all();
+      return view('reportes.reporteCompras', compact('obras'));
+    }
+    public function obtenerComprasObras(Request $request){
+      $
+      $compras = Compra::where('obra_id', $reques->obra_id)->whereBetween('fecha_compra', [$ageFrom, $ageTo]);;
+    }
 }

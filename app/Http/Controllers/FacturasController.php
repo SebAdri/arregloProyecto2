@@ -65,6 +65,7 @@ class FacturasController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
+        $pago = Pago::find($request->pago);
         foreach ($request->detalles as $detalle) {
             $pago = explode(',', $detalle);
             $formaPago = FormaPago::where('descripcion', $pago[0])->first();
@@ -79,11 +80,11 @@ class FacturasController extends Controller
 
             $detallePago->forma_pago_id = $formaPago->id;
             // dd($detallePago);
-            $detallePago->save();
-            $pago = Pago::find($request->pago);
+            // $detallePago->save();
+            dd($pago);
             $pago->estado = 1;
             $pago->save();
-            $sgtPago = Pago::where('estado', 0)->orderBy('nro_pago', 'asc')->first();
+            $sgtPago = Pago::where('estado', 0)->where('obra_id', $pago->obra_id)->orderBy('nro_pago', 'asc')->first();
             if ($sgtPago!=null) {
             # code...
                 $diferencia = $pago[1] - $sgtPago->monto_pago;
@@ -96,6 +97,8 @@ class FacturasController extends Controller
         $factura->monto_factura = $request->monto_pago;
         $factura->fecha_emision = $request->fc_fecha_emision;
         $factura->cliente_id = $cliente->id;
+        $factura->obra_id = $pago->obra_id;
+        $factura->pago_id = $pago->id;
         $iva10 = round($request->monto_pago/11, 0);
         $factura->total_iva_10 = $iva10;
         $factura->total_iva_5 = 0;

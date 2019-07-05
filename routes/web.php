@@ -121,4 +121,5 @@ Route::get('exportarPdf', ['as' => 'exportarPdf', 'uses'=>'ReporteController@exp
 
 //generar pdf
 Route::get('generate-pdf/{data}','PdfController@generatePDF');
+Route::get('generate-factura/{data}',['as'=>'generate-factura', 'uses'=> 'PdfController@imprimirFactura']);
 

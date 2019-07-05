@@ -9,6 +9,7 @@ use App\DetallePago;
 use App\Cliente;
 use App\Factura;
 use App\DetalleFactura;
+use App\ParametroFactura;
 use App\DetalleFormaPago;
 class FacturasController extends Controller
 {
@@ -22,6 +23,28 @@ class FacturasController extends Controller
         //
     }
 
+    /* parametros para la impresion 
+        de la factura6
+    
+    */
+    public function setParameter(Request $request){
+        // dd($request->all());
+        $parametroFactura = new ParametroFactura();
+        $parametroFactura->empresa_nombre = $request->empresa;
+        $parametroFactura->empresa_eslogan = $request->eslogan;
+        $parametroFactura->telefono = $request->telefono;
+        $parametroFactura->correo = $request->correo;
+        $parametroFactura->ciudad = $request->ciudad;
+        $parametroFactura->pais = $request->pais;
+        $parametroFactura->vigencia_inicio = $request->fechaIni;
+        $parametroFactura->vigencia_fin = $request->fechaFin;
+        $parametroFactura->direccion = $request->direccion;
+        $parametroFactura->imagen = $request->file('logo')->store('public');
+        $parametroFactura->timbrado = $request->timbrado;
+        $parametroFactura->ruc = $request->ruc;
+        $parametroFactura->save();
+        
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -29,7 +52,8 @@ class FacturasController extends Controller
      */
     public function create()
     {
-
+        $parametro = ParametroFactura::first();
+        return view('facturas.parametro', compact('parametro'));
     }
 
     /**
@@ -40,7 +64,33 @@ class FacturasController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($accion);
+        // dd($request->all());
+        foreach ($request->detalles as $detalle) {
+            $pago = explode(',', $detalle);
+            $formaPago = FormaPago::where('descripcion', $pago[0])->first();
+            $detallePago = new DetallePago;
+            $detallePago->pago_id = $request->pago;
+            $detallePago->monto = $pago[1];
+            $saldo = Pago::where('documento_id', $request->documento_id)->where('estado', '0')->sum('monto_pago');
+            $detallePago->saldo = $saldo ;
+            $detallePago->entidad = $pago[2] ;
+            $detallePago->referencia = $pago[3] ;
+            $detallePago->nro_cheque = $pago[4] ;
+
+            $detallePago->forma_pago_id = $formaPago->id;
+            // dd($detallePago);
+            $detallePago->save();
+            $pago = Pago::find($request->pago);
+            $pago->estado = 1;
+            $pago->save();
+            $sgtPago = Pago::where('estado', 0)->orderBy('nro_pago', 'asc')->first();
+            if ($sgtPago!=null) {
+            # code...
+                $diferencia = $pago[1] - $sgtPago->monto_pago;
+                $sgtPago->monto_pago = $sgtPago->monto_pago - $diferencia;
+                $sgtPago->save();
+            }
+        }
         $cliente = Cliente::where('cedula', $request->fc_ruc)->orWhere('ruc', $request->fc_ruc)->first();
         $factura = new Factura;
         $factura->monto_factura = $request->monto_pago;
@@ -61,60 +111,12 @@ class FacturasController extends Controller
         $detalleFactura->iva_10 = $iva10;
         $detalleFactura->iva_5 = 0;
         $detalleFactura->save();
-        switch ($request->fc_formaPago) {
-            case 'ChequeEfectivo':
-                $resultadoCheque = $this->generarDetallePago('Cheque', $request->pago, $request->monto_banco, $request->documento_id);
-                $resultadoDetalle = $this->generarDetalleFormaPago($request);
-                $resultadoEfectivo = $this->generarDetallePago('Efectivo', $request->pago, $request->monto_efectivo, $request->documento_id);
-                break;
-            case 'TransferenciaEfectivo':
-                $resultadoCheque = $this->generarDetallePago('Transferencia', $request->pago, $request->monto_banco, $request->documento_id);
-                $resultadoDetalle = $this->generarDetalleFormaPago($request);                
-                $resultadoEfectivo = $this->generarDetallePago('Efectivo', $request->pago, $request->monto_efectivo, $request->documento_id);
-                break;
-            case ('Cheque'):     
-                $resultado = $this->generarDetallePago($request->fc_formaPago,  $request->pago, $request->monto_pago, $request->documento_id);
-                $resultadoDetalle = $this->generarDetalleFormaPago($request);                
-            case ('Transferencia'):
-                $resultado = $this->generarDetallePago($request->fc_formaPago,  $request->pago, $request->monto_pago, $request->documento_id);
-                $resultadoDetalle = $this->generarDetalleFormaPago($request);
-            default:
-                $resultado = $this->generarDetallePago($request->fc_formaPago,  $request->pago, $request->monto_pago, $request->documento_id);
-                break; 
-        }
         return redirect()->action('PdfController@generatePDF', ['data' => $factura->id]);
     }
     public function generarDetallePago($formaPago, $pago_id, $monto, $documento){
-        $formaPago = FormaPago::where('descripcion', $formaPago)->first();
-        $detallePago = new DetallePago;
-        $detallePago->pago_id = $pago_id;
-        $detallePago->monto = $monto;
-        $saldo = Pago::where('documento_id', $documento)->where('estado', '0')->sum('monto_pago');
-        // dd($saldo);
-        $detallePago->saldo = $saldo ;
-        $detallePago->forma_pago_id = $formaPago->id;
-        $detallePago->save();
-        $pago = Pago::find($pago_id);
-        $pago->estado = 1;
-        $pago->save();
-        $sgtPago = Pago::where('estado', 0)->orderBy('nro_pago', 'asc')->first();
-        if ($sgtPago!=null) {
-            # code...
-            $diferencia = $monto - $sgtPago->monto_pago;
-            $sgtPago->monto_pago = $sgtPago->monto_pago - $diferencia;
-            $sgtPago->save();
-        }
+        
         // dd($sgtPago);
         return $detallePago;
-    }
-
-    public function generarDetalleFormaPago($request){
-        $detalleFormaPago = new DetalleFormaPago;
-        $detalleFormaPago->entidad_bancaria = $request->banco;
-        $detalleFormaPago->cuenta = $request->cuenta;
-        $detalleFormaPago->nro_referencia = $request->nro_referencia;
-        $detalleFormaPago->save();
-        return $detalleFormaPago;
     }
     /**
      * Display the specified resource.
@@ -125,8 +127,10 @@ class FacturasController extends Controller
     public function show($id)
     {
         $pago = Pago::find($id);
-        $cliente = $pago->documentos()->first()->obra()->first()->cliente()->first();
-        return view('facturas.create', compact('pago', 'cliente'));
+        $tiposPagos = FormaPago::all();
+        // $cliente = $pago->documentos()->first()->obra()->first()->cliente()->first();
+        $cliente = $pago->obra()->first()->cliente()->first();
+        return view('facturas.create', compact('pago', 'cliente', 'tiposPagos'));
         
     }
 

@@ -12,5 +12,8 @@ class Pago extends Model
 	function detallesPagos(){
 		return $this->hasMany(DetallePago::Class);
 	}
+	function obra(){
+		return $this->belongsTo(Obra::Class);
+	}
 
 }

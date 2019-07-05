@@ -19,6 +19,10 @@ class CreateDetallePagosTable extends Migration
             $table->integer('forma_pago_id');
             $table->double('monto');
             $table->double('saldo');
+            $table->string('entidad')->nullable();
+            $table->string('referencia')->nullable();
+            $table->string('nro_cheque')->nullable();
+            $table->string('nro_tarjeta')->nullable();
             $table->timestamps();
         });
     }

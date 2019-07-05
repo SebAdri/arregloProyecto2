@@ -7,19 +7,22 @@ use PDF;
 use App\Cliente;
 use App\Factura;
 use App\DetalleFactura;
-
+use App\ParametroFactura;
 class PdfController extends Controller
 {
     public function generatePDF($id)
     {
     	$factura = Factura::find($id);
     	// dd($factura);
+    	$parametroFactura = ParametroFactura::first();
     	$cliente = Cliente::find($factura->cliente_id);
     	$detalles = DetalleFactura::where('factura_id', $factura->id)->get();
-    	// dd($detalles);
-    	// return view('facturas.facturas', compact('cliente'));
-        $pdf = PDF::loadView('facturas.facturas', compact('cliente', 'factura', 'detalles'));
-  
+    	// return view('facturas.facturas', compact('cliente', 'factura', 'detalles', 'parametroFactura'));
+        $pdf = PDF::setOptions(['isRemoteEnabled' => true])->loadView('facturas.facturas', compact('cliente', 'factura', 'detalles', 'parametroFactura'));
+        return $pdf->stream();
+    }
+    public function generartabla(){
+    	$pdf = PDF::loadView('facturas.facturas', compact('cliente', 'factura', 'detalles'));
         return $pdf->stream();
     }
 }

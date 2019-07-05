@@ -153,7 +153,7 @@
           <div class="nav_menu">
             <nav>
               <div class="nav toggle">
-                <a id="menu_toggle"><i class="fa fa-bars"></i> asd</a>
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
               </div>
 
               <ul class="nav navbar-nav navbar-right">
@@ -242,7 +242,7 @@
 
       <script src="{{ asset('js/select2.min.js') }}"></script>
       <script src="{{ asset('js/dataTables.bootstrap.min.js') }}"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      {{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> --}}
 
 
 

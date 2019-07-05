@@ -34,16 +34,27 @@ class RubrosController extends Controller
         $fliaRubros = FamiliaRubro::all();
         $rubros = Rubro::where('estado','1')->get();
         $materiales = Material::all();
+        $materialesRubros = Rubro::with('materiales')->get()->toArray();
 
-        foreach ($rubros as $rubro) 
-        {
-            // dd(Rubro::find($rubro->id)->materiales()->pivot->material_id);
-            // $materialesRubros = Rubro::find($rubro->id)->materiales()->get();
-            $materialesRubros[] = Rubro::find($rubro->id)->materiales()->get();
-            // $materialesRubros[] = Rubro::find($rubro->id)->pivot;
+        // foreach ($materialesRubros as $key => $materialRubro) 
+        // {
+        //     $materiales = $materialRubro['materiales'];
+        //     // foreach ($materialRubro['materiales'] as $key => $material) {
+        //     //     # code...
+        //     // echo "<pre>";
+        //     // print_r($material['pivot']['rubro_id']);
+        //     // }
+        // }
+// die;
+        // foreach ($rubros as $rubro) 
+        // {
+        //     if ($rubro->materiales()->get() !== null)
+        //     {
+        //         $materialesRubros[] = $rubro->materiales()->get()->toArray();
+        //     }
 
-        }
-
+        // }
+         // dd($materialesRubros);
         return view('rubros.create', compact('fliaRubros', 'rubros', 'materiales', 'materialesRubros'));
     }
 
@@ -53,7 +64,7 @@ class RubrosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request) //guarda la familia del rubro
     {
         
         $mano_obra = str_replace(',','.', str_replace('.','', $request->input('mano_obra')));
@@ -105,14 +116,19 @@ class RubrosController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    public function storeMaterialesRubros(Request $request, $id_rubro) //guarda el rubro
+    {       
+        $rubro = Rubro::findOrFail($id_rubro);
+
+        foreach ($request->materiales as $key => $material)  //key es el id del material
+        {
+           if (isset($material)) 
+           {
+                $rubro->materiales()->attach($key, ['cantidad_material' => $material]);
+           }
+        }
+
+        return redirect()->route('rubros.create'); 
     }
+
 }

@@ -233,6 +233,10 @@
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 
+      <script src="{{ asset('js/select2.min.js') }}"></script>
+      <script src="{{ asset('js/dataTables.bootstrap.min.js') }}"></script>
+      {{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> --}}
+
     {{-- jquery para exportar a pdf --}}
     {{-- <script src="{{ asset('DataTables') }}"></script> --}}
 

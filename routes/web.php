@@ -34,8 +34,8 @@ Route::get('calculoCosto/{id}', ['as'=>'calculoCosto', 'uses' => 'ProyectoContro
 //REST Rubros
 Route::resource('rubros', 'RubrosController');
 Route::resource('familiaRubros', 'FamiliaRubrosController');
-// Route::post('storeFlia', ['as' => 'storeFlia', 'uses'=>'FamiliaRubrosController@storeFliaRubros']);
 Route::post('storeMateriales', ['as' => 'storeMateriales', 'uses'=>'FamiliaRubrosController@storeMateriales']);
+Route::post('storeMaterialesRubros/{id}', ['as' => 'storeMaterialesRubros', 'uses'=>'RubrosController@storeMaterialesRubros']);
 
 //REST Profesiones
 Route::resource('profesiones', 'ProfesionesController');

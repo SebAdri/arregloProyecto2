@@ -3,10 +3,10 @@
 @section('contenido')
 
 <style type="text/css">
-	#modalWidth{
+	/*#modalWidth{
   		width:90% !important;
 
-	}
+	}*/
 </style>
 
 <form method="POST" action="{{ route('rubros.store') }}">
@@ -163,88 +163,60 @@
 
 @foreach($rubros as $rubro)
 <div id="myModal1{{$rubro->id}}" class="modal fade" role="dialog">
-	<div class="modal-dialog modal-lg">
+ 	<div class="modal-dialog modal-lg">
+ 		<div class="modal-content">
+ 			<div class="modal-body">
+ 				<div class="panel panel-default">
+ 				 <form method="post" action="{{ route('storeMaterialesRubros', $rubro->id) }}">
+ 						{!! csrf_field() !!}
 
-		<!-- Modal content-->
-		<div class="modal-content">
-			<div class="modal-body">
-				<div class="panel panel-default">
-					<form method="post" action="#">
-						{!! csrf_field() !!}
-
-					<div class="panel-heading">
-						<h2 align="center">{{$rubro->nombre}}</h2>
-					</div>
-
-					<div class="panel-body">
-						<div class="row">
-							<div class="col-md-5 col-md-offset-1">
-							<label for="material" style="margin-top: 10px">Materiales</label>
-
-							<select class="form-control input-sm select2" id="material_id" name="material_id">
-								@foreach ($materiales as $material) 
-								<option value={{$material->id}}>{{$material->m_descripcion}}Seleccione un material</option> 
-								@endforeach
-							</select>
-
+ 						<div class="panel-heading">
+							<h2 align="center">Agregar materiales a: {{$rubro->nombre}}</h2>
 						</div>
 
-						<div class="col-md-2">
-							<label for="nombre" style="margin-top: 10px">Cantidad</label>
-							<input type="text" class="form-control numeric {{ $errors->has('cantidad') ? ' is-invalid' : '' }}" name="cantidad" value="" placeholder="Cantidad" required>
+						<div class="panel-body">
+							<div class="row">
+								<table class="table table-responsive" id="listaMateriales">
+									<thead>
+										<tr>
+											<th>Material</th>
+											<th>Unidad de medida</th>
+											<th>Precio</th>
+											<th>Cantidad</th>
+											<th>Elegir</th>
+										</tr>
+									</thead>
 
-							@if ($errors->has('cantidad'))
-							<span class="invalid-feedback errors" role="alert">
-								<strong>{{ $errors->first('cantidad') }}</strong>
-							</span>
-							@endif
-						</div>
-							{{-- <table class="table table-responsive" id="listaMateriales">
-								<thead>
-									<tr>
-										<th>Material</th>
-										<th>U.M.</th>
-										<th>Precio</th>
-										<th>Cant</th>
-										<th>Elegir</th>
-									</tr>
-								</thead>
-								<tbody>
+									<tbody>
 									@foreach($materiales as $material)
 									<tr>
 										<td>{{ $material->m_descripcion }}</td>
 										<td>{{ $material->m_unidad_medida }}</td>
 										<td>{{ $material->m_costo }}</td>
 										<td>
-											<input type="text" class="form-control" name="cantidades" value="">
+											{{-- @if() --}}
+											<input type="text" class="form-control" name="materiales[{{ $material->id }}]" value=>
+											{{-- @endif --}}
 										</td>
-										<td>
-							 --}}				{{-- <button type="button" id="confirmar" class="btn btn-primary"><i class="fa fa-check"></i></button> --}}
-											{{-- <input class="form-check-input" id="check" type="checkbox" class="form-control" size="1"  name="materiales[]" value="{{$material->id}}"> --}}
-										{{-- </td>
+										<td></td>
 									</tr>
 									@endforeach
-								</tbody> --}}
-							{{-- </table> --}}
-							{{-- <input type="hidden" class="form-control" id="rubro_id" name="rubro_id" value="{{ $rubro->id }}" size="5"> --}}
-						</div>
+								</tbody>
+								</table>
+							</div>
 
-						<div class="row">
-							<div class="col-md-8 col-md-offset-4">
-								<input class="btn button-primary" id="agregar{{$rubro->id}}" value="Agregar" type="button" style="margin-top: 20px">
-								<button type="button" class="btn button-primary" data-dismiss="modal"  name="button" style="margin-top: 20px">Cancelar</button>
+							<div class="row">
+								<div class="col-md-8 col-md-offset-4">
+									<input class="btn button-primary" value="Asignar" type="submit" name="asignar" style="margin-top: 20px">
+									<button type="button" class="btn button-primary" data-dismiss="modal"  name="button" style="margin-top: 20px">Cancelar</button>
+								</div>
 							</div>
 						</div>
-
-
-					</div>
-
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
+ 					</form>
+ 				</div>
+ 			</div>
+ 		</div>
+ 	</div>
 </div>
 @endforeach
 
@@ -257,16 +229,36 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h3 class="modal-title" style="text-align: center;">Materiales Asignados</h3>
+        <h2 class="modal-title" style="text-align: center;">Materiales asignados al rubro: {{$rubro->nombre}}</h2>
       </div>
       <div class="modal-body">
-
         <div class="row">
           <div class="col-md-10 col-md-offset-1" style="margin-top: 15px">
-            <label for="nombre">Materiales asignados al rubro: {{$rubro->nombre}}</label>
-            @foreach($materialesRubros as $materialRubro)
-            	<li>{{$materialRubro}}</li>
-          	@endforeach
+          	<table class="table table-responsive" id="materiales_asignados">
+				<thead>
+					<tr>
+						<th style="text-align: center;">Material</th>
+						<th style="text-align: center;">Cantidad</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					@foreach($materialesRubros as $materialRubro)
+	            		@foreach($materialRubro['materiales'] as $key => $material)
+	            			{{-- <td>{{$material['pivot']['rubro_id']}}</td> --}}
+	            			@if($material['pivot']['rubro_id'] == $rubro->id)
+		            			<tr>	
+		            				<td>{{$material['m_descripcion']}}</td>
+		            				<td>{{$material['pivot']['cantidad_material']}}</td>
+		            			</tr>
+	            			@endif
+            			@endforeach
+          			@endforeach
+				</tbody>
+			</table>
+
+           
+          
 
 
           </div>
@@ -352,6 +344,22 @@
         			}
             	}
 		});
+
+        $("#materiales_asignados").dataTable({
+                 "aaSorting":[[0,"desc"]],
+                                language: {
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "lengthMenu":     "Mostrar _MENU_ registros",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Último",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                }
+        });
+        
 
 		$("#itemList").select2({
 			ajax: {

@@ -2,66 +2,37 @@
 
 @section('contenido')
 
-  <form method="POST" action="{{ route('herramientas.store') }}">
+<form method="POST" action="{{ route('reporteHerramientas') }}">
     {!! csrf_field() !!}
 <div class="container">
   <div class="row">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h1>Herramientas</h1>
+        <h1>Herramientas por Obra</h1>
       </div>
      
       <div class="panel-body">
+      <div class="row">
+        <div class="col-md-3 col-md-offset-2">
+        <label for="nombre" style="margin-top: 3px">Obra</label>
+        <select class="form-control input-sm select2" id="obra_id" name="obra_id">
+                @foreach ($obras as $obra) 
+                <option value={{$obra->id}}>{{$obra->nombre_proyecto}}</option> 
+                @endforeach
+              </select>
+        </div>
         <div class="col-md-3">
-          <label for="func">Herramienta</label>
-          <div class="form-group">
-            <input type="text" size="15" name="h_nombre" class="form-control{{ $errors->has('h_nombre') ? ' is-invalid' : '' }}" value="" placeholder="Nombre de la herramienta" required>
-                @if ($errors->has('h_nombre'))
-                  <span class="invalid-feedback errors" role="alert">
-                    <strong>{{ $errors->first('h_nombre') }}</strong>
-                  </span>
-                @endif
-          </div>
-        </div>
+          <label for="fecha" style="margin-top: 3px">Fecha Inicial/Final</label>             
+                <div class="input-group">
+                  <div class="input-group-addon" style="padding-top: 8px;padding-bottom: 10px;height: 32.992188px;">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="text" class="form-control pull-right fecha" name="periodo" id="periodo" required>
+                </div>
 
-        <div class="col-md-2">
-          <label for="func">Marca</label>
-          <div class="form-group">
-            <input type="text" size="15" name="h_marca" class="form-control{{ $errors->has('h_marca') ? ' is-invalid' : '' }}" value="" placeholder="Marca" required>
-                @if ($errors->has('h_marca'))
-                  <span class="invalid-feedback errors" role="alert">
-                    <strong>{{ $errors->first('h_marca') }}</strong>
-                  </span>
-                @endif
           </div>
-        </div>
-
-        <div class="col-md-2">
-          <label for="func">Modelo</label>
-          <div class="form-group">
-            <input type="text" size="15" name="h_modelo" class="form-control" value="" placeholder="Modelo">
-          </div>
-        </div>
-
-        <div class="col-md-2">
-          <label for="func">Serie</label>
-          <div class="form-group">
-            <input type="text" size="15" name="h_nro_serie" class="form-control" value="" placeholder="Nro de Serie">
-          </div>
-        </div>
-
-        <div class="col-md-2">
-          <label for="func">Fecha de Adquisición</label>
-          <div class="form-group">
-            <input type="date" name="h_fecha_adquisicion" class="form-control{{ $errors->has('h_fecha_adquisicion') ? ' is-invalid' : '' }}" value="" placeholder="Fecha de Adquisición" required>
-                @if ($errors->has('h_fecha_adquisicion'))
-                  <span class="invalid-feedback errors" role="alert">
-                    <strong>{{ $errors->first('h_fecha_adquisicion') }}</strong>
-                  </span>
-                @endif
-          </div>
-        </div>
-
+        </div>    
+</div>
         {{-- <div class="col-md-3">
           <label for="func">Ubicación</label>
           <div class="input-group">
@@ -69,13 +40,13 @@
           </div>
         </div> --}}
 
-        <div class="row">
-          <br><br><br><br>
-        </div>
+        {{-- <div class="row">
+
+        </div> --}}
         <div class="row">
           <div class="col-md-5 col-md-offset-4">
-            <input class="btn button-primary" value="Guardar" type="submit">
-            <a class="btn button-primary" href="{{ route('herramientas.create') }}">Cancelar</a>
+            <input class="btn button-primary" value="Generar Reporte" type="submit">
+            {{-- <a class="btn button-primary" href="{{ route('createReporteHerramientas') }}">Cancelar</a> --}}
             <button type="button" class="btn button-primary" id="volver" name="button">Volver</button>
           </div>
         </div>
@@ -96,27 +67,7 @@
     </thead>
           
     <tbody>
-      @foreach($herramientas as $herramienta)
-        @if($herramienta->h_estado)
-        <tr>
-          <td>{{ $herramienta->h_nombre }}</td>
-          <td>{{ $herramienta->h_marca}}</td>
-          <td>{{ $herramienta->h_modelo }}</td>
-          <td>{{ $herramienta->h_nro_serie }}</td>
-          <td>{{ $herramienta->h_fecha_adquisicion }}</td>
-          <td>{{ $herramienta->h_ubicacion }}</td>
-          <td>
-             <a ><button type="button" title="Editar"  href="{{ route('herramientas.edit', $herramienta->id) }}" class="btn button-primary btn-rounded btn-sm my-0"><i class="fa fa-edit" style="font-size:20px;"></i></button></a>
-          
-            <form style="display: inline" method="POST" action="{{ route('herramientas.destroy', $herramienta->id) }}">
-                  {!! csrf_field() !!}
-                  {!! method_field('DELETE') !!}
-              <button type="submit" class="btn button-primary"><i class="fa fa-trash" style="font-size:20px;"></i></button>
-            </form>
-          </td>
-        </tr>
-        @endif
-      @endforeach
+      
     </tbody>
   </table>
   </div>

@@ -120,4 +120,9 @@ Route::get('exportarPdf', ['as' => 'exportarPdf', 'uses'=>'ReporteController@exp
 
 //generar pdf
 Route::get('generate-pdf/{data}','PdfController@generatePDF');
+// Route::resource('reporteHerramientas', 'ReporteHerramientasControllerController');
+Route::get('createReporteHerramientas','ReporteHerramientasController@createReporteHerramientas');
+
+Route::post('reporteHerramientas',['as'=> 'reporteHerramientas', 'uses' => 'ReporteHerramientasController@generarReporteHerramientas'] );
+
 

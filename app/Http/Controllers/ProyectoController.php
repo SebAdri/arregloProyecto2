@@ -29,7 +29,7 @@ class ProyectoController extends Controller
      */
     public function create()
     {
-        $obras = Obra::where('es_obra', '1')->get();
+        $obras = Obra::where('es_obra', '0')->get();
         $clientes = Cliente::all();
         return view('proyecto.create', compact('obras', 'clientes'));
     }

@@ -32,7 +32,8 @@ class MaquinariasController extends Controller
      */
     public function create()
     {
-        $maquinarias = Maquinaria::all();
+        $maquinarias = Maquinaria::where('ma_estado','1')->get();
+        // dd($maquinarias);
         return view('maquinarias.create', compact('maquinarias'));
     }
 

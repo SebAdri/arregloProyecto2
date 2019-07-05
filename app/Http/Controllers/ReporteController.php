@@ -35,7 +35,7 @@ class ReporteController extends Controller
           break;
         case '2':
           // return $request->all();
-          // $this->exportarPdf($reportes, $planos, $proyecto, $periodo);
+         return $this->exportarPdf($reportes, $planos, $proyecto, $periodo);
           break;
         
         default:

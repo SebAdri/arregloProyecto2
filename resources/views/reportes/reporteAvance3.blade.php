@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('contenido')
-<form id="reporteAvance" method="GET" action="{{ route('exportarPdf') }}">
+<form id="reporteAvance" method="GET" action="{{ route('generarAvance') }}">
 	{{csrf_field()}}
 	<div class="x_panel">
 		<h1>Reporte de Avance</h1>
@@ -31,7 +31,7 @@
 		<br>
 
 		<div class="col-md-9 col-md-offset-3">
-			{{-- <button type="submit" class="btn btn-success"  id="submitReporteAvance" name="submitReporteAvance" value="1" onclick="changeMethod2()">Generar Reporte</button> --}}
+			<button type="submit" class="btn btn-success"  id="submitReporteAvance" name="submitReporteAvance" value="1" onclick="changeMethod2()">Generar Reporte</button>
 			{{-- <button type="submit" class="btn btn-primary">Cancelar</button> --}}
 			<button type="submit" class="btn btn-info" id="submitReporteAvance2" name="submitReporteAvance2" value="2">Exportar a PDF</button>
 			{{-- <a href="{{ route('exportarPdf') }}" class="btn btn-info">Exportar a PDF link</a> --}}

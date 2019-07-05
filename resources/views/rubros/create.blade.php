@@ -3,10 +3,10 @@
 @section('contenido')
 
 <style type="text/css">
-	/*#modalWidth{
-  		width:90% !important;
+	/#modalWidth{
+  		width:100% !important;
 
-	}*/
+	}
 </style>
 
 <form method="POST" action="{{ route('rubros.store') }}">
@@ -223,7 +223,7 @@
 
 @foreach($rubros as $rubro)
 <div id="myModal2{{ $rubro->id }}" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
 
     <!-- Modal content-->
     <div class="modal-content">
@@ -237,7 +237,7 @@
           	<table class="table table-responsive" id="materiales_asignados">
 				<thead>
 					<tr>
-						<th style="text-align: center;">Material</th>
+						<th>Material</th>
 						<th style="text-align: center;">Cantidad</th>
 					</tr>
 				</thead>
@@ -249,7 +249,7 @@
 	            			@if($material['pivot']['rubro_id'] == $rubro->id)
 		            			<tr>	
 		            				<td>{{$material['m_descripcion']}}</td>
-		            				<td>{{$material['pivot']['cantidad_material']}}</td>
+		            				<td style="text-align: center;">{{$material['pivot']['cantidad_material']}}</td>
 		            			</tr>
 	            			@endif
             			@endforeach
@@ -347,7 +347,8 @@
 
         $("#materiales_asignados").dataTable({
                  "aaSorting":[[0,"desc"]],
-                                language: {
+                    language: {
+                    "search": "Buscar:",
                     "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
                     "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
                     "lengthMenu":     "Mostrar _MENU_ registros",

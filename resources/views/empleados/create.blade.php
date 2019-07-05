@@ -99,7 +99,7 @@
               <br>
 </form>
 
-    <table class="table table-responsive">
+    <table id="lista_empleados" class="table table-responsive">
     <thead>
       <tr>
         <th>Nombres</th>
@@ -107,8 +107,8 @@
         <th>Dirección</th>
         <th>Teléfono</th>
         <th>Profesión</th>
-        <th>Acción</th>
-         <th>Obras Asignadas</th>
+        <th>Acciones</th>
+        <th>Obras Asigandas</th>
       </tr>
     </thead>
 
@@ -122,19 +122,18 @@
               <td>{{ $empleado->telefono }}</td>
               <td>{{ $empleado->profesion->nombre }}</td>
               <td>
-                <a class="btn btn-link" href="{{ route('empleados.edit', $empleado->id) }}">Editar</a>
-                
-                <form style="display: inline" method="POST" action="{{ route('empleados.destroy', $empleado->id) }}">
+                <a ><button type="button" title="Editar" data-toggle="modal" data-target="#editar{{ $empleado->id }}" href="{{ route('empleados.edit', $empleado->id) }}" class="btn button-primary btn-rounded btn-sm my-0"><i class="fa fa-edit" style="font-size:20px;"></i></button></a>
+
+                {{-- <form style="display: inline" method="POST" action="{{ route('empleados.destroy', $empleado->id) }}">
                       {!! csrf_field() !!}
                       {!! method_field('DELETE') !!}
-                      <button type="submit" class="btn button-primary">Eliminar</button>
-                </form>
-                
+                      <button type="submit" class="btn button-primary"><i class="fa fa-trash" style="font-size:20px;"></i></button>
+                </form> --}}
                 <button id="myModal" type="button" class="btn button-primary" title="Asignar a Obra" data-toggle="modal" data-target="#myModal{{ $empleado->id }}"><i class="fa fa-plus" style="font-size:17px;"></i></button> 
               </td>
 
               <td>
-                <button id="detalle" type="button" class="btn button-primary" data-toggle="modal" data-target="#detalle{{ $empleado->id }}">Ver Detalle</button> 
+                <button id="detalle" type="button" class="btn button-primary" data-toggle="modal" data-target="#detalle{{ $empleado->id }}">Ver</button> 
               </td>
  
             </tr>
@@ -243,8 +242,12 @@
 @endforeach
 
 
+@push('scripts')
 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
 
 <script type="text/javascript">
   $("#volver").click(function(){
@@ -256,4 +259,74 @@
     })
   })
 </script>
-@stop
+
+
+
+<script>
+  $(document).ready(function() {
+    $('.numeric').inputmask("numeric", {
+            radixPoint: ",",
+            groupSeparator: ".",
+            digits: 2,
+            autoGroup: true,
+            // prefix: '$', //No Space, this will truncate the first character
+            rightAlign: false,
+            oncleared: function () { self.Value(''); }
+      });
+
+    $('.select2').select2(); 
+
+
+    $("#lista_empleados").dataTable({
+        "aaSorting":[[0,"desc"]],       
+        language: {
+                  "search": "Buscar:",
+                  "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+              "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+              "lengthMenu":     "Mostrar _MENU_ registros",
+              "paginate": {
+                  "first": "Primero",
+                  "last": "Último",
+                  "next": "Siguiente",
+                  "previous": "Anterior"
+              }
+              }
+    });   
+
+    $("#itemList").select2({
+      ajax: {
+        
+        delay: 0,
+        data: function (params) {
+          return {
+                              q: params.term, // search term
+                              page: params.page
+                          };
+                      },
+                      processResults: function (data, params){
+                        var results = $.map(data, function (value, key) {
+                          return {
+                            children: $.map(value, function (v) {
+                              return {
+                                id: key,
+                                text: v
+                              };
+                            })
+                          };
+                        });
+                        return {
+                          results: results,
+                        };
+                      },
+                      cache: true
+                  },
+                  escapeMarkup: function (markup) {
+                    return markup;
+                  }, // let our custom formatter work
+                  minimumInputLength: 3,
+              });
+
+  });
+</script>
+@endpush
+@endsection

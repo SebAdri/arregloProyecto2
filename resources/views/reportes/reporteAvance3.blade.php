@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('contenido')
-<form method="POST" action="{{ route('generarAvance') }}">
+<form id="reporteAvance" method="GET" action="{{ route('exportarPdf') }}">
 	{{csrf_field()}}
 	<div class="x_panel">
 		<h1>Reporte de Avance</h1>
@@ -26,26 +26,24 @@
 			<label class="control-label col-md-3 col-sm-3 col-xs-12">Seleccione un rango de fecha</label>
 			<div class="col-md-9 col-sm-9 col-xs-12">
 				<input type="text" id="periodo" name="periodo" value="" class="form-control">
-				{{-- <div id="reportrange_right" name="reportrange_right" class="pull-left" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
-					<i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-					<span>December 30, 2014 - January 28, 2015</span> <b class="caret"></b>
-				</div> --}}
 			</div>
 		</div>
 		<br>
 
 		<div class="col-md-9 col-md-offset-3">
-			<button type="submit" class="btn btn-success">Generar Reporte</button>
-			<button type="submit" class="btn btn-primary">Cancelar</button>
-			<button type="button" id="pdf">Exportar a PDF</button>
-			<a href="{{ route('exportarPdf', $proyecto->id.'999'.$periodo) }}" class="btn btn-info">Exportar a PDF</a>
+			{{-- <button type="submit" class="btn btn-success"  id="submitReporteAvance" name="submitReporteAvance" value="1" onclick="changeMethod2()">Generar Reporte</button> --}}
+			{{-- <button type="submit" class="btn btn-primary">Cancelar</button> --}}
+			<button type="submit" class="btn btn-info" id="submitReporteAvance2" name="submitReporteAvance2" value="2">Exportar a PDF</button>
+			{{-- <a href="{{ route('exportarPdf') }}" class="btn btn-info">Exportar a PDF link</a> --}}
 		</div>
 		<br><br>
-		<h3>Obra</h3>
-		<label>{{$proyecto->nombre_proyecto}}</label>
-		<input type="hidden" id="proyecto" value ="{{$proyecto->id}}">
-		<h4>Periodo</h4>
-		<label id="fechas">{{$periodo}}</label>
+		@isset ($proyecto)
+			<h3>Obra</h3>
+			<label>{{$proyecto->nombre_proyecto}}</label>
+			<input type="hidden" id="proyecto" value ="{{$proyecto->id}}">
+			<h4>Periodo</h4>
+			<label id="fechas">{{$periodo}}</label>
+		@endisset
 		@include('reportes.partials.reportAvanceBody-part')
 		<div class="x_title"></div>
 		
@@ -87,36 +85,24 @@
 				$(this).val('');
 			});
 		});
-		$('#pdf').on('click', function(){
-			var proyecto = $('#proyecto').val();
-			var periodo = $('#fechas').text();
-			console.log(periodo);
-			$.ajax({
-				headers: {
-					'X-CSRF-TOKEN' : $('meta[name = "csrf-token"]').attr('content')
-				},
-				url:'{{ route('exportarPdf')}}',
-				method: 'get', 
-				data: {
-					obra:proyecto,
-					periodo: periodo
-				},
-				dataType: 'pdf',
-				success:function(reponse){
-					console.log(reponse);
-				}
-			})
-			// .done(function (response){
-			// 	$("#pedido").modal('hide');
-			// 	$("#message").html('<p>Se ha enviado la solicitud</p>');
-			// 	$("#message").show();
-			// 	$("#message").hide(1500);
-			// 	location.reload();
-			// })
-			// .fail(function(){
-			// 	alert('ocurrio un error interno, contacte con Rolo');
-			// })
-		})
+
+		// $('#submitReporteAvance2').click(function(){
+	 //      $("#reporteAvance").attr("method", "get");
+	 //      $("#reporteAvance").attr("action", {{ route('exportarPdf') }});
+	 //      alert('llega');
+
+		// });
+
+		// $('#reporteAvance').submit(function(event){
+	 //      $(this).attr("method", "get");
+	 //      // alert('llega');
+	      
+	 //    });
+		
+
+		// function changeMethod2(){
+	 //      $("#reporteAvance").attr("method", "post");
+		// };
 	} );
 </script>
 @endpush

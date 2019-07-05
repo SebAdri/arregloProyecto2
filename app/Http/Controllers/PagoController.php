@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Obra;
+use App\Pago;
 use Illuminate\Http\Request;
 
 class PagoController extends Controller
@@ -54,7 +55,7 @@ class PagoController extends Controller
     public function getPagoObra(Request $request){
 
         $obra = Obra::where('nombre_proyecto', $request->busqueda)->first();
-        $pagos = $obra->documentos()->where('tipo_doc', 1)->first()->pagos()->get();
+        $pagos = Pago::where('obra_id', $obra->id)->get();
         return view('pago.pagos', compact('id_obra', 'pagos')); 
         return $pagos;
 

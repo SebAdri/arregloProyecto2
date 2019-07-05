@@ -95,6 +95,7 @@ Route::resource('almacenGeneral', 'AlmacenGeneralController');
 
 //REST Facturas
 Route::resource('facturas', 'FacturasController');
+Route::post('parametros',['as'=> 'parametros', 'uses'=> 'FacturasController@setParameter'] );
 
 //REST Tipos de documentos
 Route::resource('tipos_documentos', 'TiposDocumentosController');

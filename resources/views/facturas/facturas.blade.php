@@ -110,7 +110,9 @@
 	<table>
 		<tr>
 			<td style="width: 25%;" class="c-text">
-				<img src="{{asset('images/big_logo alciC.jpg')}}" width="150">
+				{{-- <img src="{{asset('images/big_logo alciC.jpg')}}" width="150"> --}}
+				<img src="{{asset (Storage::url($parametroFactura->imagen))}}" width="150">
+
 			</td>
 			<td style="width: 35%; padding: 10px;" class="c-text f-9">
 				<span class="f-10">Constructora Filártiga - Cárdenas & Asoc.</span><br>
@@ -118,15 +120,15 @@
 				<span class="f-10">Redacción de Proyectos</span><br>
 				<span class="f-10">Servicios de Arquitectura</span><br>
 				<span class="f-10">Supervisión, Dirección y Control de Obras</span><br>
-				E-mail: constructorafca@gmail.com	<br>
+				E-mail: {{$parametroFactura->correo}}	<br>
 			</td>
 			<td style="width: 40%;">
 				<div style="padding: 10px;">
 					<div style="border:1px solid; text-align: center; padding: 10px;">
 						<span class="n-1">Timbrado Nro:<span id="numTimbrado">timbrado</span></span><br>
-						<span class="f-10">Fecha Inicio Vigencia: vigencia</span><br>
-						<span class="f-10">Fecha Fin Vigencia:vigencia ?></span><br>
-						R.U.C 607069-8<br>
+						<span class="f-10">Fecha Inicio Vigencia: {{date_format(date_create($parametroFactura->vigencia_inicio),"d/m/Y")}}</span><br>
+						<span class="f-10">Fecha Fin Vigencia:{{ date_format(date_create($parametroFactura->vigencia_fin),"d/m/Y")}}</span><br>
+						R.U.C {{$parametroFactura->ruc}}<br>
 						FACTURA Nro.: {{$factura->id}}<br>
 						<span class="f-10"><b> clase factura </b></span>
 					</div>
@@ -139,7 +141,7 @@
 	<table style="margin-top: 10px;"  class="b-buttom b-top">
 		<tr>
 			<td class="f-10" style="padding: 0 0 0 20px;">
-				<b>Direccion:</b> Manuel Pisciotta Nº 1780 c/ Mayor Vargas, Asunción - Paraguay. Telefono/Fax: 021- 298719<br>
+				<b>Direccion:</b> {{$parametroFactura->direccion}}, {{$parametroFactura->ciudad}} - {{$parametroFactura->Pais}}. Telefono/Fax: {{$parametroFactura->telefono}}<br>
 			</td>
 		</tr>
 	</table>
@@ -169,7 +171,7 @@
 		</colgroup>
 		<tr>
 			<td colspan="3">
-				<b>Fecha de Emision: {{$factura->fecha_emision}}</b>
+				<b>Fecha de Emision: {{date_format(date_create($factura->fecha_emision), "d/m/Y")}}</b>
 			</td>
 
 			<td colspan="3">

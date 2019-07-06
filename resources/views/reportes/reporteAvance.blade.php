@@ -54,10 +54,10 @@
 				@isset ($reportes)
 					@foreach ($reportes as $reporte)
 						<tr>
-							<td>{{$reporte->plano_id}}</td>
-							<td>{{$reporte->rubro_id}}</td>
-							<td>{{$reporte->avance}}</td>
-							<td>{{$reporte->fecha_control}}</td>
+							<td class="well"></td>
+				    		<td>{{App\Rubro::find($reporte->rubro_id)->nombre}}</td>
+				    		<td>{{$reporte->avance}}</td>
+				    		<td>{{date_format(date_create($reporte->fecha_control), "d/m/Y")}}</td>
 						</tr>
 					@endforeach
 				@endisset
@@ -105,47 +105,47 @@
 
 
 
-		// var groupColumn = 0;
-		// $('#tableReporteAvance').DataTable( {
-		// 	language: {
-		// 		"search": "Buscar:",
-		// 		"info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
-		// 		"infoEmpty": "Mostrando 0 a 0 de 0 Entradas",
-		// 		"lengthMenu":     "Mostrar _MENU_ registros",
-		// 		"paginate": {
-		// 			"first": "Primero",
-		// 			"last": "Último",
-		// 			"next": "Siguiente",
-		// 			"previous": "Anterior"
-		// 		}
-		// 	},
-		// 	dom: 'Bfrtip',
-		// 	buttons: [
-		// 	{
-		// 		extend:'pdf',
-		// 		text:'Generar PDF',
-		// 		exportData: [{columns:':visible'}]
-		// 	}
-		// 	],
-		// 	"columnDefs": [
-		//         { "visible": false, "targets": groupColumn }
-		//     ],
-		// 	drawCallback: function ( settings ) {
-	 //            var api = this.api();
-	 //            var rows = api.rows( {page:'current'} ).nodes();
-	 //            var last=null;
+		var groupColumn = 0;
+		$('#tableReporteAvance').DataTable( {
+			language: {
+				"search": "Buscar:",
+				"info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+				"infoEmpty": "Mostrando 0 a 0 de 0 Entradas",
+				"lengthMenu":     "Mostrar _MENU_ registros",
+				"paginate": {
+					"first": "Primero",
+					"last": "Último",
+					"next": "Siguiente",
+					"previous": "Anterior"
+				}
+			},
+			dom: 'Bfrtip',
+			buttons: [
+			{
+				extend:'pdf',
+				text:'Generar PDF',
+				exportData: [{columns:':visible'}]
+			}
+			],
+			"columnDefs": [
+		        { "visible": false, "targets": groupColumn }
+		    ],
+			// drawCallback: function ( settings ) {
+	  //           var api = this.api();
+	  //           var rows = api.rows( {page:'current'} ).nodes();
+	  //           var last=null;
 	 
-	 //            api.column(groupColumn, {page:'current'} ).data().each( function ( group, i ) {
-	 //                if ( last !== group ) {
-	 //                    $(rows).eq( i ).before(
-	 //                        '<tr class="group"><td colspan="5">'+group+'</td></tr>'
-	 //                    );
+	  //           api.column(groupColumn, {page:'current'} ).data().each( function ( group, i ) {
+	  //               if ( last !== group ) {
+	  //                   $(rows).eq( i ).before(
+	  //                       '<tr class="group"><td colspan="5">'+group+'</td></tr>'
+	  //                   );
 	 
-	 //                    last = group;
-	 //                }
-	 //            } );
-	 //        }
-		// } );
+	  //                   last = group;
+	  //               }
+	  //           } );
+	  //       }
+		} );
 	} );
 </script>
 @endpush

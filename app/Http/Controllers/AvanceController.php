@@ -65,12 +65,12 @@ class AvanceController extends Controller
                     {
                        return 'No existe plano y rubro';
                     }
-                    // dd($plano_rubro_progreso[0]);
-                    $plano = Plano::find($plano_rubro_progreso[0]);
-                    // dd($plano);
+                    // dd($plano_rubro_progreso);
+                    $plano = Plano::find($plano_rubro_id[0]);
             }
 
             $this->actualizarInventario($planos_rubros_progresos, $plano->obra_id);
+                    // dd($plano);
             return redirect()->route('avance.show',$plano->obra_id);
         }
     }
@@ -87,7 +87,7 @@ class AvanceController extends Controller
         $obras = Obra::find($id);
         $planos = $obras->planos;
         $planos_id = $planos->pluck('id');
-        $plano_log = DB::table('planos_rubros_log')->select('plano_id','rubro_id', DB::raw('SUM(progreso) as total_sales'))->whereIN('plano_id',$planos_id)->groupBy('plano_id','rubro_id')->get();
+        $plano_log = DB::table('planos_rubros_log')->select('plano_id','rubro_id', DB::raw('ifnull(SUM(progreso),0) as total_sales'))->whereIN('plano_id',$planos_id)->groupBy('plano_id','rubro_id')->get();
         // dd($plano_log);
              
         return view('obras.homeObra', compact('rubros', 'obras', 'planos', 'plano_log'));
@@ -132,8 +132,11 @@ class AvanceController extends Controller
     {
         // dd($planos_rubros_progresos);
         foreach (array_keys($planos_rubros_progresos) as $plano_rubro_progreso) {
-            // dd($plano_rubro_progreso[2]);
-            $rubro = Rubro::find($plano_rubro_progreso[2]);
+            $plano_rubro_id = explode("-", $plano_rubro_progreso);
+            // dd($plano_rubro_id[1]);
+
+            $rubro = Rubro::find($plano_rubro_id[1]);
+                // dd($plano_rubro_progreso[2]);
             // $cantidad_necesaria_material[$material->m_descripcion]['cantidad'] = array();
             foreach ($rubro->materiales as $material) {
                 $cantidad_necesaria_material[$material->m_descripcion]['cantidad'] = $material->pivot->cantidad_material;
@@ -144,7 +147,6 @@ class AvanceController extends Controller
             }
 
             foreach ($cantidad_necesaria_material as $cantidad_material) {
-                // dd($cantidad_material);
                 Inventario::where('obra_id', $obra_id)
                           ->where('material_id', $cantidad_material['id'])
                           ->update(['cantidad_actual' => $cantidad_material['cantidad']]);

@@ -14,6 +14,7 @@ use App\Material;
 use App\Obra;
 use App\Plano;
 use App\Presupuesto;
+use App\Pago;
 
 class DocumentosController extends Controller
 {
@@ -59,7 +60,7 @@ class DocumentosController extends Controller
      */
     public function store(Request $request)
     {       
-        dd($request->all());
+        // dd($request->all());
         switch ($request->submitDocumento) {
             case '1'://Plano
                 $this->guardarPlanos($request);
@@ -242,29 +243,65 @@ class DocumentosController extends Controller
     public function guardarContratos(Request $request)
     {
         //Primeramente guardamos el contrato
-        dd($request->all());
         $contrato = new Documento;
-        $contrato->nombre = $request->nombre;
+        $contrato->nombre = $request->nombreDoc;
         $contrato->tipo_doc_id = TipoDocumento::where('nombre', 'Contrato')->first()->id;
         $contrato->fecha_emision = $request->fecha;
         $contrato->ubicacion = $request->descripcion_contrato;
         $contrato->obra_id = $request->id_obra;
+        $contrato->save();
 
         $cuotas = $request->cuotas;
-        $arrayCuotas = array();
-        foreach ($cuotas as $cuota) {
-            $arrayAux = array();
-            $arrayAux['nro_cuota'] = $cuota[0];
-            $arrayAux['saldo'] = $cuota[1];
-            $arrayAux['monto_pago'] = $cuota[2];
-            $arrayAux['porcentaje_pago'] = $cuota[3];
-            $arrayAux['porcentaje_obra'] = $cuota[4];
-            $arrayCuotas[] = $arrayAux;
+        // dd($cuotas);
+        // return $cuotas;
+        // $arrayCuotas = array();
+        for ($i=0; $i < sizeof($cuotas); $i++) { 
+            $cuo[] = explode(',',$cuotas[$i]);
+            // dd(sizeof($cuotas));
+            // if ( $i == 1) {
+            //     # code...
+            // dd($cuo);
+            // }
+            $pago = new Pago;
+            $pago->documento_id = $contrato->id;
+            $pago->nro_pago = $cuo[$i][0];
+            $pago->monto_pago = $cuo[$i][2];
+            $pago->saldo = $cuo[$i][1];
+            $pago->porcentaje_pago = $cuo[$i][3];
+            $pago->estado = 0;
+
+            $pago->save();
         }
-        dd($arrayCuotas);
-        $nombre_doc = $request->nombreDoc;
-        $fecha = $request->fecha_emision; 
-        Documento::create($request->all());
+
+        $obraActualizar = Obra::find($request->id_obra);
+        $obraActualizar->es_obra = 0;
+        $obraActualizar->save();
+        // foreach ($cuotas as $cuota) {
+        //     dd($cuotas);
+        //     $cuo[] = explode(',',$cuota);
+        //     // dd($cuo[0][2]);
+        //     $pago = new Pago;
+        //     $pago->documento_id = $contrato->id;
+        //     $pago->nro_pago = $cuo[0][0];
+        //     $pago->monto_pago = $cuo[0][2];
+        //     $pago->saldo = $cuo[0][1];
+        //     $pago->porcentaje_pago = $cuo[0][3];
+        //     $pago->estado = 0;
+
+        //     $pago->save();
+
+        //     // $arrayAux = array();
+        //     // $arrayAux['nro_cuota'] = $cuota[0];
+        //     // $arrayAux['saldo'] = $cuota[1];
+        //     // $arrayAux['monto_pago'] = $cuota[2];
+        //     // $arrayAux['porcentaje_pago'] = $cuota[3];
+        //     // $arrayAux['porcentaje_obra'] = $cuota[4];
+        //     // $arrayCuotas[] = $arrayAux;
+        // }
+        // dd($arrayCuotas);
+        // $nombre_doc = $request->nombreDoc;
+        // $fecha = $request->fecha_emision; 
+        // Documento::create($request->all());
         
         // // return redirect()->route('documentos.show', $request->obra_id); 
         // return redirect()->route('documentos.create'); 

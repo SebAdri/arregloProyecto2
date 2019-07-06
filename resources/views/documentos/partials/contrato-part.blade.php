@@ -1,7 +1,7 @@
 <div class="row form-group">
   <label class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align: right;" for="first-name">Contrato <span class="required">*</span></label>
   <div class="col-md-6 col-sm-6 col-xs-12">
-    <input type="text"class="form-control {{ $errors->has('documento') ? ' is-invalid' : '' }}" name="nombre" id="nombreDoc" value="" placeholder="Nombre del Plano">
+    <input type="text"class="form-control {{ $errors->has('documento') ? ' is-invalid' : '' }}" name="nombreDoc" id="nombreDoc" value="" placeholder="Nombre del Plano">
     @if ($errors->has('documento'))
     <span class="invalid-feedback errors" role="alert">
       <strong>{{ $errors->first('documento') }}</strong>

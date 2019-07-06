@@ -115,7 +115,7 @@ Route::get('jsonRubrosMateriales', ['as' => 'jsonRubrosMateriales', 'uses' => 'A
 
 // Rutas para reportes
 Route::get('mostrarAvance', ['as' => 'mostrarAvance', 'uses'=>'ReporteController@mostrarAvance']);
-Route::match(['get', 'post'],'generarReporteAvance', ['as' => 'generarAvance', 'uses'=>'ReporteController@generarReporteAvance']);
+Route::post('generarReporteAvance', ['as' => 'generarAvance', 'uses'=>'ReporteController@generarReporteAvance']);
 // Route::match(['get', 'post'], '/', function () {});
 Route::get('exportarPdf', ['as' => 'exportarPdf', 'uses'=>'ReporteController@exportarPdf']);
 

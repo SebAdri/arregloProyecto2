@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('contenido')
-<form method="POST" action="{{ route('documentos.store') }}">
+<form id="doc" method="POST" action="{{ route('documentos.store') }}">
   {!! csrf_field() !!}
   <!-- Smart Wizard -->
   <div class="x_title">
@@ -130,7 +130,7 @@
       }
     });
     // $('#tipo_documento_id').trigger("change");
-    $('#submitDocumento').on('click', function(event){
+    $('#btnGuardar').on('click', function(event){
       event.preventDefault();
       var nombreDoc = $('#nombreDoc').val();
       var fecha_emision = $('#fecha_emision').val();
@@ -301,6 +301,24 @@
       '</div>';
       return cabeceraYpie;
     };
+
+    $('#doc').submit(function(event){
+      var datos = t.rows().data();
+      var form = this;
+      $.each(datos, function(){
+        // console.log(this);
+         // If element doesn't exist in DOM
+         if(!$.contains(document, form[this.name])){
+            // Create a hidden element
+            $(form).append(
+               $('<input>')
+                  .attr('type', 'hidden')
+                  .attr('name', 'cuotas[]')
+                  .val(this)
+            );
+         }
+        });
+    });
   } );
 
 

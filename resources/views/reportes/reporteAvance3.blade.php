@@ -32,8 +32,9 @@
 
 		<div class="col-md-9 col-md-offset-3">
 			<button type="submit" class="btn btn-success"  id="submitReporteAvance" name="submitReporteAvance" value="1" onclick="changeMethod2()">Generar Reporte</button>
+			{{-- <button type="submit" class="btn btn-success"  id="submitReporteAvance" name="submitReporteAvance" value="1">Generar Reporte</button> --}}
 			{{-- <button type="submit" class="btn btn-primary">Cancelar</button> --}}
-			<button type="submit" class="btn btn-info" id="submitReporteAvance2" name="submitReporteAvance2" value="2">Exportar a PDF</button>
+			<button type="submit" class="btn btn-info" id="submitReporteAvance" name="submitReporteAvance" value="2">Exportar a PDF</button>
 			{{-- <a href="{{ route('exportarPdf') }}" class="btn btn-info">Exportar a PDF link</a> --}}
 		</div>
 		<br><br>
@@ -44,7 +45,7 @@
 			<h4>Periodo</h4>
 			<label id="fechas">{{$periodo}}</label>
 		@endisset
-		@include('reportes.partials.reportAvanceBody-part')
+		{{-- @include('reportes.partials.reportAvanceBody-part') --}}
 		<div class="x_title"></div>
 		
 	</div>
@@ -78,7 +79,7 @@
 		  });
 
 			$('input[name="periodo"]').on('apply.daterangepicker', function(ev, picker) {
-				$(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+				$(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
 			});
 
 			$('input[name="periodo"]').on('cancel.daterangepicker', function(ev, picker) {
@@ -103,6 +104,36 @@
 		// function changeMethod2(){
 	 //      $("#reporteAvance").attr("method", "post");
 		// };
+		$('#pdf').on('click', function(){
+			var proyecto = $('#proyecto').val();
+			var periodo = $('#fechas').text();
+			console.log(periodo);
+			$.ajax({
+				headers: {
+					'X-CSRF-TOKEN' : $('meta[name = "csrf-token"]').attr('content')
+				},
+				url:'{{ route('exportarPdf')}}',
+				method: 'get', 
+				data: {
+					obra:proyecto,
+					periodo: periodo
+				},
+				dataType: 'pdf',
+				success:function(reponse){
+					console.log(reponse);
+				}
+			})
+			// .done(function (response){
+			// 	$("#pedido").modal('hide');
+			// 	$("#message").html('<p>Se ha enviado la solicitud</p>');
+			// 	$("#message").show();
+			// 	$("#message").hide(1500);
+			// 	location.reload();
+			// })
+			// .fail(function(){
+			// 	alert('ocurrio un error interno, contacte con Rolo');
+			// })
+		})
 	} );
 </script>
 @endpush

@@ -16,7 +16,7 @@ class CreateAssignedHerramientasTable extends Migration
         Schema::create('assigned_herramientas', function (Blueprint $table) {
             $table->integer('herramienta_id')->usigned();
             $table->integer('obra_id')->usigned();
-            $table->timestamps();
+            $table->date();
         });
     }
 

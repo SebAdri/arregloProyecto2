@@ -18,9 +18,15 @@ class Herramienta extends Model
   //           $table->boolean('estado')->default(1);
 	protected $fillable = ['h_nombre', 'h_marca', 'h_modelo', 'h_nro_serie', 'h_fecha_adquisicion', 'ubicacion'];
 
+  
   public function obras()
   {
     return $this->belongsToMany(Obra::class, 'inventarios')->withPivot('cantidad_minima','cantidad_actual');
+  }
+
+  public function obraHerramientas()
+  {
+    return $this->belongsTo(Obra::class, 'assigned_herramientas');
   }
 
   public function hasObras(array $obras)

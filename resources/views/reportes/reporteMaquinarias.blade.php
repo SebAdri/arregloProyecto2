@@ -2,13 +2,13 @@
 
 @section('contenido')
 
-<form method="post" action="{{ route('reporteHerramientas') }}">
+<form method="post" action="{{ route('reporteMaquinarias') }}">
   {!! csrf_field() !!}
   <div class="container">
     <div class="row">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h1>Herramientas por Obra</h1>
+          <h1>Maquinarias por Obra</h1>
         </div>
 
         <div class="panel-body">
@@ -47,24 +47,19 @@
           <thead>
             <tr>
               <th>Obra</th>
-              <th>Herramienta</th>
+              <th>Maquinaria</th>
               <th>Modelo</th>
-              <th>Nro de Serie</th>
               <th>Fecha de Adquisición</th>
-              <th>Ubicación</th>
             </tr>
           </thead>
           <tbody>
 
-            @foreach($obraHerramientas as $obraHerramienta)
+            @foreach($obraMaquinarias as $obraMaquinaria)
               <tr>
-                <td>{{$obraHerramienta->obra->nombre_proyecto}}</td>
-                <td>{{$obraHerramienta->herramientas[0]->h_nombre}}</td>
-                <td>{{$obraHerramienta->herramientas[0]->h_modelo}}</td>
-                <td>{{$obraHerramienta->herramientas[0]->h_nro_serie}}</td>
-                <td>{{$obraHerramienta->herramientas[0]->h_fecha_adquisicion}}</td>
-                <td>{{$obraHerramienta->herramientas[0]->h_ubicacion}}</td>
-
+                <td>{{$obraMaquinaria->obra->nombre_proyecto}}</td>
+                <td>{{$obraMaquinaria->maquinarias[0]->ma_nombre}}</td>
+                <td>{{$obraMaquinaria->maquinarias[0]->ma_modelo}}</td>
+                <td>{{$obraMaquinaria->maquinarias[0]->ma_fecha_adquisicion}}</td>
               </tr>
             @endforeach 
               

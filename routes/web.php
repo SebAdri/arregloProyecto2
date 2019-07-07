@@ -124,8 +124,12 @@ Route::get('generate-pdf/{data}','PdfController@generatePDF');
 Route::get('generate-factura/{data}',['as'=>'generate-factura', 'uses'=> 'PdfController@imprimirFactura']);
 
 // Route::resource('reporteHerramientas', 'ReporteHerramientasControllerController');
-Route::get('createReporteHerramientas','ReporteHerramientasController@createReporteHerramientas');
+Route::get('createReporteHerramientas',['as'=> 'createReporteHerramientas', 'uses' => 'ReporteHerramientasController@createReporteHerramientas'] );
 
 Route::post('reporteHerramientas',['as'=> 'reporteHerramientas', 'uses' => 'ReporteHerramientasController@generarReporteHerramientas'] );
+
+Route::get('createReporteMaquinarias',['as'=> 'createReporteMaquinarias', 'uses' => 'ReporteMaquinariasController@createReporteMaquinarias']);
+
+Route::post('reporteMaquinarias',['as'=> 'reporteMaquinarias', 'uses' => 'ReporteMaquinariasController@generarReporteMaquinarias'] );
 
 

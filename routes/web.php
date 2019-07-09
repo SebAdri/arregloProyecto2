@@ -53,7 +53,7 @@ Route::resource('herramientas', 'HerramientasController');
 Route::resource('clientes', 'ClientesController');
 
 //REST Almacenes
-Route::resource('storages', 'StoragesController');
+// Route::resource('storages', 'StoragesController');
 
 //EmpleadosObras
 Route::post('empleadosObras/{id}', ['as' => 'empleadosObras', 'uses'=>'EmpleadosObrasController@asignarEmpleadoObra']);
@@ -115,9 +115,12 @@ Route::get('jsonRubrosMateriales', ['as' => 'jsonRubrosMateriales', 'uses' => 'A
 
 // Rutas para reportes
 Route::get('mostrarAvance', ['as' => 'mostrarAvance', 'uses'=>'ReporteController@mostrarAvance']);
-Route::match(['get', 'post'],'generarReporteAvance', ['as' => 'generarAvance', 'uses'=>'ReporteController@generarReporteAvance']);
+Route::get('reporteCompra', ['as' => 'reporteCompra', 'uses'=>'ReporteController@reporteCompras']);
+Route::post('consultarCompras', ['as' => 'consultarCompras', 'uses'=>'ReporteController@obtenerComprasObras']);
+Route::post('generarAvance', ['as' => 'generarAvance', 'uses'=>'ReporteController@generarReporteAvance']);
 // Route::match(['get', 'post'], '/', function () {});
 Route::get('exportarPdf', ['as' => 'exportarPdf', 'uses'=>'ReporteController@exportarPdf']);
+Route::get('exportarPdfCompras',['as'=>'exportarPdfCompras', 'uses'=> 'ReporteController@exportarPdfCompras']);
 
 //generar pdf
 Route::get('generate-pdf/{data}','PdfController@generatePDF');

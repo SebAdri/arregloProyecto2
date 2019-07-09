@@ -23,7 +23,8 @@ class ReporteHerramientasController extends Controller
   public function generarReporteHerramientas(Request $request)
   {
     $obras = Obra::all();
-
+    $obra = Obra::where('id', $request->obra_id)->get();
+// dd($obra[0]->nombre_proyecto);
     if ($request->input('periodo') != null)
     {
       $fechaTrim = trim($request->input('periodo'));
@@ -41,8 +42,16 @@ class ReporteHerramientasController extends Controller
     }
 
     // dd($obraHerramientas);
+    // $pdf = PDF::loadView('reportes.partials.reportHerramientaHead-part', compact('obraHerramientas', 'fecha_desde', 'obra', 'fecha_hasta'));
 
-    return view('reportes.reporteHerramientas', compact('obraHerramientas','obras'));
+    $pdf = PDF::loadView('reportes.partials.reportHerramientaHead-part', compact('obraHerramientas', 'fecha_desde', 'obra', 'fecha_hasta','obras'));
+
+   return $pdf->download();
+    // return view('reportes.reporteHerramientas', compact('obraHerramientas','obras'))->with('pdf', $pdf->download());
+
+    // return $pdf->download()->with('reportes.reporteHerramientas', $obraHerramientas, $obras);
+
+    // return [$pdf->download(), view('reportes.reporteHerramientas', compact('obraHerramientas','obras'))];
 
   }
 }

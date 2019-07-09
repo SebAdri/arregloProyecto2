@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('contenido')
-<form id="reporteAvance" method="GET" action="{{ route('generarAvance') }}">
+<form id="reporteAvance" method="POST" action="{{ route('generarAvance') }}">
 	{{csrf_field()}}
 	<div class="x_panel">
 		<h1>Reporte de Avance</h1>
@@ -45,7 +45,7 @@
 			<h4>Periodo</h4>
 			<label id="fechas">{{$periodo}}</label>
 		@endisset
-		{{-- @include('reportes.partials.reportAvanceBody-part') --}}
+		@include('reportes.partials.reportAvanceBody-part')
 		<div class="x_title"></div>
 		
 	</div>

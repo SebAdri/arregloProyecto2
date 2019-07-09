@@ -66,6 +66,7 @@
 
           <br />
 
+<<<<<<< HEAD
           <!-- sidebar menu -->
           <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
             <div class="menu_section">
@@ -92,16 +93,15 @@
                     <li><a href="{{ route('pagos.index') }}"><i class="fa fa-table fa-2x"></i> Lista de Pagos</a></li>
                   </ul>
                 </li>
-                {{-- falta autenticacion --}}
+                @if (auth()->user()->hasPermission(['report']))
                 <li><a><i class="fas fa-dollar-sign"></i> Reportes <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
                     <li><a href="{{ route('mostrarAvance') }}"><i class="fa fa-table fa-2x"></i>Avance de Obra</a></li>
                     <li><a href="{{ route('createReporteHerramientas') }}"><i class="fa fa-table fa-2x"></i>Herramientas por Obra</a></li>
                     <li><a href="{{ route('createReporteMaquinarias') }}"><i class="fa fa-table fa-2x"></i>Maquinarias por Obra</a></li>
-
-
                   </ul>
                 </li>
+                @endif
               </ul>
             </div>
             <div class="menu_section">

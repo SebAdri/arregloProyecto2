@@ -23,7 +23,7 @@ class CreateTriggerPlanosRubros extends Migration
         DB::unprepared('
         CREATE TRIGGER tr_planos_rubros_log AFTER INSERT ON `planos_rubros` FOR EACH ROW
         BEGIN
-         INSERT INTO planos_rubros_log (`plano_id`, `rubro_id`, `area`, `progreso`,`fecha_control`,`accion`) VALUES (NEW.plano_id, NEW.rubro_id, NEW.area, NEW.progreso, now(), `INSERT`);
+         INSERT INTO planos_rubros_log (`plano_id`, `rubro_id`, `area`, `progreso`,`fecha_control`,`accion`) VALUES (NEW.plano_id, NEW.rubro_id, NEW.area, NEW.progreso, now(), \'INSERT\');
         END
         ');
     }

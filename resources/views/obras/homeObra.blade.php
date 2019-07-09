@@ -72,7 +72,7 @@
 			var sumProd = 0;
 			var sumArea = 0;
 			$(".produccionDos").each(function() {
-				sumProd += Number($(this).val())+;
+				sumProd += Number($(this).val());
 				if (Number($(this).val()) == 0) {
 					$(this).parent().parent().find('.porcentaje').first().css('width',(0).toFixed(1)+'%');
 					$(this).parent().parent().find('.porcentaje').first().text(0 + '%');

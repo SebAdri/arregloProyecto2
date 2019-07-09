@@ -118,6 +118,7 @@ Route::get('mostrarAvance', ['as' => 'mostrarAvance', 'uses'=>'ReporteController
 Route::get('reporteCompra', ['as' => 'reporteCompra', 'uses'=>'ReporteController@reporteCompras']);
 Route::post('consultarCompras', ['as' => 'consultarCompras', 'uses'=>'ReporteController@obtenerComprasObras']);
 Route::post('generarAvance', ['as' => 'generarAvance', 'uses'=>'ReporteController@generarReporteAvance']);
+
 // Route::match(['get', 'post'], '/', function () {});
 Route::get('exportarPdf', ['as' => 'exportarPdf', 'uses'=>'ReporteController@exportarPdf']);
 Route::get('exportarPdfCompras',['as'=>'exportarPdfCompras', 'uses'=> 'ReporteController@exportarPdfCompras']);
@@ -125,4 +126,14 @@ Route::get('exportarPdfCompras',['as'=>'exportarPdfCompras', 'uses'=> 'ReporteCo
 //generar pdf
 Route::get('generate-pdf/{data}','PdfController@generatePDF');
 Route::get('generate-factura/{data}',['as'=>'generate-factura', 'uses'=> 'PdfController@imprimirFactura']);
+
+// Route::resource('reporteHerramientas', 'ReporteHerramientasControllerController');
+Route::get('createReporteHerramientas',['as'=> 'createReporteHerramientas', 'uses' => 'ReporteHerramientasController@createReporteHerramientas'] );
+
+Route::post('reporteHerramientas',['as'=> 'reporteHerramientas', 'uses' => 'ReporteHerramientasController@generarReporteHerramientas'] );
+
+Route::get('createReporteMaquinarias',['as'=> 'createReporteMaquinarias', 'uses' => 'ReporteMaquinariasController@createReporteMaquinarias']);
+
+Route::post('reporteMaquinarias',['as'=> 'reporteMaquinarias', 'uses' => 'ReporteMaquinariasController@generarReporteMaquinarias'] );
+
 

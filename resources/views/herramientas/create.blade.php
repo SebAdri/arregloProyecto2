@@ -98,7 +98,6 @@
     <tbody>
       @foreach($herramientas as $herramienta)
         @if($herramienta->h_estado)
-        
         <tr>
           <td>{{ $herramienta->h_nombre }}</td>
           <td>{{ $herramienta->h_marca}}</td>
@@ -120,8 +119,7 @@
       @endforeach
     </tbody>
   </table>
-
-    </div>
+  </div>
   </div>
 </div>
 </div>

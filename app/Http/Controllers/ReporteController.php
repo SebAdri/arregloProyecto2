@@ -44,14 +44,29 @@ class ReporteController extends Controller
       break;
     }
   }
+ 
 
-  public function exportarPdf(Request $request)
-  {
-    $obra = Obra::find($request->obra_id);
-    $periodo = $request->periodo;
-    $planos = $obra->planos;
-    $planos_id = $planos->pluck('id');
-    $reportes = DB::table('planos_rubros_log')->select('plano_id','rubro_id','fecha_control', DB::raw('ifnull(SUM(progreso),0) as avance'))->whereIn('plano_id',$planos_id)->groupBy('plano_id','rubro_id', 'fecha_control')->get();
+    public function exportarPdf(Request $request)
+    {
+      // return $request->all();
+      // dd($this->user );
+      // dd(\Auth::user());
+      // return $periodo;
+      $fechaTrim = trim($request->input('periodo'));
+      $periodo = explode('-', trim($fechaTrim));
+      $desde = explode("/", trim($periodo[0]));
+      $hasta = explode("/", trim($periodo[1]));
+      $fecha_desde = $desde[2]."-".$desde[1]."-".$desde[0]." 00:00:00";
+      $fecha_hasta = $hasta[2]."-".$hasta[1]."-".$hasta[0]." 23:59:59";
+      // dd($fecha_desde);
+      $obra = Obra::find($request->obra_id);
+      // $obra = Obra::find($proyecto->obra_id);
+      $periodo = $request->periodo;
+      $planos = $obra->planos;
+      $planos_id = $planos->pluck('id');
+      $reportes = DB::table('planos_rubros_log')->select('plano_id','rubro_id','fecha_control', DB::raw('ifnull(SUM(progreso),0) as avance'))->whereIn('plano_id',$planos_id)->where('fecha_control', '>=',$fecha_desde)->where('fecha_control', '<=',$fecha_hasta)->groupBy('plano_id','rubro_id', 'fecha_control')->get();
+      // $reportes->;
+      // dd($reportes);
 
     $pdf = PDF::loadView('reportes.partials.reportAvanceHead-part', compact('reportes', 'planos', 'obra', 'periodo'));
       // return view('reportes.partials.reportAvanceHead-part', compact('reportes', 'planos'));
@@ -76,6 +91,7 @@ class ReporteController extends Controller
       $compras = $compras->whereBetween('fecha_compra', [$fecha_desde, $fecha_hasta])->get();
     }else{
       $compras = $compras->get();
+      return $pdf->download();
     }
     switch ($request->procesar) {
       case '1':

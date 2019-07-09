@@ -39,7 +39,7 @@
               <a href="{{ route('obras.show', $obra->id) }}">
                 <button type="button" title="Empleados" class="btn button-primary btn-rounded btn-sm my-0"><i class="fa fa-users" style="font-size:20px;"></i></button>
               </a>
-              <a href="">
+              <a href={{ route('almacen.show', $obra->id) }}>
                 <button type="button" title="Almacen de la obra" class="btn button-primary btn-rounded btn-sm my-0"><i class="fa fa-wrench" style="font-size:20px;"></i></button>
               </a> 
               <a href="{{ route('avance.show', $obra->id) }}">

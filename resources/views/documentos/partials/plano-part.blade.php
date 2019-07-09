@@ -2,7 +2,7 @@
   <div class="row form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align: right;" for="first-name">Plano <span class="required">*</span></label>
     <div class="col-md-6 col-sm-6 col-xs-12">
-      <input type="text"class="form-control {{ $errors->has('documento') ? ' is-invalid' : '' }}" name="nombre" id="nombreDoc" value="" placeholder="Nombre del Plano">
+      <input type="text"class="form-control {{ $errors->has('documento') ? ' is-invalid' : '' }}" name="nombre" id="nombre" value="" placeholder="Nombre del Plano">
       @if ($errors->has('documento'))
       <span class="invalid-feedback errors" role="alert">
         <strong>{{ $errors->first('documento') }}</strong>
@@ -14,7 +14,7 @@
     <label class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align: right;" for="last-name">Descripción <span class="required">*</span>
     </label>
     <div class="col-md-6 col-sm-6 col-xs-12">
-      <input type="text"class="form-control {{ $errors->has('documento') ? ' is-invalid' : '' }}" name="descripcion" id="nombreDoc" value="" placeholder="Descripción del plano">
+      <input type="text"class="form-control {{ $errors->has('documento') ? ' is-invalid' : '' }}" name="descripcion" id="descripcion" value="" placeholder="Descripción del plano">
       @if ($errors->has('documento'))
       <span class="invalid-feedback errors" role="alert">
         <strong>{{ $errors->first('documento') }}</strong>

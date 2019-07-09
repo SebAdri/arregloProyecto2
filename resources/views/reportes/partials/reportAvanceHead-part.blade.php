@@ -16,9 +16,12 @@
 		<hr>
 		<div class="x_content">
 			<h5>Obra: <small>{{$obra->nombre_proyecto}}</small> </h5>
-			<h5>Rango de Fecha: <small>{{$periodo}}</small> </h5>
+			<h5>Fecha Desde: <small>{{$fecha_desde}}</small> </h5>
+			<h5>Fecha Hasta: <small>{{$fecha_hasta}}</small> </h5>
+
 		</div>
-		@include('reportes.partials.reportAvanceBody-part')	
+
+		@include('reportes.partials.reporteHerramientaBody-part')	
 	</div>
 </body>
 </html>

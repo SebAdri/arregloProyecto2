@@ -50,4 +50,9 @@ class Obra extends Model
     function bandejaEntrada(){
         return $this->hasMany(Pedido::Class, 'id_obra_destino');
     }
+
+    public function herramientas()
+    {
+        return $this->belongsToMany(Herramienta::class, 'assigned_herramientas', 'obra_id', 'herramienta_id')->withPivot('created_at');
+    }
 }

@@ -302,5 +302,15 @@ class PermissionTableSeeder extends Seeder
         $permission->id_padre = 14;
         $permission->save();
 
+
+        //reporte
+        $permission = new Permission;
+        $permission->permission_name = 'report';
+        $permission->permission_description = 'reportes de obras';
+        $permission->permission_widget = 'b';
+        $permission->permission_level = '1';
+        $permission->id_padre = null;
+        $permission->save();
+
     }
 }

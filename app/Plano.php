@@ -18,4 +18,9 @@ class Plano extends Model
     {
         return $this->belongsTo(Obra::class, 'obra_id');
     }
+
+    public function presupuestos()
+    {
+        return $this->hasMany(Presupuesto::class);
+    }
 }

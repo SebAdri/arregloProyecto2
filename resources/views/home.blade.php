@@ -13,19 +13,28 @@
 
 
 <a href="{{ route('users.create') }}"><button class="btn btn-success col-md-s col-md-offset-3">Administrar Usuarios</button></a>
-	 <a href="{{ route('') }}"><button class="btn btn-success">Administrar Roles</button></a>  --}}
+<a href="{{ route('') }}"><button class="btn btn-success">Administrar Roles</button></a>  --}}
 
 
-<div class="container">
-  <div class="panel panel-default">
-    <div class="panel-body">
+<form>
+  <div class="container">
+    <div class="panel panel-default">
       <div class="row">
-          <div class="panel-heading">
-            <h1>BIENVENIDO</h1>
-          </div>
+        <div class="panel-heading">
+          <h1>BIENVENIDO</h1>
+          <hr>
+        </div>
       </div>
+      <div class="panel-body">
+      </div>
+      <div class="panel-footer">
+        <footer>Copyright ® {{ date('Y') }}</footer>
+      </div>
+    </div>
+  </div>
+</form>
 
-      <!-- Trigger the modal with a button -->
+<!-- Trigger the modal with a button -->
 {{-- button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
 
 <!-- Modal -->
@@ -49,7 +58,6 @@
   </div>
 </div> --}}
 
-      <hr>
       {{-- <div class="row">
         @if (auth()->user()->hasPermission(['obras']))
             <div class="col-md-4">
@@ -104,12 +112,6 @@
           </div>
         @endif
       </div> --}}
-    </div>
-    <div class="panel-footer">
-      <footer>Copyright ® {{ date('Y') }}</footer>
-    </div>
-  </div>
-</div>
 {{-- <script type="text/javascript">
   $("#users").click(function(){
     $.ajax({
@@ -143,6 +145,6 @@
   }
 );
 </script>
- --}}
+--}}
 @stop
 

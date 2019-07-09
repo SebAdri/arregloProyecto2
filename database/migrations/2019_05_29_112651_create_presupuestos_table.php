@@ -16,6 +16,7 @@ class CreatePresupuestosTable extends Migration
         Schema::create('presupuestos', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('obra_id');
+            $table->integer('plano_id');
             $table->float('iva');
             $table->float('beneficio',15,2);
             $table->float('costo_total_obra',15,2);

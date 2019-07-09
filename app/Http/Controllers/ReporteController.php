@@ -23,7 +23,7 @@ class ReporteController extends Controller
       // dd($obra);
       $periodo = $request->periodo;
       $obras = Obra::where('es_obra',0)->get();
-      $proyecto = Obra::find(2);
+      $proyecto = Obra::find($request->obra_id);
       $planos = $proyecto->planos;
       $planos_id = $planos->pluck('id');
       $reportes = DB::table('planos_rubros_log')->select('plano_id','rubro_id','fecha_control', DB::raw('ifnull(SUM(progreso),0) as avance'))->whereIn('plano_id',$planos_id)->groupBy('plano_id','rubro_id', 'fecha_control')->get();
@@ -35,8 +35,9 @@ class ReporteController extends Controller
           return view('reportes.reporteAvance3', compact('reportes', 'obras', 'planos', 'proyecto', 'periodo'));
           break;
         case '2':
+          return redirect()->route('exportarPdf', ['obra_id'=>$request->obra_id, 'periodo'=>$request->periodo])->with('method', 'POST');
           // return $request->all();
-         return $this->exportarPdf($reportes, $planos, $proyecto, $periodo);
+         // return $this->exportarPdf($reportes, $planos, $proyecto, $periodo);
           break;
       }
     }
@@ -44,7 +45,8 @@ class ReporteController extends Controller
     public function exportarPdf(Request $request)
     {
       // return $request->all();
-      // dd($request->all());
+      // dd($this->user );
+      // dd(\Auth::user());
       // return $periodo;
       $fechaTrim = trim($request->input('periodo'));
       $periodo = explode('-', trim($fechaTrim));
@@ -65,7 +67,7 @@ class ReporteController extends Controller
       $pdf = PDF::loadView('reportes.partials.reportAvanceHead-part', compact('reportes', 'planos', 'obra', 'periodo'));
       // return view('reportes.partials.reportAvanceHead-part', compact('reportes', 'planos'));
 
-      return $pdf->stream();
+      return $pdf->download();
     }
     public function reporteCompras(){
       $obras = Obra::all();

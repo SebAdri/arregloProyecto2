@@ -243,11 +243,12 @@ class DocumentosController extends Controller
     public function guardarContratos(Request $request)
     {
         //Primeramente guardamos el contrato
+        // dd($request->id_obra);
         $contrato = new Documento;
         $contrato->nombre = $request->nombreDoc;
         $contrato->tipo_doc_id = TipoDocumento::where('nombre', 'Contrato')->first()->id;
         $contrato->fecha_emision = $request->fecha;
-        $contrato->ubicacion = $request->descripcion_contrato;
+        // $contrato->ubicacion = $request->descripcion_contrato;
         $contrato->obra_id = $request->id_obra;
         $contrato->save();
 
@@ -264,6 +265,7 @@ class DocumentosController extends Controller
             // }
             $pago = new Pago;
             $pago->documento_id = $contrato->id;
+            $pago->obra_id = $request->id_obra;
             $pago->nro_pago = $cuo[$i][0];
             $pago->monto_pago = $cuo[$i][2];
             $pago->saldo = $cuo[$i][1];

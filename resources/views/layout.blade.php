@@ -92,12 +92,13 @@
                       <li><a href="{{ route('pagos.index') }}"><i class="fa fa-table fa-2x"></i> Lista de Pagos</a></li>
                     </ul>
                   </li>
-                  {{-- falta autenticacion --}}
+                  @if (auth()->user()->hasPermission(['report']))
                   <li><a><i class="fas fa-dollar-sign"></i> Reportes <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ route('mostrarAvance') }}"><i class="fa fa-table fa-2x"></i> Reportes</a></li>
                     </ul>
                   </li>
+                  @endif
                 </ul>
               </div>
               <div class="menu_section">

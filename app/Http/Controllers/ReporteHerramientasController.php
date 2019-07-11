@@ -46,7 +46,7 @@ class ReporteHerramientasController extends Controller
 
     $pdf = PDF::loadView('reportes.partials.reportHerramientaHead-part', compact('obraHerramientas', 'fecha_desde', 'obra', 'fecha_hasta','obras'));
 
-   return $pdf->download();
+   return $pdf->stream();
     // return view('reportes.reporteHerramientas', compact('obraHerramientas','obras'))->with('pdf', $pdf->download());
 
     // return $pdf->download()->with('reportes.reporteHerramientas', $obraHerramientas, $obras);

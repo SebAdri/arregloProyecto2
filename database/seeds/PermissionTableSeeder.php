@@ -259,8 +259,8 @@ class PermissionTableSeeder extends Seeder
 
     // (29, 'ediMate', 'editar materiales', 'c', '3', 27, '2018-10-07 11:56:37', '2018-10-07 11:59:11'),
         $permission = new Permission;
-        $permission->permission_name = 'addEmpl';
-        $permission->permission_description = 'agregar empleados';
+        $permission->permission_name = 'ediMate';
+        $permission->permission_description = 'editar materiales';
         $permission->permission_widget = 'c';
         $permission->permission_level = '3';
         $permission->id_padre = 20;
@@ -281,7 +281,7 @@ class PermissionTableSeeder extends Seeder
         $permission->permission_description = 'agregar rol';
         $permission->permission_widget = 'c';
         $permission->permission_level = '3';
-        $permission->id_padre = 14;
+        $permission->id_padre = 27;
         $permission->save();
 
     // (32, 'ediRole', 'editar rol', 'c', '3', 14, '2018-10-07 11:58:22', '2018-10-07 11:59:09'),

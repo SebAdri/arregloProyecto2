@@ -23,7 +23,7 @@ class Obra extends Model
     }
 
     public function compra(){
-        return $this->hasMany(OrdenCompra::Class);
+        return $this->hasMany(Compra::Class);
     }
     public function inventario(){
         return $this->hasMany(Inventario::Class);

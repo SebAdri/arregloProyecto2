@@ -10,19 +10,7 @@
       <div class="panel-body">
         <form method="post" id="factura" action="{{ route('facturas.store') }}">
           {{ csrf_field() }}
-          <div class="row">
-            <div class="col-xs-12 col-sm-3 col-md-3" style="padding-left: 25px; padding-top: 10px;padding-right: 15px">
-              <div class="form-group">
-                <label>Fecha Inicial/Final</label>             
-                <div class="input-group">
-                  <div class="input-group-addon" style="padding-top: 8px;padding-bottom: 10px;height: 32.992188px;">
-                    <i class="fa fa-calendar"></i>
-                  </div>
-                  <input type="text" class="form-control pull-right fecha" name="periodo" id="periodo" required>
-                </div>
-              </div>              
-            </div>
-          </div>
+          
           <div class="" lass="row">
             <div class="col-md-3 ">
               <label for="">RUC</label>
@@ -153,7 +141,9 @@
 @push('scripts')
 <script type="text/javascript">
   $(document).ready(function(){
-    $('input[name="periodo"]').daterangepicker();
+    
+    var rangoInicio = moment();
+    var rangoFin = moment();
     var t = $('#detalle_pagos').DataTable({
       "paging":   false,
       "ordering": false,

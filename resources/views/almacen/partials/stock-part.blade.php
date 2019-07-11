@@ -8,10 +8,6 @@
 				<tr>
 					<th>Cod. Material</th>
 					<th>Descripcion</th>
-					<th>Descripcion</th>
-					<th>Descripcion</th>
-					<th>Descripcion</th>
-					<th>Descripcion</th>
 					<th>Cantidad Minima</th>
 					<th>Cantidad Actual</th>
 				</tr>
@@ -20,10 +16,6 @@
 				@foreach ($inventarioObra as $inventario)
 				<tr @if ($inventario->cantidad_minima >= $inventario->cantidad_actual) id="aviso" @endif>
 					<td>{{$inventario->material->id}}</td>
-					<td>{{$inventario->material->m_descripcion}}</td>
-					<td>{{$inventario->material->m_descripcion}}</td>
-					<td>{{$inventario->material->m_descripcion}}</td>
-					<td>{{$inventario->material->m_descripcion}}</td>
 					<td>{{$inventario->material->m_descripcion}}</td>
 					<td>{{$inventario->cantidad_minima}}</td>
 					<td>{{$inventario->cantidad_actual}}</td>

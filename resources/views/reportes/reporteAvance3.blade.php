@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('contenido')
-<form id="reporteAvance" method="POST" action="{{ route('generarAvance') }}">
+<form id="reporteAvance" method="post" action="{{ route('generarAvance') }}">
 	{{csrf_field()}}
 	<div class="x_panel">
 		<h1>Reporte de Avance</h1>
@@ -34,8 +34,9 @@
 			<button type="submit" class="btn btn-success"  id="submitReporteAvance" name="submitReporteAvance" value="1" onclick="changeMethod2()">Generar Reporte</button>
 			{{-- <button type="submit" class="btn btn-success"  id="submitReporteAvance" name="submitReporteAvance" value="1">Generar Reporte</button> --}}
 			{{-- <button type="submit" class="btn btn-primary">Cancelar</button> --}}
-			<button type="submit" class="btn btn-info" id="submitReporteAvance" name="submitReporteAvance" value="2">Exportar a PDF</button>
-			{{-- <a href="{{ route('exportarPdf') }}" class="btn btn-info">Exportar a PDF link</a> --}}
+			<button type="submit" formtarget="_blank" class="btn btn-info" id="submitReporteAvance" name="submitReporteAvance" value="2">Exportar a PDF</button>
+			{{-- <a href="{{ route('exportarPdf', ['obra_id'=>$request->obra_id, 'periodo'=>$request->periodo]) }}" class="btn btn-info">Exportar a PDF link</a> --}}
+
 		</div>
 		<br><br>
 		@isset ($proyecto)
@@ -89,8 +90,7 @@
 
 		// $('#submitReporteAvance2').click(function(){
 	 //      $("#reporteAvance").attr("method", "get");
-	 //      $("#reporteAvance").attr("action", {{ route('exportarPdf') }});
-	 //      alert('llega');
+	 //      $("#reporteAvance").attr("action", 
 
 		// });
 

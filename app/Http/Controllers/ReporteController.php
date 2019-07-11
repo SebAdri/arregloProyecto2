@@ -16,7 +16,7 @@ class ReporteController extends Controller
 {
   public function mostrarAvance()
   {
-    $obras = Obra::where('es_obra',0)->get();
+    $obras = Obra::where('es_obra',1)->get();
     return view('reportes.reporteAvance3', compact('obras'));
   }
 
@@ -26,7 +26,7 @@ class ReporteController extends Controller
       // dd($obra);
     $request->session()->flash('obra_id', $request->obra_id);
     $periodo = $request->periodo;
-    $obras = Obra::where('es_obra',0)->get();
+    $obras = Obra::where('es_obra',1)->get();
     $proyecto = Obra::find($request->obra_id);
     $planos = $proyecto->planos;
     $planos_id = $planos->pluck('id');
@@ -60,7 +60,7 @@ class ReporteController extends Controller
       $hasta = explode("/", trim($periodo[1]));
       $fecha_desde = $desde[2]."-".$desde[1]."-".$desde[0]." 00:00:00";
       $fecha_hasta = $hasta[2]."-".$hasta[1]."-".$hasta[0]." 23:59:59";
-      // dd($fecha_desde);
+      // dd($request->obra_id);
       $obra = Obra::find($request->obra_id);
       // $obra = Obra::find($proyecto->obra_id);
       $periodo = $request->periodo;
@@ -70,7 +70,7 @@ class ReporteController extends Controller
       // $reportes->;
       // dd($reportes);
 
-    $pdf = PDF::loadView('reportes.partials.reportAvanceHead-part', compact('reportes', 'planos', 'obra', 'periodo'));
+    $pdf = PDF::loadView('reportes.partials.reportAvanceHead-part', compact('reportes', 'planos', 'obra', 'fecha_desde', 'fecha_hasta'));
       // return view('reportes.partials.reportAvanceHead-part', compact('reportes', 'planos'));
 
     return $pdf->stream('reporte', array('Attachment'=>0));

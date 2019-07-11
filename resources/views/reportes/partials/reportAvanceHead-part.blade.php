@@ -21,7 +21,7 @@
 
 		</div>
 
-		@include('reportes.partials.reporteHerramientaBody-part')	
+		@include('reportes.partials.reportAvanceBody-part')	
 	</div>
 </body>
 </html>

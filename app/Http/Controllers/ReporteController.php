@@ -91,7 +91,6 @@ class ReporteController extends Controller
       $compras = $compras->whereBetween('fecha_compra', [$fecha_desde, $fecha_hasta])->get();
     }else{
       $compras = $compras->get();
-      return $pdf->download();
     }
     switch ($request->procesar) {
       case '1':
@@ -122,7 +121,7 @@ class ReporteController extends Controller
     }else{
       $compras = $compras->get();
     }
-    $pdf = PDF::loadView('reportes.partials.reportComprasHead-part', compact('compras', 'periodo'));
+    $pdf = PDF::loadView('reportes.partials.reportComprasHead-part', compact('compras', 'periodo', 'obra', 'fecha_desde', 'fecha_hasta'));
       // return view('reportes.partials.reportAvanceHead-part', compact('reportes', 'planos'));
 
     return $pdf->stream('reporte', array('Attachment'=>0));

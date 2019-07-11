@@ -47,7 +47,7 @@
       <div class="col-md-3 left_col">
         <div class="left_col scroll-view">
           <div class="navbar nav_title" style="border: 0;">
-            <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span style="font-size: 80%">Filártiga&Cárdenas!</span></a>
+            <a href="/" class="site_title"><i class="fa fa-paw"></i> <span style="font-size: 80%">Filártiga&Cárdenas!</span></a>
           </div>
 
           <div class="clearfix"></div>
@@ -94,11 +94,12 @@
                   </ul>
                 </li>
                 @if (auth()->user()->hasPermission(['report']))
-                <li><a><i class="fas fa-dollar-sign"></i> Reportes <span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fas fa-file"></i> Reportes <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
                     <li><a href="{{ route('mostrarAvance') }}"><i class="fa fa-table fa-2x"></i>Avance de Obra</a></li>
                     <li><a href="{{ route('createReporteHerramientas') }}"><i class="fa fa-table fa-2x"></i>Herramientas por Obra</a></li>
                     <li><a href="{{ route('createReporteMaquinarias') }}"><i class="fa fa-table fa-2x"></i>Maquinarias por Obra</a></li>
+                    <li><a href="{{ route('reporteCompra') }}"><i class="fa fa-table fa-2x"></i>Compras por Obra</a></li>
                   </ul>
                 </li>
                 @endif

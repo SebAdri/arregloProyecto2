@@ -15,11 +15,11 @@
     <tr class="corte">
       <td>{{$compra->id}}</td>
       <td>{{$compra->obra->nombre_proyecto}}</td>
-      <td colspan="4">{{$compra->fecha_compra}}</td>
+      <td colspan="4">{{date_format(date_create($compra->fecha_compra), "d/m/Y")}}</td>
     </tr>
     <tr>
-
-      <td colspan="4">
+      <td></td>
+      <td>
         <table class="table table-bordered">
           <thead>
             <tr>
@@ -29,9 +29,9 @@
           </thead>
           <tbody>
             @foreach ($compra->detalleCompra as $detalle)
-            <tr class="subTabla">
-              <td>{{$detalle->material->m_descripcion}}</td>
-              <td>{{$detalle->cantidad_solicitada}}</td>
+            <tr>
+              <td style="width: 80%">{{$detalle->material->m_descripcion}}</td>
+              <td style="width: 50%">{{$detalle->cantidad_solicitada}}</td>
             </tr>            
             @endforeach
             

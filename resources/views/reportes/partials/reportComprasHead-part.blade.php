@@ -8,21 +8,15 @@
 		.corte {
 			background-color:#DFF0D8;
 		}
-		/*th:after {
-			border-top: 1px solid black;
-		}
-		td{
-			border-collapse: collapse;
-			border-top: 1px solid black;
-		}*/
 		td {
 			height: 15px;
 		}
-		table .principal{
+		/*table, th, td {
+			border: 1px solid black;
+		}*/
+		table {
 			width: 100%;
-		}
-		.subTabla th td {
-			width: 10;	
+			border-collapse: collapse;
 		}
 
 	</style>
@@ -32,7 +26,9 @@
 		<h1 style="text-align: center">Reporte de Compras por Obra</h1>
 		<hr>
 		<div class="x_content">
-			<h5>Obra: <small>{{$compras[0]->obra->nombre_proyecto}}</small> </h5>
+			<h5>Obra: <small>{{$obra->nombre_proyecto}}</small> </h5>
+			{{-- <h5>Fecha Desde: <small>{{date_format(date_create($fecha_desde), "d/m/Y")}}</small> </h5>
+			<h5>Fecha Hasta: <small>{{date_format(date_create($fecha_hasta), "d/m/Y")}}</small> </h5> --}}
 			<h5>Rango de Fecha: <small> @isset ($periodo)
 				{{$periodo}}
 			@endisset</small> </h5>

@@ -1,7 +1,7 @@
 
 <table id="tableReporteAvance" class="table table-hover table-bordered">
 	<thead>
-		<tr>
+		<tr class="corte">
 			<th>Herramienta</th>
 			<th>Modelo</th>
 			<th>Nro de Serie</th>

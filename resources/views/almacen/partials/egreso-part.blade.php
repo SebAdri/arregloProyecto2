@@ -1,37 +1,33 @@
 
 <h2>Egresos</h2>
 <div id="avisoRecepcionCompra"></div>
-<div class="panel panel-default">
-	<div class="panel-body">
-		<div class="col-md-12">
-			<div class="table-responsive mailbox-messages">
-				<table class="table table-responsive table-hover table-striped" id="tEgresos" style="width: 100%">
-					<thead>
-						<tr>
-							<th></th>
-							<th>Cod. Compra</th>
-							<th>Proveedor</th>
-							<th>Fecha Compra</th>
-						</tr>
-					</thead>
-					<tbody>
+<div class="col-md-12">
+	<div class="table-responsive mailbox-messages">
+		<table class="table table-responsive table-hover table-striped" id="tEgresos" style="width: 100%">
+			<thead>
+				<tr>
+					<th></th>
+					<th>Cod. Compra</th>
+					<th>Proveedor</th>
+					<th>Fecha Compra</th>
+				</tr>
+			</thead>
+			<tbody>
 
-						@foreach ($egresos as $egreso)
-						<tr>
-							<th></th>
-							<td>{{$egreso->id}}</td>
-							<td>{{$egreso->obra}}</td>
-							<td>{{$egreso->fecha_envio}}</td>
+				@foreach ($egresos as $egreso)
+				<tr>
+					<th></th>
+					<td>{{$egreso->id}}</td>
+					<td>{{$egreso->obra}}</td>
+					<td>{{date_format(date_create($egreso->fecha_envio), "d/m/Y")}}</td>
 
-						</tr>
-						@endforeach
-					</tbody>
-				</table>
-			</div>
-		</div>	
+				</tr>
+				@endforeach
+			</tbody>
+		</table>
 	</div>
+</div>	
 
-</div>
 @push('scripts')
 <script type="text/javascript">
 	$(document).ready(function(response) {
@@ -109,7 +105,7 @@
 					$("#message").show();
 					$("#message").hide(1500);
 					// location.reload();
-        			tEgresos.ajax.reload();
+					tEgresos.ajax.reload();
 				})
 				.fail(function(){
 					alert('ocurrio un error interno, contacte con Rolo');
@@ -133,8 +129,8 @@
     	text += '<table class="table table-responsive table-hover table-striped" id="dEgresos" >';
     	text +='<thead>';
     	text +='<tr>';
-		text +='<th>Cantidad Solicitada</th>';
-		text +='<th>Cantidad Recibida</th>';
+    	text +='<th>Cantidad Solicitada</th>';
+    	text +='<th>Cantidad Recibida</th>';
 		// // text +='	<th>Fecha Atencion</th>';
 		// // text +='	<th>Estado</th>';
 		text +='	</tr>';

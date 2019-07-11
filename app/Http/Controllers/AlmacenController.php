@@ -121,7 +121,7 @@ class AlmacenController extends Controller
             ->join('materiales as m', 'pd.material_id', '=', 'm.id')
             ->join('pedidos as p', 'p.id', '=', 'pd.pedido_id')
             ->select('m.id', 'm.m_descripcion', DB::raw('SUM(pd.cantidad_solicitada) as cantidad_solicitada'))
-            ->whereIn('pd.pedido_id', $request->pedidosCheck)->where('p.estado', '2')
+            ->whereIn('pd.pedido_id', $request->pedidosCheck)->where('p.estado', '1')
             ->groupBy('m.id')->get();
             $proveedores = Proveedor::all(); 
             $obra = $request->input('obra');
@@ -257,8 +257,8 @@ class AlmacenController extends Controller
                 $arrayAux2['cantidad']= $detalle->cantidad_solicitada;
                 $arrayAux['materiales'][] = $arrayAux2; 
             }
-            $arrayAux['fecha_pedido'] = $entrada->fecha_pedido;
-            $arrayAux['fecha_recibido'] = $entrada->fecha_recibido;
+            $arrayAux['fecha_pedido'] = date_format(date_create($entrada->fecha_pedido), "d/m/Y");
+            $arrayAux['fecha_recibido'] = date_format(date_create($entrada->fecha_recibido), "d/m/Y");
             $arrayAux['obra'] = $entrada->bandejaEnviado;
             $arrayAux['estado'] = $entrada->estado;
             // dd($entrada->bandejaEnviado);
@@ -283,8 +283,8 @@ class AlmacenController extends Controller
                 $arrayAux2['cantidad_recibida']= $detalle->cantidad_recibida;
                 $arrayAux['materiales'][] = $arrayAux2; 
             }
-            $arrayAux['fecha_pedido'] = $enviado->fecha_pedido;
-            $arrayAux['fecha_recibido'] = $enviado->fecha_recibido;
+            $arrayAux['fecha_pedido'] = date_format(date_create($enviado->fecha_pedido), "d/m/Y") ;
+            $arrayAux['fecha_recibido'] = date_format(date_create($enviado->fecha_recibido), "d/m/Y");
             $arrayAux['obra'] = $enviado->bandejaEnviado;
             $arrayAux['estado'] = $enviado->estado;
             // dd($enviado->bandejaEnviado);
@@ -308,8 +308,8 @@ class AlmacenController extends Controller
                 $arrayAux['materiales'][] = $arrayAux2;
             }
             $arrayAux['proveedor'] = $compra->proveedor;
-            $arrayAux['fecha_compra'] = $compra->fecha_compra;
-            $arrayAux['fecha_recepcion'] = $compra->fecha_recepcion;
+            $arrayAux['fecha_compra'] = date_format(date_create($compra->fecha_compra), "d/m/Y");
+            $arrayAux['fecha_recepcion'] = date_format(date_create($compra->fecha_recepcion), "d/m/Y");
             $data['data'][]=$arrayAux;
         }
         // dd($data);
@@ -319,7 +319,7 @@ class AlmacenController extends Controller
         $egresos = Egreso::where('obra_id', $request->obra)->get();
         // $compras = Compra::where('obra_id', 1)->get();
         $data['data']=array();
-        echo count($egresos);
+        // echo count($egresos);
         foreach ($egresos as $egreso) {
             $arrayAux = array();
             $arrayAux['id'] = $egreso->id;
@@ -329,12 +329,12 @@ class AlmacenController extends Controller
                 $arrayAux2['cantidad']= $detalle->cantidad_solicitada;
                 $arrayAux['materiales'][] = $arrayAux2;
             }
-            $arrayAux['fecha_envio'] = $egreso->fecha_envio;
+            $arrayAux['fecha_envio'] = date_format(date_create($egreso->fecha_envio), "d/m/Y") ;
             $arrayAux['obra_solicitante'] = $egreso->obra->nombre_proyecto;
             $data['data'][]=$arrayAux;
         }
         // dd($egresos);
-        dd($data);
+        // dd($data);
         return $data;
 
     }

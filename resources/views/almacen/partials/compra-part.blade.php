@@ -1,39 +1,36 @@
 
 <h2>Compras</h2>
 <div id="avisoRecepcionCompra"></div>
-<div class="panel panel-default">
-	<div class="panel-body">
-		<div class="col-md-12">
-			<div class="table-responsive mailbox-messages">
-				<table class="table table-responsive table-hover table-striped" id="compras" style="width: 100%">
-					<thead>
-						<tr>
-							<th></th>
-							<th>Cod. Compra</th>
-							<th>Proveedor</th>
-							<th>Fecha Compra</th>
-							<th>Fecha Recepcion</th>
-						</tr>
-					</thead>
-					<tbody>
+<div class="col-md-12">
+	<div class="table-responsive mailbox-messages">
+		<table class="table table-responsive table-hover table-striped" id="compras" style="width: 100%">
+			<thead>
+				<tr>
+					<th></th>
+					<th>Cod. Compra</th>
+					<th>Proveedor</th>
+					<th>Fecha Compra</th>
+					<th>Fecha Recepcion</th>
+				</tr>
+			</thead>
+			<tbody>
 
-						@foreach ($compras as $compra)
-						<tr>
-							<th></th>
-							<td>{{$compra->id}}</td>
-							<td>{{$compra->proveedor->ruc}} {{$compra->proveedor->nombre}}</td>
-							<td>{{$compra->fecha_compra}}</td>
-							<td>{{$compra->fecha_recepcion}}</td>
+				@foreach ($compras as $compra)
+				<tr>
+					<th></th>
+					<td>{{$compra->id}}</td>
+					<td>{{$compra->proveedor->ruc}} {{$compra->proveedor->nombre}}</td>
+					<td>{{date_format(date_create($compra->fecha_compra), "d/m/Y")}}</td>
 
-						</tr>
-						@endforeach
-					</tbody>
-				</table>
-			</div>
-		</div>	
+					<td>{{date_format(date_create($compra->fecha_recepcion), "d/m/Y")}}</td>
+
+				</tr>
+				@endforeach
+			</tbody>
+		</table>
 	</div>
+</div>	
 
-</div>
 @push('scripts')
 <script type="text/javascript">
 	$(document).ready(function(response) {
@@ -111,7 +108,7 @@
 					$("#message").show();
 					$("#message").hide(1500);
 					// location.reload();
-        			tCompra.ajax.reload();
+					tCompra.ajax.reload();
 				})
 				.fail(function(){
 					alert('ocurrio un error interno, contacte con Rolo');
@@ -137,10 +134,10 @@
     	text +='<tr>';
     	text +='<th>Materiales</th>'
 
-		text +='<th>Cantidad Solicitada</th>';
-		text +='<th>Cantidad Recibida</th>';
-		text +='<th>Cantidad Recibida</th>';
-		text +='<th>Accion</th>';
+    	text +='<th>Cantidad Solicitada</th>';
+    	text +='<th>Cantidad Recibida</th>';
+    	text +='<th>Cantidad Recibida</th>';
+    	text +='<th>Accion</th>';
 		// // text +='	<th>Fecha Atencion</th>';
 		// // text +='	<th>Estado</th>';
 		text +='	</tr>';

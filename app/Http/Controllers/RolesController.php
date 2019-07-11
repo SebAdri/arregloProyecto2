@@ -98,11 +98,12 @@ class RolesController extends Controller
     public function nested($rows = array(), $description)
     {
         // $padres = array();
+
         $padres="";
         if (!empty($rows)) {
             foreach ($rows as $row) {
                 if ($row['permission_name'] == $description && $row['permission_level']!='1') {
-                    if ($row['permission_level']==2) {
+                    if ($row['permission_level']=='2') {
                         $padres.= $row['id_padre'];
                     }else{
                         $padres.= $row['id_padre'].',';  
@@ -174,7 +175,6 @@ class RolesController extends Controller
             $role_permission.= $permission.',';
         }
         $padres = array_unique($padres);
-        // dd($padres);
         $c=1;
         foreach ($padres as $padre) {
             if (count($padres)==$c) {

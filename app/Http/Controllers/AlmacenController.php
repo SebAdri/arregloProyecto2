@@ -145,14 +145,17 @@ class AlmacenController extends Controller
         return $text;
     }
     public function recepcionPedido (Request $request){
-        $obra = Pedido::where('id', $request->pedido)->select('id_obra_solicitante')->get();
-        // dd($obra[0]->id_obra_solicitante);
+        $obra = Pedido::where('id', $request->pedido)->select('id_obra_solicitante', 'estado')->get();
+        $obra[0]->estado=2;
+        // dd($obra[0]);
+        $obra[0]->save();
         $inventario = Inventario::where('material_id',$request->material )->where('obra_id', $obra[0]->id_obra_solicitante)->get();
         if (count($inventario)>0) {
-            $inventario = Inventario::where('material_id',$request->material )->where('obra_id', $obra[0]->id_obra_solicitante);
+            $inventario = Inventario::where('material_id',$request->material )->where('obra_id', $obra[0]->id_obra_solicitante)->get();
+            // dd($inventario);
             $cantidad_actual = $inventario[0]->cantidad_actual;
-            $inventario->cantidad_actual = $cantidad_actual + $request->cantidad_recibida;
-            $inventario->save();
+            $inventario[0]->cantidad_actual = $cantidad_actual + $request->cantidad_recibida;
+            $inventario[0]->save();
         }else{
             $inventario = new Inventario;
             $inventario->material_id = $request->material;
@@ -167,7 +170,11 @@ class AlmacenController extends Controller
           ->update(['cantidad_recibida' => $request->cantidad_recibida]);
         return $detalle;
     }
-    public function recepcionCompra(Request $id_obra_solicitanterequest){
+    public function recepcionCompra(Request $request){
+        // dd($request);
+        $compra = Compra::find($request->pedido);
+        $compra->estado='2';
+        $compra->save();
         $detalle = CompraDetalle::where('material_id', $request->material)
           ->where('compra_id', $request->pedido)
           ->update(['cantidad_recibida' => $request->cantidad_recibida]);

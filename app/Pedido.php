@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pedido extends Model
 {
+	protected $fillable = ['fecha_pedido', 'fecha_recibido', 'id_obra_solicitante', 'id_obra_destino', 'estado', 'observacion'];
     function detallePedido(){
     	return $this->hasMany(PedidoDetalle::Class);
     }

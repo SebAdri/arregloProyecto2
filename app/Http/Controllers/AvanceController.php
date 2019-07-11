@@ -69,7 +69,7 @@ class AvanceController extends Controller
                     $plano = Plano::find($plano_rubro_id[0]);
             }
 
-            $this->actualizarInventario($planos_rubros_progresos, $plano->obra_id);
+            // $this->actualizarInventario($planos_rubros_progresos, $plano->obra_id);
                     // dd($plano);
             return redirect()->route('avance.show',$plano->obra_id);
         }

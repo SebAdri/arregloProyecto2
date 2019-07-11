@@ -14,7 +14,7 @@
             <div class="col-md-2 col-md-offset-2">
               <label for="">Primer Nombre</label>
                 <div class="form-group">
-                  <input type="text" size="19"  class="form-control{{ $errors->has('primerNombre') ? ' is-invalid' : '' }}" value="" name="primerNombre" placeholder="Primer Nombre" required>
+                  <input type="text" size="19"  class="form-control{{ $errors->has('primerNombre') ? ' is-invalid' : '' }}" value="" id="primerNombre" name="primerNombre" placeholder="Primer Nombre" required>
                     @if ($errors->has('primerNombre'))
                       <span class="invalid-feedback errors" role="alert">
                         <strong>{{ $errors->first('primerNombre') }}</strong>

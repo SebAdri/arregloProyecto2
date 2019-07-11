@@ -20,6 +20,7 @@ class CreateMaterialesTable extends Migration
             $table->double('m_costo');
             //$table->decimal('m_min_stock');
             //$table->decimal('m_cantidad_actual');
+            $table->string('m_ubicacion')->default(0);
             $table->boolean('m_estado')->defaut(1);
             $table->timestamps();
         });

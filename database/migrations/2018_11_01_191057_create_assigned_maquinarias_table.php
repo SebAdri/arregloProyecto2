@@ -16,7 +16,7 @@ class CreateAssignedMaquinariasTable extends Migration
         Schema::create('assigned_maquinarias', function (Blueprint $table) {
             $table->integer('maquinaria_id');
             $table->integer('obra_id');
-            $table->integer('cantidad_disponible');
+            $table->string('accion');
         });
     }
 

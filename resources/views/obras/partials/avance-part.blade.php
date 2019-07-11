@@ -40,7 +40,7 @@
  											<input class="produccion" type="text" value="{{$plano_log->where('plano_id', $plano->id)->where('rubro_id', $rubrosObra->id)->first()->total_sales}}" id="inputProgreso_{{$rubrosObra->pivot->progreso}}" readonly disabled> 											
  										</td>
  										<td> 
- 											<input class="produccionDos" type="text" value="" id="inputProgreso_{{$rubrosObra->pivot->progreso}}" name="inputProgreso[{{$plano->id}}-{{$rubrosObra->id}}]">
+ 											<input class="produccionDos" type="text" value="0" id="inputProgreso_{{$rubrosObra->pivot->progreso}}" name="inputProgreso[{{$plano->id}}-{{$rubrosObra->id}}]">
  										</td>
  										<td>
  											<div class="progress">

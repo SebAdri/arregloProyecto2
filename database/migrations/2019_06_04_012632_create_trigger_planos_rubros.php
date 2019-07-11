@@ -26,6 +26,13 @@ class CreateTriggerPlanosRubros extends Migration
          INSERT INTO planos_rubros_log (`plano_id`, `rubro_id`, `area`, `progreso`,`fecha_control`,`accion`) VALUES (NEW.plano_id, NEW.rubro_id, NEW.area, NEW.progreso, now(), \'INSERT\');
         END
         ');
+
+        // DB::unprepared('
+        // CREATE TRIGGER assigned_herramientas AFTER INSERT ON `inventarios` FOR EACH ROW
+        // BEGIN
+        //  INSERT INTO assigned_herramientas (`herramienta_id`, `obra_id`, `created_at`,`accion`) VALUES (NEW.herramienta_id, NEW.obra_id, now(), \'INSERT\');
+        // END
+        // ');
     }
 
     /**

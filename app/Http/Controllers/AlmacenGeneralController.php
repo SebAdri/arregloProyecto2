@@ -8,6 +8,7 @@ use App\Herramienta;
 use App\Maquinaria;
 use App\Material;
 use App\Obra;
+use Carbon\Carbon;
 
 class AlmacenGeneralController extends Controller
 {
@@ -35,7 +36,7 @@ class AlmacenGeneralController extends Controller
         $herramientas = Herramienta::all();
         $maquinarias = Maquinaria::all();
         $materiales = Material::all();
-        $obras = Obra::all();
+        $obras = Obra::where('es_obra',1)->get();
         // dd($materiales );
         return view('almacenGeneral.create',compact('herramientas','maquinarias','materiales','obras'));
         //return view('almacenGeneral.almacen');
@@ -105,8 +106,8 @@ class AlmacenGeneralController extends Controller
         //$cantidad_solicitada =$request->cantidad_solicitada;
         foreach ($heramientasAsignadas['checkHerramientasAsignado'] as $herramientasAsignado) {
             $existeEnInventario = DB::table('inventarios')->where([
-                                                ['herramienta_id', '=', $herramientasAsignado],
-                                                ['obra_id', '=', $id_obra],
+                                                ['herramienta_id', '=', $herramientasAsignado]
+                                                //,['obra_id', '=', $id_obra],
                                             ])->exists();
             //verificamos primeramente que exista la herramienta asignada a una obra
             if ($existeEnInventario) {
@@ -127,9 +128,9 @@ class AlmacenGeneralController extends Controller
                 //$cantidad_actual = intval($mat[0]->cantidad_disponible) - intval($cantidad_solicitada);
                 //y actualizamosel registro en cuestion
                 $herramienta = DB::table('inventarios')->where([
-                                               ['herramienta_id', '=', $herramientasAsignado],
-                                               ['obra_id', '=', $id_obra]
-                                           ])->update(['obra_id' => $id_obra]);
+                                               ['herramienta_id', '=', $herramientasAsignado]
+                                               //,['obra_id', '=', $id_obra]
+                                           ])->update(['obra_id' => $id_obra, 'updated_at' => Carbon::now()]);
             }
             else
             {
@@ -148,24 +149,6 @@ class AlmacenGeneralController extends Controller
             }
         }
         return redirect()->route('almacenGeneral.create'); 
-
-        /* Primera idea
-        $herramientasAsignadas = $request->all();
-        $id_obra = $request->obra_id;
-        // dd($id ? : 'asd');
-        foreach ($herramientasAsignadas['checkHerramientasAsignado'] as $herramientaAsignada) {
-            $herramienta = Herramienta::findOrFail($herramientaAsignada);
-        // dd($herramienta->obras()->where('herramienta_id', $herramientaAsignada)->exists());
-            if ($herramienta->obras()->where('herramienta_id', $herramientaAsignada)->exists())
-            {
-                //dd($id_obra);   
-                $herramienta->obras()->updateExistingPivot($herramienta->id, ['obra_id' => $id_obra]);;
-            }
-            else
-            {
-                $herramienta->obras()->attach($id_obra);
-            }
-        }*/
     }
 
     public function asignarMaquinariaObra(Request $request, $id)
@@ -175,8 +158,8 @@ class AlmacenGeneralController extends Controller
         //$cantidad_solicitada =$request->cantidad_solicitada;
         foreach ($maquinariasAsignadas['checkMaquinariasAsignado'] as $maquinariasAsignado) {
             $existeEnInventario = DB::table('inventarios')->where([
-                                                ['maquinaria_id', '=', $maquinariasAsignado],
-                                                ['obra_id', '=', $id_obra],
+                                                ['maquinaria_id', '=', $maquinariasAsignado]
+                                                //,['obra_id', '=', $id_obra],
                                             ])->exists();
             //verificamos primeramente que exista la herramienta asignada a una obra
             if ($existeEnInventario) {
@@ -196,9 +179,9 @@ class AlmacenGeneralController extends Controller
                 //$cantidad_actual = intval($mat[0]->cantidad_disponible) - intval($cantidad_solicitada);
                 //y actualizamosel registro en cuestion
                 $maquinaria = DB::table('inventarios')->where([
-                                               ['maquinaria_id', '=', $maquinariasAsignado],
-                                               ['obra_id', '=', $id_obra]
-                                           ])->update(['obra_id' => $id_obra]);
+                                               ['maquinaria_id', '=', $maquinariasAsignado]
+                                               //,['obra_id', '=', $id_obra]
+                                           ])->update(['obra_id' => $id_obra, 'updated_at' => Carbon::now()]);
             }
             else
             {
@@ -210,9 +193,11 @@ class AlmacenGeneralController extends Controller
                     ]
                 ]);
                 
-                //y actualizamos a tabla de herrramienta
+                //y actualizamos a tabla de maquinaria
                 $maquinaria = Maquinaria::findOrFail($maquinariasAsignado);
+                $maquinaria->ma_ubicacion = $id_obra;
                 $maquinaria->save();
+
             }
         }
         return redirect()->route('almacenGeneral.create'); 

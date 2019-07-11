@@ -55,7 +55,7 @@ class PagoController extends Controller
     public function getPagoObra(Request $request){
 
         $obra = Obra::where('nombre_proyecto', $request->busqueda)->first();
-        $pagos = Pago::where('obra_id', $obra->id)->get();
+        $pagos = Pago::where('obra_id', $obra->id)->orderBy('documento_id','asc')->orderBy('nro_pago','asc')->get();    
         return view('pago.pagos', compact('id_obra', 'pagos')); 
         return $pagos;
 

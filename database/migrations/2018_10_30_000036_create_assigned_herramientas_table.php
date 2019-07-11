@@ -17,6 +17,8 @@ class CreateAssignedHerramientasTable extends Migration
             $table->integer('herramienta_id')->usigned();
             $table->integer('obra_id')->usigned();
             $table->date();
+            $table->string('accion');
+            // $table->timestamps();
         });
     }
 

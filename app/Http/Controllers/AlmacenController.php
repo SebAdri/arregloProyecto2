@@ -171,13 +171,17 @@ class AlmacenController extends Controller
         return $detalle;
     }
     public function recepcionCompra(Request $request){
-        // dd($request);
-        $compra = Compra::find($request->pedido);
-        $compra->estado='2';
-        $compra->save();
+        $monto_unitario = intval(str_replace('.', '', $request->montoUnitario));
+        $cantidad_recibida = intval(str_replace('.', '', $request->cantidad_recibida));
+        // dd($monto_unitario);
+        $monto_detalle = $monto_unitario*$cantidad_recibida;
         $detalle = CompraDetalle::where('material_id', $request->material)
           ->where('compra_id', $request->pedido)
-          ->update(['cantidad_recibida' => $request->cantidad_recibida]);
+          ->update(['cantidad_recibida' => $request->cantidad_recibida, 'precio_unitario'=>$monto_unitario]);
+        $compra = Compra::find($request->pedido);
+        $compra->monto_compra = $compra->monto_compra + $monto_detalle;
+        $compra->estado='2';    
+        $compra->save();
         return $detalle;
     }
     public function generarOrdenCompra(Request $request){
@@ -312,9 +316,11 @@ class AlmacenController extends Controller
                 $arrayAux2['nombre_material'] = $detalle->material->m_descripcion;
                 $arrayAux2['cantidad_solicitada']= $detalle->cantidad_solicitada;
                 $arrayAux2['cantidad_recibida']= $detalle->cantidad_recibida;
+                $arrayAux2['monto']= $detalle->precio_unitario;
                 $arrayAux['materiales'][] = $arrayAux2;
             }
             $arrayAux['proveedor'] = $compra->proveedor;
+            $arrayAux['monto_compra'] = number_format($compra->monto_compra,0, '', '.');
             $arrayAux['fecha_compra'] = date_format(date_create($compra->fecha_compra), "d/m/Y");
             $arrayAux['fecha_recepcion'] = date_format(date_create($compra->fecha_recepcion), "d/m/Y");
             $data['data'][]=$arrayAux;

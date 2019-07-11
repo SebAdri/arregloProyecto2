@@ -285,7 +285,7 @@ class DocumentosController extends Controller
             $pago->monto_pago = $cuo[$i][2];
             $pago->saldo = $cuo[$i][1];
             $pago->porcentaje_pago = $cuo[$i][3];
-            $pago->estado = 0;
+            $pago->estado = 1;
 
             $pago->save();
         }

@@ -99,6 +99,7 @@
                     <li><a href="{{ route('createReporteHerramientas') }}"><i class="fa fa-file-pdf-o"></i>Herramientas por Obra</a></li>
                     <li><a href="{{ route('createReporteMaquinarias') }}"><i class="fa fa-file-pdf-o"></i>Maquinarias por Obra</a></li>
                     <li><a href="{{ route('reporteCompra') }}"><i class="fa fa-file-pdf-o"></i>Compras por Obra</a></li>
+                    <li><a href="{{ route('reportePago') }}"><i class="fa fa-file-pdf-o"></i>Pagos por Obra</a></li>
                   </ul>
                 </li>
                 @endif

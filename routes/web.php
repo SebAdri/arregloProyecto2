@@ -118,6 +118,8 @@ Route::get('mostrarAvance', ['as' => 'mostrarAvance', 'uses'=>'ReporteController
 Route::get('reporteCompra', ['as' => 'reporteCompra', 'uses'=>'ReporteController@reporteCompras']);
 Route::post('consultarCompras', ['as' => 'consultarCompras', 'uses'=>'ReporteController@obtenerComprasObras']);
 Route::post('generarAvance', ['as' => 'generarAvance', 'uses'=>'ReporteController@generarReporteAvance']);
+Route::get('reportePago', ['as'=> 'reportePago', 'uses'=>'ReporteController@reportePagos']);
+Route::post('reportePagoPdf', ['as'=> 'reportePagoPdf', 'uses'=>'ReporteController@generarReportePago']);
 
 // Route::match(['get', 'post'], '/', function () {});
 Route::get('exportarPdf', ['as' => 'exportarPdf', 'uses'=>'ReporteController@exportarPdf']);

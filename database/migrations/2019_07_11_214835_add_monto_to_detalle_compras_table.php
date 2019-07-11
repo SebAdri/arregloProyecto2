@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAssignedMaquinariasTable extends Migration
+class AddMontoToDetalleComprasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateAssignedMaquinariasTable extends Migration
      */
     public function up()
     {
-        Schema::create('assigned_maquinarias', function (Blueprint $table) {
-            $table->integer('maquinaria_id');
-            $table->integer('obra_id');
-            $table->date('fecha');
-            $table->string('accion');
+        Schema::table('compra_detalles', function (Blueprint $table) {
+            $table->double('monto')->after('compra_id')->nullable();
         });
     }
 
@@ -28,6 +25,8 @@ class CreateAssignedMaquinariasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('assigned_maquinarias');
+        Schema::table('compra_detalles', function (Blueprint $table) {
+            $table->dropColumn('monto');
+        });
     }
 }

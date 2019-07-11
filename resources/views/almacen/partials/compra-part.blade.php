@@ -9,6 +9,7 @@
 					<th></th>
 					<th>Cod. Compra</th>
 					<th>Proveedor</th>
+					<th>Monto Compra</th>
 					<th>Fecha Compra</th>
 					<th>Fecha Recepcion</th>
 				</tr>
@@ -54,6 +55,7 @@
 			},
 			{ "data": "id"},
 			{ "data": "proveedor.nombre"},
+			{ "data": "monto_compra"},
 			{ "data": "fecha_compra" },
 			{ "data": "fecha_recepcion" },
 			],
@@ -88,6 +90,7 @@
 				var material = row.data().materiales[id].id;
 				var pedido = row.data().id;
 				var cantidad_recibida = $('#cantRecepCompra').val();
+				var montoUnitario = $('#montoUnitario').val();
 				$.ajax({
 					headers: {
 						'X-CSRF-TOKEN' : $('meta[name = "csrf-token"]').attr('content')
@@ -98,6 +101,7 @@
 						material:material,
 						pedido: pedido,
 						cantidad_recibida : cantidad_recibida,
+						montoUnitario: montoUnitario,
 					},
 					dataType: 'json',
 					success:function(reponse){
@@ -137,7 +141,7 @@
 
     	text +='<th>Cantidad Solicitada</th>';
     	text +='<th>Cantidad Recibida</th>';
-    	text +='<th>Cantidad Recibida</th>';
+    	text +='<th>Precio Unitario</th>';
     	text +='<th>Accion</th>';
 		// // text +='	<th>Fecha Atencion</th>';
 		// // text +='	<th>Estado</th>';
@@ -153,6 +157,12 @@
 
 			}else{
 				text += '<td><input type="text" onkeyup="format(this)" id="cantRecepCompra" name="cantRecepCompra" placeholder="Cantidad Recibida"></td>';
+			}
+			if (d.materiales[i].monto != null) {
+				text += '<td>'+d.materiales[i].monto + "</td>";
+
+			}else{
+				text += '<td><input type="text" onkeyup="format(this)" id="montoUnitario" name="montoUnitario" placeholder="Precio por unidad"></td>';
 				text += '<td><button type="button" id="recepCompra" name"recepCompra" value="'+i+'" class="btn btn-primary"><i class="fa fa-paper-plane-o"></i></button></td>';
 			}
 			text += '</tr>';

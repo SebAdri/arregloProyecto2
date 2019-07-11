@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 use App\Obra;
 use App\Plano;
 use App\Compra;
+use App\User;
+use App\Pago;
 use PDF;
 use Illuminate\Support\Facades\Input;
 
@@ -125,5 +127,34 @@ class ReporteController extends Controller
       // return view('reportes.partials.reportAvanceHead-part', compact('reportes', 'planos'));
 
     return $pdf->stream('reporte', array('Attachment'=>0));
+  }
+
+  public function reportePagos(){
+    $obras = Obra::all();
+    $users = User::all();
+    return view('reportes.reportePagos', compact('obras'));
+  }
+  public function generarReportePago(Request $request){
+
+    $obra  = Obra::find($request->obra_id);
+    $pagos = Pago::where('obra_id', $request->obra_id)->orderBy('documento_id','asc')->orderBy('nro_pago','asc');    
+    if (isset($request->periodo)) {
+      $periodo = $request->periodo;
+      $rango = explode('-', $request->periodo);
+      $desde = explode("/", trim($rango[0]));
+      $hasta = explode("/", trim($rango[1]));
+      $fecha_desde = $desde[2]."-".$desde[1]."-".$desde[0];
+      $fecha_hasta = $hasta[2]."-".$hasta[1]."-".$hasta[0];
+      $pagos = $pagos->whereBetween('fecha_pago', [$fecha_desde, $fecha_hasta]);
+    }
+    if ($request->estado) {
+      // dd($request);
+      $pagos = $pagos->where('estado', $request->estado);
+    }
+    $pagos = $pagos->get();
+
+    $pdf = PDF::loadView('reportes.partials.reportPagoHead-part', compact('obra', 'pagos', 'fecha_desde', 'fecha_hasta'));
+
+   return $pdf->stream();
   }
 }

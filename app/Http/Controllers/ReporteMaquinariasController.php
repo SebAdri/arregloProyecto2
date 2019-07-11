@@ -23,7 +23,7 @@ class ReporteMaquinariasController extends Controller
   public function generarReporteMaquinarias(Request $request)
   {
     $obras = Obra::all();
-
+    $obra = Obra::find($request->obra_id);
     if ($request->input('periodo') != null)
     {
       $fechaTrim = trim($request->input('periodo'));
@@ -39,8 +39,10 @@ class ReporteMaquinariasController extends Controller
     {
       $obraMaquinarias = AssignedMaquinaria::with('obra','maquinarias')->where('obra_id', $request->obra_id)->get();
     }
+     $pdf = PDF::loadView('reportes.partials.reporMaquinariaHead-part', compact('obraMaquinarias', 'obra','fecha_desde', 'fecha_hasta','obras'));
 
-    return view('reportes.reporteMaquinarias', compact('obraMaquinarias','obras'));
+   return $pdf->stream();
+    // return view('reportes.reporteMaquinarias', compact('obraMaquinarias','obras'));
 
   }
 }

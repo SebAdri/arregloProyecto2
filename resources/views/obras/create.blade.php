@@ -43,7 +43,7 @@
                 <button type="button" title="Almacen de la obra" class="btn button-primary btn-rounded btn-sm my-0"><i class="fa fa-wrench" style="font-size:20px;"></i></button>
               </a> 
               <a href="{{ route('avance.show', $obra->id) }}">
-                <button type="button" title="Avance de la obra" class="btn button-primary btn-rounded btn-sm my-0"><i class="fa fa-bar-chart" aria-hidden="true" style="font-size:20px;"></i></button>
+                <button type="button" title="Avance de la obra" class="btn button-primary btn-rounded btn-sm my-0"><i class="fa fa-line-chart" aria-hidden="true" style="font-size:20px;"></i></button>
               </a>
             </td>
           </tr>

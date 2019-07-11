@@ -18,19 +18,26 @@
 
 <form>
   <div class="container">
-    <div class="panel panel-default">
+    <form>
+      <div class="x_panel" style="width: 100%; height: 100%">
+        <h1>BIENVENIDO</h1>
+        {{-- <hr> --}}
+        <div class="x_title"></div>
+      </div>
+      <div class="x_content">
+      </div>
+    </form>
+    {{-- <div class="panel panel-default">
       <div class="row">
         <div class="panel-heading">
-          <h1>BIENVENIDO</h1>
           <hr>
         </div>
       </div>
       <div class="panel-body">
       </div>
       <div class="panel-footer">
-        <footer>Copyright ® {{ date('Y') }}</footer>
       </div>
-    </div>
+    </div> --}}
   </div>
 </form>
 

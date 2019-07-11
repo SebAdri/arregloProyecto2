@@ -26,10 +26,10 @@ class Herramienta extends Model
 
   public function obraHerramientas()
   {
-    return $this->belongsTo(Obra::class, 'assigned_herramientas');
+    return $this->belongsTo(Obra::class,'h_ubicacion', 'id');
   // public function obrasHerramientas()
   // {
-  //   return $this->belongsTo(Obra::class,'h_ubicacion', 'id');
+    // return $this->belongsTo(Obra::class, 'h_ubicacion', 'id');
   }
 
   public function hasObras(array $obras)

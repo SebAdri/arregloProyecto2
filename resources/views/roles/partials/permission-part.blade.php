@@ -64,7 +64,7 @@
                    @foreach ($permissions as $tercer_nivel)
                    @if ($tercer_nivel->permission_level==3 && $tercer_nivel->id_padre == $segundo_nivel->id)
                    <div class="row permission">
-                    <input type="checkbox" name="per[]"  @isset ($per)
+                    <input type="checkbox" class="js-switch" name="per[]"  @isset ($per)
                     @if(in_array($tercer_nivel->permission_name, $per)) {{'checked'}} @endif 
                     @endisset value="{{$tercer_nivel->permission_name}}" data-toggle="toggle">
                     <div class="col-sm-3 col-sm-offset-1">

@@ -137,7 +137,7 @@ class PermissionTableSeeder extends Seeder
         $permission->permission_description = 'agregar Usuario';
         $permission->permission_widget = 'c';
         $permission->permission_level = '3';
-        $permission->id_padre = 14;
+        $permission->id_padre = 13;
         $permission->save();
 
     // (16, 'ediUse', 'editar usuario', 'c', '3', 14, '2019-09-26 12:32:30', '2018-09-26 12:32:53'),
@@ -146,7 +146,7 @@ class PermissionTableSeeder extends Seeder
         $permission->permission_description = 'editar usuario';
         $permission->permission_widget = 'c';
         $permission->permission_level = '3';
-        $permission->id_padre = 14;
+        $permission->id_padre = 13;
         $permission->save();
 
     // (17, 'delUse', 'eliminar Usuario', 'c', '3', 14, '2018-09-26 12:33:27', '2018-09-26 12:33:30'),
@@ -155,7 +155,7 @@ class PermissionTableSeeder extends Seeder
         $permission->permission_description = 'eliminar Usuario';
         $permission->permission_widget = 'c';
         $permission->permission_level = '3';
-        $permission->id_padre = 14;
+        $permission->id_padre = 13;
         $permission->save();        
 
     // (18, 'mant', 'mantenimiento', 'b', '1', NULL, '2018-10-03 21:14:00', '2018-10-07 11:58:51'),

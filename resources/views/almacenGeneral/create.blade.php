@@ -43,8 +43,8 @@
                     <td>{{ $herramienta->h_nro_serie }}</td>
                     <td>{{ date_format(date_create($herramienta->h_fecha_adquisicion), "d/m/Y") }}</td>
                     <td>
-{{--                       {{dd($herramienta->obrasHerramienta)}} --}}
-                      {{$herramienta->obrasHerramientas->nombre_proyecto}}
+                      {{-- {{dd($herramienta->obraHerramientas->nombre_proyecto)}} --}}
+                      {{$herramienta->obraHerramientas->nombre_proyecto}}
                     </td>
                   </tr>
                   @endforeach
@@ -207,7 +207,7 @@
               <td>{{ $herramienta->h_marca }}</td>
               {{-- <td>{{ $herramienta->obras}}</td> --}}
               <td>
-                {{ $herramienta->obrasHerramientas->nombre_proyecto }}
+                {{ $herramienta->obraHerramientas->nombre_proyecto }}
                 {{-- @foreach($herramienta->obras as $obrasHerramienta)
                 {{$obrasHerramienta->nombre_proyecto}}
                 @endforeach --}}

@@ -36,6 +36,8 @@
   <!-- Custom Theme Style -->
   <link href="{{asset('css2/custom.min.css')}}" rel="stylesheet">
   <link href="{{asset('css/daterangepicker.css')}}" rel="stylesheet">
+  <!-- Switchery -->
+    <link href="{{ asset('switchery/dist/switchery.min.css') }}" rel="stylesheet">  
 </head>
 
 @if (auth()->check())
@@ -53,7 +55,7 @@
           <!-- menu profile quick info -->
           <div class="profile clearfix">
             <div class="profile_pic">
-              {{-- <img src="images/img.jpg" alt="..." class="img-circle profile_img"> --}}
+              <img src="{{ asset('/images/img2.jpg') }}" alt="..." class="img-circle profile_img">
             </div>
             <div class="profile_info">
               <span>Bienvenido,</span>
@@ -72,31 +74,31 @@
                 @if (auth()->user()->hasPermission(['obras']))
                 <li><a><i class="fa fa-home"></i> Inicio <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
-                    <li><a href="{{ route('proyectos.create') }}"><i class="fas fa-drafting-compass fa-2x"></i> Proyectos</a></li>
-                    <li><a href="{{ route('obras.create') }}"><i class="fa fa-home fa-2x"></i> Obras</a></li>
+                    <li><a href="{{ route('proyectos.create') }}"><i class="fa fa-puzzle-piece fa-2x"></i> Proyectos</a></li>
+                    <li><a href="{{ route('obras.create') }}"><i class="fa fa-bank"></i> Obras</a></li>
                   </ul>
                 </li>
                 @endif
                 @if (auth()->user()->hasPermission(['storage']))
-                <li><a><i class="fa fa-edit"></i> Almacen <span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fa fa-briefcase"></i> Almacen <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
-                    <li><a href="{{ route('almacenGeneral.create') }}"><i class="fa fa-industry fa-2x"></i> General o Principal</a></li>
+                    <li><a href="{{ route('almacenGeneral.create') }}"><i class="fa fa-cubes"></i> General o Principal</a></li>
                   </ul>
                 </li>
                 @endif
                 {{-- falta autenticacion --}}
-                <li><a><i class="fas fa-dollar-sign"></i> Pagos <span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fa fa-credit-card"></i> Pagos <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
-                    <li><a href="{{ route('pagos.index') }}"><i class="fa fa-table fa-2x"></i> Lista de Pagos</a></li>
+                    <li><a href="{{ route('pagos.index') }}"><i class="fa fa-list-alt"></i> Lista de Pagos</a></li>
                   </ul>
                 </li>
                 @if (auth()->user()->hasPermission(['report']))
-                <li><a><i class="fas fa-file"></i> Reportes <span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fa fa-print"></i> Reportes <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
-                    <li><a href="{{ route('mostrarAvance') }}"><i class="fa fa-table fa-2x"></i>Avance de Obra</a></li>
-                    <li><a href="{{ route('createReporteHerramientas') }}"><i class="fa fa-table fa-2x"></i>Herramientas por Obra</a></li>
-                    <li><a href="{{ route('createReporteMaquinarias') }}"><i class="fa fa-table fa-2x"></i>Maquinarias por Obra</a></li>
-                    <li><a href="{{ route('reporteCompra') }}"><i class="fa fa-table fa-2x"></i>Compras por Obra</a></li>
+                    <li><a href="{{ route('mostrarAvance') }}"><i class="fa fa-file-pdf-o"></i>Avance de Obra</a></li>
+                    <li><a href="{{ route('createReporteHerramientas') }}"><i class="fa fa-file-pdf-o"></i>Herramientas por Obra</a></li>
+                    <li><a href="{{ route('createReporteMaquinarias') }}"><i class="fa fa-file-pdf-o"></i>Maquinarias por Obra</a></li>
+                    <li><a href="{{ route('reporteCompra') }}"><i class="fa fa-file-pdf-o"></i>Compras por Obra</a></li>
                   </ul>
                 </li>
                 @endif
@@ -125,7 +127,7 @@
               <h3>Seguridad</h3>
               <ul class="nav side-menu">
                 @if (auth()->user()->hasPermission(['sec']))
-                <li><a><i class="fa fa-bug"></i> Permisos <span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fa fa-plus-square"></i> Permisos <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
                     <li><a href="{{ route('users.create') }}"><i class="fa fa-user"></i>Usuarios</a></li>
                     <li><a href="{{ route('roles.index') }}"><i class="fa fa-flag"></i>Roles</a></li>
@@ -140,7 +142,7 @@
 
           <!-- /menu footer buttons -->
           <div class="sidebar-footer hidden-small">
-            <a data-toggle="tooltip" data-placement="top" title="Settings">
+            {{-- <a data-toggle="tooltip" data-placement="top" title="Settings">
               <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
             </a>
             <a data-toggle="tooltip" data-placement="top" title="FullScreen">
@@ -148,8 +150,8 @@
             </a>
             <a data-toggle="tooltip" data-placement="top" title="Lock">
               <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-            </a>
-            <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+            </a> --}}
+            <a data-toggle="tooltip" data-placement="top" title="Logout" href="/logout">
               <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
             </a>
           </div>
@@ -168,7 +170,7 @@
             <ul class="nav navbar-nav navbar-right">
               <li class="">
                 <a href="#" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                  <img src="images/img.jpg" alt="">{{ auth()->user()->name }} <span class=" fa fa-angle-down"></span>
+                  <img src="{{ asset('/images/img2.jpg') }}" alt="">{{ auth()->user()->name }} <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu pull-right">
                     {{-- <li><a href="#"> Profile</a></li>
@@ -239,7 +241,7 @@
     <script src="{{ asset('js/select2.min.js') }}"></script>
     <script src="{{ asset('js/dataTables.bootstrap.min.js') }}"></script>
     {{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> --}}
-
+    <script src="{{ asset('switchery/dist/switchery.min.js') }} "></script>
     {{-- jquery para exportar a pdf --}}
     {{-- <script src="{{ asset('DataTables') }}"></script> --}}
 

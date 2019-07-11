@@ -83,7 +83,8 @@
             }
             $('#dcompras tbody').on( 'click', '#recepCompra', function () {
 				// alert('se presiino');
-				var id = $('#recepenviado').val();
+				var id = $('#recepCompra').val();
+				// console.log(id);
 				var material = row.data().materiales[id].id;
 				var pedido = row.data().id;
 				var cantidad_recibida = $('#cantRecepCompra').val();
@@ -152,7 +153,7 @@
 
 			}else{
 				text += '<td><input type="text" onkeyup="format(this)" id="cantRecepCompra" name="cantRecepCompra" placeholder="Cantidad Recibida"></td>';
-				text += '<td><button type="button" id="recepCompra" name"recepCompra" class="btn btn-primary"><i class="fa fa-paper-plane-o"></i></button></td>';
+				text += '<td><button type="button" id="recepCompra" name"recepCompra" value="'+i+'" class="btn btn-primary"><i class="fa fa-paper-plane-o"></i></button></td>';
 			}
 			text += '</tr>';
 		}

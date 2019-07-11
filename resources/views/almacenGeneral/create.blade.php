@@ -41,11 +41,10 @@
                     <td>{{ $herramienta->h_nombre }}</td>
                     <td>{{ $herramienta->h_marca .' '. $herramienta->h_modelo }}</td>
                     <td>{{ $herramienta->h_nro_serie }}</td>
-                    <td>{{ $herramienta->h_fecha_adquisicion }}</td>
+                    <td>{{ date_format(date_create($herramienta->h_fecha_adquisicion), "d/m/Y") }}</td>
                     <td>
-                      @foreach($herramienta->obras as $obrasHerramienta)
-                      {{$obrasHerramienta->nombre_proyecto}}
-                      @endforeach
+{{--                       {{dd($herramienta->obrasHerramienta)}} --}}
+                      {{$herramienta->obrasHerramientas->nombre_proyecto}}
                     </td>
                   </tr>
                   @endforeach
@@ -80,11 +79,13 @@
                   <tr>
                     <td>{{ $maquinaria->ma_nombre }}</td>
                     <td>{{ $maquinaria->ma_marca .' '. $maquinaria->ma_modelo }}</td>
-                    <td>{{ $maquinaria->ma_fecha_adquisicion }}</td>
+                    <td>{{ date_format(date_create($maquinaria->ma_fecha_adquisicion), "d/m/Y")  }}</td>
                     <td>
-                      @foreach($maquinaria->obras as $obrasMaquinaria)
+                      {{$maquinaria->obrasMaquinarias->nombre_proyecto}}
+
+                      {{-- @foreach($maquinaria->obras as $obrasMaquinaria)
                         {{$obrasMaquinaria->nombre_proyecto}}
-                      @endforeach
+                      @endforeach --}}
                     </td>
 
                   </tr>
@@ -93,7 +94,7 @@
               </table>
             </div>
           </div>
-          <div class="panel panel-default">
+          {{-- <div class="panel panel-default">
             <div class="panel-heading">
               <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Materiales</a>
@@ -138,7 +139,7 @@
                 </tbody>
               </table>
             </div>
-          </div>
+          </div> --}}
         </div> 
       </div>
       <div class="row">
@@ -206,9 +207,10 @@
               <td>{{ $herramienta->h_marca }}</td>
               {{-- <td>{{ $herramienta->obras}}</td> --}}
               <td>
-                @foreach($herramienta->obras as $obrasHerramienta)
+                {{ $herramienta->obrasHerramientas->nombre_proyecto }}
+                {{-- @foreach($herramienta->obras as $obrasHerramienta)
                 {{$obrasHerramienta->nombre_proyecto}}
-                @endforeach
+                @endforeach --}}
               </td>
             </tr>
             @endforeach
@@ -270,9 +272,10 @@
               <td>{{ $maquinaria->ma_modelo .' '. $maquinaria->ma_marca}}</td>
               <td>{{ $maquinaria->ma_distancia }}</td>
               <td>
-                @foreach($maquinaria->obras as $obrasmaquinaria)
+                {{ $maquinaria->obrasMaquinarias->nombre_proyecto }}
+                {{-- @foreach($maquinaria->obras as $obrasmaquinaria)
                 {{$obrasmaquinaria->nombre_proyecto}}
-                @endforeach
+                @endforeach --}}
               </td>
             </tr>
             @endforeach

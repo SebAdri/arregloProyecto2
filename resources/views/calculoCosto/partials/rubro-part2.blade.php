@@ -6,7 +6,7 @@
 	@isset ($planos)
 	    <div class="form-check form-check-inline">
 	    	@foreach ($planos as $plano)
-				<input class="form-check-input" type="radio" name="plano_seleccionado" id="plano_seleccionado" value="{{$plano->id}}">
+				<input class="form-check-input" type="radio" name="plano_seleccionado" id="plano_seleccionado" checked value="{{$plano->id}}">
 				<label class="form-check-label" for="plano_seleccionado">{{$plano->nombre}}</label>
 	    	@endforeach
 		</div>

@@ -23,6 +23,11 @@ class Herramienta extends Model
     return $this->belongsToMany(Obra::class, 'inventarios')->withPivot('cantidad_minima','cantidad_actual');
   }
 
+  public function obrasHerramientas()
+  {
+    return $this->belongsTo(Obra::class,'h_ubicacion', 'id');
+  }
+
   public function hasObras(array $obras)
   {
     foreach ($obras as $obra) 

@@ -35,7 +35,7 @@ class ObrasController extends Controller
      */
     public function create()
     {
-        $obras = Obra::where('es_obra',0)->get();
+        $obras = Obra::where('es_obra',1)->get();
         $clientes = Cliente::all();
         
         return view('obras.create', compact('obras','clientes'));

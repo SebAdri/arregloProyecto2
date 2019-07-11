@@ -102,7 +102,9 @@ class DocumentosController extends Controller
         $obras = Obra::find($id_obra);
         $clientes = $obras->cliente->first();
         $planos = $obras->planos;
-        $presupuestos = Presupuesto::where('obra_id', $id_obra)->first();
+        $presupuesto_id = Presupuesto::where('obra_id', $id_obra)->max('id');
+        $presupuestos = Presupuesto::find($presupuesto_id);
+        // dd($presupuestos);
         // dd($presupuestos);
         
         // hasta aca
@@ -167,12 +169,18 @@ class DocumentosController extends Controller
                                                 ['plano_id', '=', $request->plano_seleccionado]
                                             ])->exists();
         if ($existeObraConRubros) {
-           DB::table('planos_rubros')->where('plano_id', '=', $request->plano_seleccionado)->delete();
-
+           // DB::table('planos_rubros')->where('plano_id', '=', $request->plano_seleccionado)->delete();
+            // dd($rubrosDeObras['checkRubroesAsignado']);
+            // dd($request->plano_seleccionado);
            foreach ($rubrosDeObras['checkRubroesAsignado'] as $rubrosObra) {
-               DB::table('planos_rubros')->insert([
-                   ['plano_id' => $request->plano_seleccionado, 'rubro_id' => $rubrosObra]
-               ]);
+               DB::table('planos_rubros')
+                            ->updateOrInsert(
+                                ['plano_id' => $request->plano_seleccionado, 'rubro_id' => $rubrosObra],//array que valida where
+                                ['plano_id' => $request->plano_seleccionado, 'rubro_id' => $rubrosObra]//array que setea
+                            );
+               // DB::table('planos_rubros')->insert([
+               //     ['plano_id' => $request->plano_seleccionado, 'rubro_id' => $rubrosObra]
+               // ]);
                // DB::table('planos_rubros')->insert(['plano_id' => $request->plano_seleccionado, 'rubro_id' => $rubrosObra]);
            }
         }
@@ -220,16 +228,28 @@ class DocumentosController extends Controller
                                                 ['obra_id', '=', $request->id_obra],
                                             ])->exists();
             if ($existePresupuestoConObra) {
-                // dd($request->all());
-                Presupuesto::where('obra_id', $request->id_obra)
+                /*Presupuesto::where('obra_id', $request->id_obra)
                           ->update(['iva' => $request->iva, 
                                    'beneficio' => $request->beneficio,
-                                   'costo_total_obra' => $request->costo_total_obra]);
+                                   'costo_total_obra' => $request->costo_total_obra]);*/
+                $presupuestoAntiguo_id = Presupuesto::where('obra_id',$request->id_obra)->max('id');
+                $presupuestoAntiguo = Presupuesto::find($presupuestoAntiguo_id);
+                // dd($presupuestoAntiguo);
+                $presupuestoNuevo = new Presupuesto;
+
+                $presupuestoNuevo->obra_id = $request->id_obra;
+                // $presupuestoNuevo->plano_id = $request->id_obra;
+                $presupuestoNuevo->iva = $request->iva;
+                $presupuestoNuevo->beneficio = $request->beneficio - $presupuestoAntiguo->beneficio;
+                $presupuestoNuevo->costo_total_obra = $request->costo_total_obra - $presupuestoAntiguo->costo_total_obra;
+                // dd($presupuestoNuevo);
+                $presupuestoNuevo->save();   
             }
             else
             {
                 $presupuesto = new Presupuesto;
                 $presupuesto->obra_id = $request->id_obra;
+                $presupuesto->plano_id = $request->id_obra;
                 $presupuesto->iva = $request->iva;
                 $presupuesto->beneficio = $request->beneficio;
                 $presupuesto->costo_total_obra = $request->costo_total_obra;
@@ -258,11 +278,6 @@ class DocumentosController extends Controller
         // $arrayCuotas = array();
         for ($i=0; $i < sizeof($cuotas); $i++) { 
             $cuo[] = explode(',',$cuotas[$i]);
-            // dd(sizeof($cuotas));
-            // if ( $i == 1) {
-            //     # code...
-            // dd($cuo);
-            // }
             $pago = new Pago;
             $pago->documento_id = $contrato->id;
             $pago->obra_id = $request->id_obra;
@@ -276,37 +291,8 @@ class DocumentosController extends Controller
         }
 
         $obraActualizar = Obra::find($request->id_obra);
-        $obraActualizar->es_obra = 0;
+        $obraActualizar->es_obra = 1;
         $obraActualizar->save();
-        // foreach ($cuotas as $cuota) {
-        //     dd($cuotas);
-        //     $cuo[] = explode(',',$cuota);
-        //     // dd($cuo[0][2]);
-        //     $pago = new Pago;
-        //     $pago->documento_id = $contrato->id;
-        //     $pago->nro_pago = $cuo[0][0];
-        //     $pago->monto_pago = $cuo[0][2];
-        //     $pago->saldo = $cuo[0][1];
-        //     $pago->porcentaje_pago = $cuo[0][3];
-        //     $pago->estado = 0;
-
-        //     $pago->save();
-
-        //     // $arrayAux = array();
-        //     // $arrayAux['nro_cuota'] = $cuota[0];
-        //     // $arrayAux['saldo'] = $cuota[1];
-        //     // $arrayAux['monto_pago'] = $cuota[2];
-        //     // $arrayAux['porcentaje_pago'] = $cuota[3];
-        //     // $arrayAux['porcentaje_obra'] = $cuota[4];
-        //     // $arrayCuotas[] = $arrayAux;
-        // }
-        // dd($arrayCuotas);
-        // $nombre_doc = $request->nombreDoc;
-        // $fecha = $request->fecha_emision; 
-        // Documento::create($request->all());
-        
-        // // return redirect()->route('documentos.show', $request->obra_id); 
-        // return redirect()->route('documentos.create'); 
 
     }
 }
